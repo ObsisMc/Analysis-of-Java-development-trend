@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:mysql://rm-wz968x73ihm8kx49jqo.mysql.rds.aliyuncs.com:3306/cs209db?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=GMT%2B8
+    username: db_manager
+    password: cs209a_project
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+  profiles:
+    active: default
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: full
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath*:com/sustech/cs209a_project/mapper/*.xml
