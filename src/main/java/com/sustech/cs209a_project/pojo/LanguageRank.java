@@ -5,16 +5,12 @@ import java.util.LinkedHashMap;
 
 public class LanguageRank {
     public int year;
-    LinkedHashMap<String, Long> rank;
-    HashMap<String, Long> ranktest;
+    public String[] language;
+    public Long[] nums;
 
-    public LanguageRank(int year, LinkedHashMap<String, Long> rank){
+    public LanguageRank(int year, String[] language, Long[] nums){
         this.year = year;
-        this.rank = rank;
-    }
-
-    public LanguageRank(int year, HashMap<String, Long> rank){
-        this.year = year;
-        this.ranktest = rank;
+        this.language = language;
+        this.nums = nums;
     }
 }
