@@ -26,6 +26,7 @@ export default {
   mounted() {
     this.$refs.test.initChart(this.name, this.xData, this.yData);
     this.$refs.ranks.initEcharts();
+    this.$refs.ranks.runLines();
   }
 }
 </script>
