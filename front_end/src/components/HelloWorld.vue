@@ -1,11 +1,13 @@
 <template>
   <div class="hello">
     <test ref="test"></test>
+    <LanguageRanks ref="ranks"></LanguageRanks>
   </div>
 </template>
 
 <script>
 import test from "./test";
+import LanguageRanks from "./LanguageRanks";
 
 export default {
   name: 'HelloWorld',
@@ -18,10 +20,12 @@ export default {
     }
   },
   components: {
+    LanguageRanks,
     test
   },
   mounted() {
     this.$refs.test.initChart(this.name, this.xData, this.yData);
+    this.$refs.ranks.initEcharts();
   }
 }
 </script>
