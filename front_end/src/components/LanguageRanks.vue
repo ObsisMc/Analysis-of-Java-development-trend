@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="languagerank" style="width: 600px;height:400px;"></div>
-    <div id="languagerankline" style="width: 600px;height:400px;"></div>
+<!--    <div id="languagerankline" style="width: 600px;height:400px;"></div>-->
   </div>
 
 </template>

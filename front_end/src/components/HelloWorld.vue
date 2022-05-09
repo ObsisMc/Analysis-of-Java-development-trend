@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <test ref="test"></test>
+<!--    <test ref="test"></test>-->
     <LanguageRanks ref="ranks"></LanguageRanks>
     <RelationshipJava ref="relation"></RelationshipJava>
   </div>
@@ -27,7 +27,7 @@ export default {
     test
   },
   mounted() {
-    this.$refs.test.initChart(this.name, this.xData, this.yData);
+    // this.$refs.test.initChart(this.name, this.xData, this.yData);
     this.$refs.ranks.initEcharts();
     this.$refs.ranks.runLines();
     this.$refs.relation.draw();
