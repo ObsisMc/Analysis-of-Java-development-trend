@@ -156,7 +156,7 @@ public class RepoSearcher {
             }
 
             if (i % 1000 == 0) {
-                System.out.printf("Finish %d", i);
+                System.out.printf("Finish %d\n", i);
             }
         }
 
