@@ -8,6 +8,7 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 
 import java.io.IOException;
+import java.sql.SQLSyntaxErrorException;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -56,16 +57,17 @@ public class RepoSearcher {
 
         double step = 5000;
         int times = (int) Math.ceil(jsonArray.size() / step);
-        for (int i = 0; i < times; i++) {
+        for (int i = 10; i < times; i++) {
             int begin = (int) step * i;
             int end = (int) step * (i + 1);
+            System.out.printf("Begin %d ~ %d\n", begin, end);
             JSONObject json = getRelationWithOthersFromJSONArray(jsonArray, begin, end);
             JsonIO.saveJSON(json, String.format("relation%dto%d.json", begin, end));
         }
 
     }
 
-    public static JSONObject getRelationWithOthersFromJSONArray(JSONArray jsonArray, int begin, int end) throws IOException {
+    public static JSONObject getRelationWithOthersFromJSONArray(JSONArray jsonArray, int begin, int end) {
         String urlKey = "languages_url";
         double scale = 0.0001;
 
@@ -81,9 +83,15 @@ public class RepoSearcher {
             // invoke api
             boolean hasGet = false;
             while (!hasGet) {
-                Connection.Response response = Jsoup.connect(url)
-                        .header("Authorization", String.format("token %s", token))
-                        .ignoreHttpErrors(true).ignoreContentType(true).execute();
+                Connection.Response response = null;
+                try {
+                    response = Jsoup.connect(url)
+                            .header("Authorization", String.format("token %s", token))
+                            .ignoreHttpErrors(true).ignoreContentType(true).execute();
+                } catch (IOException e) {
+                    System.out.println("Trigger exception when get language_url:  " + e.getMessage());
+                    continue;
+                }
                 JSONObject jsonRes = JSON.parseObject(response.body());
                 if (response.statusCode() == 200) {
                     hasGet = true;
@@ -135,22 +143,36 @@ public class RepoSearcher {
                         }
                     }
 
+                } else if (response.statusCode() == 404) {
+                    System.out.println("Not found at " + url);
+                    hasGet = true;
                 } else {
                     // rate is limited by github
-                    JSONObject rateJson = JSON.parseObject(Jsoup.connect("https://api.github.com/rate_limit")
-                            .header("Authorization", String.format("token %s", token))
-                            .ignoreContentType(true).execute().body());
-                    Instant epochSec = Instant.ofEpochSecond(rateJson.getJSONObject("rate").getLong("reset"));
-                    ZoneId zId = ZoneId.systemDefault();
-                    ZonedDateTime then = ZonedDateTime.ofInstant(epochSec, zId);
-                    ZonedDateTime now = ZonedDateTime.now();
-                    long diffMin = ChronoUnit.MINUTES.between(now, then);
-                    long diffSec = ChronoUnit.SECONDS.between(now, then);
-                    System.out.printf("Need to wait %d min\n (now %s)", diffMin, now);
+                    JSONObject rateJson = null;
                     try {
-                        Thread.sleep(diffSec * 1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        rateJson = JSON.parseObject(Jsoup.connect("https://api.github.com/rate_limit")
+                                .header("Authorization", String.format("token %s", token))
+                                .ignoreContentType(true).execute().body());
+                    } catch (IOException e) {
+                        System.out.println("Trigger exception when get rate_limit: " + e.getMessage());
+                        continue;
+                    }
+                    if (rateJson.getJSONObject("rate").getInteger("remaining") > 0) {
+                        System.out.println("Fault at " + url);
+                        System.out.println(jsonRes.getString("message"));
+                    } else {
+                        Instant epochSec = Instant.ofEpochSecond(rateJson.getJSONObject("rate").getLong("reset"));
+                        ZoneId zId = ZoneId.systemDefault();
+                        ZonedDateTime then = ZonedDateTime.ofInstant(epochSec, zId);
+                        ZonedDateTime now = ZonedDateTime.now();
+                        long diffMin = ChronoUnit.MINUTES.between(now, then);
+                        long diffSec = ChronoUnit.SECONDS.between(now, then);
+                        System.out.printf("Need to wait %d min\n (now %s)", diffMin, now);
+                        try {
+                            Thread.sleep(diffSec * 1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
