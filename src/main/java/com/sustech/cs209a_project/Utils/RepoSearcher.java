@@ -29,9 +29,6 @@ public class RepoSearcher {
 
     /**
      * main function for get json of repos whose stars are from 10 to maximum
-     *
-     * @throws IOException
-     * @throws InterruptedException
      */
     public static void getRepoStarTenToMAX() throws IOException, InterruptedException {
         int[][] starBound = {{10, 40, 70, 100, 200, 400, 1000, 2000, 7000, 10000, 1000000},
@@ -57,7 +54,7 @@ public class RepoSearcher {
 
         double step = 5000;
         int times = (int) Math.ceil(jsonArray.size() / step);
-        for (int i = 10; i < times; i++) {
+        for (int i = 8; i < 10; i++) {
             int begin = (int) step * i;
             int end = (int) step * (i + 1);
             System.out.printf("Begin %d ~ %d\n", begin, end);
@@ -83,7 +80,7 @@ public class RepoSearcher {
             // invoke api
             boolean hasGet = false;
             while (!hasGet) {
-                Connection.Response response = null;
+                Connection.Response response;
                 try {
                     response = Jsoup.connect(url)
                             .header("Authorization", String.format("token %s", token))
@@ -148,7 +145,7 @@ public class RepoSearcher {
                     hasGet = true;
                 } else {
                     // rate is limited by github
-                    JSONObject rateJson = null;
+                    JSONObject rateJson;
                     try {
                         rateJson = JSON.parseObject(Jsoup.connect("https://api.github.com/rate_limit")
                                 .header("Authorization", String.format("token %s", token))

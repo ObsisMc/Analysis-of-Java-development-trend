@@ -19,15 +19,6 @@ public class RelationNode {
         this.category = category;
     }
 
-    static class RelationEdge{
-        public int sourceId;
-        public int targetId;
-        public RelationEdge(int sourceId, int targetId){
-            this.sourceId = sourceId;
-            this.targetId = targetId;
-        }
-    }
-
 }
 
 

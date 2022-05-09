@@ -2,12 +2,14 @@
   <div class="hello">
     <test ref="test"></test>
     <LanguageRanks ref="ranks"></LanguageRanks>
+    <RelationshipJava ref="relation"></RelationshipJava>
   </div>
 </template>
 
 <script>
 import test from "./test";
 import LanguageRanks from "./LanguageRanks";
+import RelationshipJava from "./RelationshipJava";
 
 export default {
   name: 'HelloWorld',
@@ -20,6 +22,7 @@ export default {
     }
   },
   components: {
+    RelationshipJava,
     LanguageRanks,
     test
   },
@@ -27,6 +30,7 @@ export default {
     this.$refs.test.initChart(this.name, this.xData, this.yData);
     this.$refs.ranks.initEcharts();
     this.$refs.ranks.runLines();
+    this.$refs.relation.draw();
   }
 }
 </script>
