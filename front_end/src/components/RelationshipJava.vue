@@ -1,6 +1,7 @@
 <template>
 <div>
-  <div id="relationJava" style="width:1200px;height:800px"></div>
+  <div id="relationJava" style="width:1200px;height:800px">
+  </div>
 </div>
 </template>
 
