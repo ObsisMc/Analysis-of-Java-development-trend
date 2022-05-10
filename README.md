@@ -132,7 +132,7 @@ should have data: 39k(30+6+3) + 20k(10+4+6) + 1k + 1k +1k + 172
 3. ladar graph：
 
    > stand for  活跃度（可能fork, pull...的极差 or else）
-
+4. when do users likely to work
 
 
 1. Bonus:
