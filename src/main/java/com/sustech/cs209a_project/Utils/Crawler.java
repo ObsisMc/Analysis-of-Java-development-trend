@@ -38,11 +38,7 @@ public class Crawler {
             LanguageRank languageRank = new LanguageRank(y, languages, nums);
             jsonArray.add(JSON.toJSON(languageRank));
         }
-        String jsonstr = JSON.toJSONString(jsonArray);
-        try (BufferedWriter bfw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("./rank.json")))) {
-            bfw.write(jsonstr);
-            bfw.flush();
-        }
+        JsonIO.saveJSONArray(jsonArray, "./rank.json");
     }
 
     public static Hashtable<Integer, LinkedHashMap<String, Long>> getLanguageNumByYear(int yearBegin, int yearEnd) throws IOException {
