@@ -11,7 +11,8 @@ import java.util.*;
 public class JsonIO {
     public static void main(String[] args) {
 //        adjustRelationJSON(0.8f);
-        getAllTopTopic();
+//        getAllTopTopic();
+        transToVisFormat();
     }
 
     public static void saveJSONArray(JSONArray jsonArray, String path) {
@@ -158,10 +159,10 @@ public class JsonIO {
             topics[i - 1] = getTopTopics(star[i - 1], star[i]);
             String wordsFrequencyStr = JSON.toJSONString(topics[i - 1]);
             saveString(wordsFrequencyStr, String.format("wordsFrequency%dkTO%dk.json", star[i - 1] / 1000, star[i] / 1000));
-            System.out.printf("Finish %d\n",star[i]);
+            System.out.printf("Finish %d\n", star[i]);
         }
 
-        String wordsFrequencyStr = JSON.toJSONString(getTopTopics(0,100000000));
+        String wordsFrequencyStr = JSON.toJSONString(getTopTopics(0, 100000000));
         saveString(wordsFrequencyStr, String.format("wordsFrequency.json"));
         System.out.printf("Finish\n");
 
@@ -210,8 +211,24 @@ public class JsonIO {
             }
         });
         LinkedHashMap<String, Integer> topicsMap = new LinkedHashMap<>();
-        topTopics.forEach(e -> topicsMap.put(e.getKey(), e.getValue()));
+        for(int i=0;i<100;i++){
+            topicsMap.put(topTopics.get(i).getKey(), topTopics.get(i).getValue());
+        }
         return topicsMap;
+    }
+
+    public static void transToVisFormat() {
+        JSONObject json = readJSON("wordsFrequency0kTO0k.json");
+        assert json != null;
+
+        JSONArray res = new JSONArray();
+        for (String key : json.keySet()) {
+            JSONObject word = new JSONObject();
+            word.put("number", json.getInteger(key));
+            word.put("topic", key);
+            res.add(word);
+        }
+        saveJSONArray(res, "wordCloudVis.json");
     }
 
 }

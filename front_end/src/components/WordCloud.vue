@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <wordcloud
-      :data="defaultWords"
+      :data="Words"
       nameKey="topic"
       valueKey="number"
       :color="myColors"
@@ -27,24 +27,15 @@ export default {
   data() {
     return {
       myColors: ['#1f77b4', '#629fc9', '#94bedb', '#c9e0ef'],
-      defaultWords: [{
-        "topic": "Cat",
-        "number": 26
-      },
-        {
-          "topic": "fish",
-          "number": 19
-        },
-        {
-          "topic": "things",
-          "number": 18
-        },
-        {
-          "topic": "look",
-          "number": 16
-        }
-      ]
+      Words: [{topic:"no Word", number:1}]
     }
+  },
+  mounted() {
+    this.$axios.get("/static/wordCloudVis.json").then(response => {
+      // console.log(response.data);
+      this.Words = response.data;
+
+    })
   }
 }
 </script>
