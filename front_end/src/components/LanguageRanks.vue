@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div  style="background:#fff;padding:16px 16px 0;margin-bottom:32px;width: 600px;height:400px; ">
     <div id="languagerank" style="width: 600px;height:400px;"></div>
 <!--    <div id="languagerankline" style="width: 600px;height:400px;"></div>-->
   </div>

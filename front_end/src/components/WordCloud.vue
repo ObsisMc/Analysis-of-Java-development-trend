@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" style="background:#fff;padding:16px 16px 0;margin-bottom:32px;">
     <wordcloud
       :data="Words"
       nameKey="topic"
