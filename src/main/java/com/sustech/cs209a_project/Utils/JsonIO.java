@@ -6,13 +6,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.sustech.cs209a_project.pojo.RelationNode;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class JsonIO {
     public static void main(String[] args) {
-        adjustRelationJSON(0.8f);
+//        adjustRelationJSON(0.8f);
+        getAllTopTopic();
     }
 
     public static void saveJSONArray(JSONArray jsonArray, String path) {
@@ -112,7 +111,7 @@ public class JsonIO {
             node.category = parseCategory(node.name);
             jsonNode.set(i, JSONObject.toJSON(node));
         }
-        json.put("categories",getCategoryMap());
+        json.put("categories", getCategoryMap());
         saveJSON(json, "adjust_" + path);
     }
 
@@ -142,15 +141,77 @@ public class JsonIO {
 
     public static JSONArray getCategoryMap() {
         JSONArray jsonArray = new JSONArray();
-        String[] categories = {"Java","Web","C-Family","Mobile","AI&Big Data","Others"};
-        for(int i=0;i<categories.length;i++){
-            JSONObject tmpObject= new JSONObject();
-            tmpObject.put("name",categories[i]);
+        String[] categories = {"Java", "Web", "C-Family", "Mobile", "AI&Big Data", "Others"};
+        for (int i = 0; i < categories.length; i++) {
+            JSONObject tmpObject = new JSONObject();
+            tmpObject.put("name", categories[i]);
             jsonArray.add(tmpObject);
         }
 
         return jsonArray;
     }
 
+    public static void getAllTopTopic() {
+        int[] star = {0, 100, 1000000};
+        LinkedHashMap[] topics = new LinkedHashMap[star.length - 1];
+        for (int i = 1; i < star.length; i++) {
+            topics[i - 1] = getTopTopics(star[i - 1], star[i]);
+            String wordsFrequencyStr = JSON.toJSONString(topics[i - 1]);
+            saveString(wordsFrequencyStr, String.format("wordsFrequency%dkTO%dk.json", star[i - 1] / 1000, star[i] / 1000));
+            System.out.printf("Finish %d\n",star[i]);
+        }
+
+        String wordsFrequencyStr = JSON.toJSONString(getTopTopics(0,100000000));
+        saveString(wordsFrequencyStr, String.format("wordsFrequency.json"));
+        System.out.printf("Finish\n");
+
+
+    }
+
+    public static LinkedHashMap<String, Integer> getTopTopics(int starBegin, int starEnd) {
+        String jsonPath = "./jsonTotal.json";
+        String stoperPath = "stop_words.txt";
+        JSONArray json = readJSONArray(jsonPath);
+        assert json != null;
+
+        HashMap<String, Integer> wordsFrequency = new HashMap<>();
+        ArrayList<String> stops = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(stoperPath)))) {
+            String tmp;
+            while ((tmp = br.readLine()) != null) {
+                stops.add(tmp.toLowerCase(Locale.ROOT));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < json.size(); i++) {
+            JSONObject repo = json.getJSONObject(i);
+            int star = repo.getInteger("stargazers_count");
+            if (!(star >= starBegin && star < starEnd)) {
+                continue;
+            }
+            JSONArray topics = repo.getJSONArray("topics");
+            for (int j = 0; j < topics.size(); j++) {
+                String word = topics.getString(j);
+                if (!stops.contains(word)) {
+                    if (wordsFrequency.containsKey(word)) {
+                        wordsFrequency.put(word, wordsFrequency.get(word) + 1);
+                    } else {
+                        wordsFrequency.put(word, 1);
+                    }
+                }
+            }
+        }
+        List<Map.Entry<String, Integer>> topTopics = new ArrayList<>(wordsFrequency.entrySet());
+        Collections.sort(topTopics, new Comparator<Map.Entry<String, Integer>>() {
+            @Override
+            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                return o2.getValue() - o1.getValue();
+            }
+        });
+        LinkedHashMap<String, Integer> topicsMap = new LinkedHashMap<>();
+        topTopics.forEach(e -> topicsMap.put(e.getKey(), e.getValue()));
+        return topicsMap;
+    }
 
 }
