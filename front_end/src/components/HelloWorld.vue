@@ -3,6 +3,7 @@
 <!--    <test ref="test"></test>-->
     <LanguageRanks ref="ranks"></LanguageRanks>
     <RelationshipJava ref="relation"></RelationshipJava>
+    <WordCloud ref="wordcloud"></WordCloud>
   </div>
 </template>
 
@@ -10,7 +11,8 @@
 import test from "./test";
 import LanguageRanks from "./LanguageRanks";
 import RelationshipJava from "./RelationshipJava";
-
+import WordCloud from "./WordCloud";
+// import { ParticlesBg } from "particles-bg-vue";
 export default {
   name: 'HelloWorld',
 
@@ -22,6 +24,7 @@ export default {
     }
   },
   components: {
+    WordCloud,
     RelationshipJava,
     LanguageRanks,
     test
@@ -29,8 +32,9 @@ export default {
   mounted() {
     // this.$refs.test.initChart(this.name, this.xData, this.yData);
     this.$refs.ranks.initEcharts();
-    this.$refs.ranks.runLines();
+    // this.$refs.ranks.runLines();
     this.$refs.relation.draw();
+    this.$refs.wordcloud.draw();
   }
 }
 </script>
