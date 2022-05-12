@@ -6,11 +6,19 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import * as echarts from 'echarts';
+import 'echarts-wordcloud';
 import axios from "axios";
+import VueParticles from 'vue-particles'
+Vue.use(VueParticles)
+
+
 Vue.config.productionTip = false
 
 Vue.prototype.$echarts = echarts
 Vue.prototype.$axios = axios
+// Vue.use(EchartsWordCloud);
+
+
 
 /* eslint-disable no-new */
 new Vue({
