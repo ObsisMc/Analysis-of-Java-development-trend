@@ -115,3 +115,30 @@ https://api.github.com/repos/OWNER/REPO/stargazers
 should have data: 39k(30+6+3) + 20k(10+4+6) + 1k + 1k +1k + 172
 > what a troublesome task. Every search can only get at most 1000 results because of github's limit and in order to 
 > get more than 50k data, I need to split the entire search into sporadic searches.
+
+## Task
+1. java ranks
+
+   1. total number rank
+
+      <img src="/home/zrh/Repository/gitrepo/CS209A_Project/README.assets/image-20220510224318327.png" alt="image-20220510224318327" style="zoom: 80%;" />
+
+   2. ![image-20220510224445556](/home/zrh/Repository/gitrepo/CS209A_Project/README.assets/image-20220510224445556.png)
+
+2. word cloud
+
+   description
+
+3. ladar graph：
+
+   > stand for  活跃度（可能fork, pull...的极差 or else）
+   
+4. when do users likely to work
+
+5. a repo 兴衰： commit数 by time
+
+
+1. Bonus:
+   1. user login
+   2. user choose repo and crawl data on the air. 
+   3. show contributors locations

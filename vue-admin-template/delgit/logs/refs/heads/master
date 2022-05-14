@@ -1,0 +1,5 @@
+0000000000000000000000000000000000000000 4c18a3f47bdb417ad8a25f09910f848cb574dee2 zrh-LegionLinux <11912614@mail.sustech.edu.cn> 1652366134 +0800	clone: from https://github.com/PanJiaChen/vue-admin-template
+4c18a3f47bdb417ad8a25f09910f848cb574dee2 a5d9ef9ccc8e2c0e1ee511061cf3bd7dd77dd65e zrh-LegionLinux <11912614@mail.sustech.edu.cn> 1652366714 +0800	commit: clone template and install dependency
+a5d9ef9ccc8e2c0e1ee511061cf3bd7dd77dd65e d0d994b6d6b817ba9d5f3aab21b20a774efe4b8f zrh-LegionLinux <11912614@mail.sustech.edu.cn> 1652369202 +0800	commit: finish transplant LanguageRanks.vue to template
+d0d994b6d6b817ba9d5f3aab21b20a774efe4b8f 3afd01798e306e28802a62ca6a1953b76ba6b8da zrh-LegionLinux <11912614@mail.sustech.edu.cn> 1652369233 +0800	commit: update style in front_end
+3afd01798e306e28802a62ca6a1953b76ba6b8da 09397525184f056ece4d508a86ff0842ea4c4cd1 zrh-LegionLinux <11912614@mail.sustech.edu.cn> 1652369615 +0800	commit: update style in front_end
