@@ -1,6 +1,5 @@
 <template>
   <div class="dashboard-container">
-    hi
     <LanguageRanks ref="rank"></LanguageRanks>
   </div>
 </template>

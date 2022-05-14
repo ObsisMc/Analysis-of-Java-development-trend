@@ -11,12 +11,15 @@ import '@/styles/index.scss' // global css
 import App from './App'
 import store from './store'
 import router from './router'
-import axios from "axios";
-import * as echarts from 'echarts';
-import 'echarts-wordcloud';
+
 
 import '@/icons' // icon
 import '@/permission' // permission control
+
+// my config
+import axios from "axios";
+import * as echarts from 'echarts';
+import 'echarts-wordcloud';
 
 /**
  * If you don't want to use mock-server
@@ -39,6 +42,14 @@ Vue.prototype.$echarts = echarts
 Vue.prototype.$axios = axios
 
 Vue.config.productionTip = false
+
+// dynamic size
+Vue.prototype.$getViewportSize = function (){
+  return {
+    width: window.innerWidth || document.documentElement.clientWidth ||document.body.clientWidth,
+    height: window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+  }
+}
 
 new Vue({
   el: '#app',
