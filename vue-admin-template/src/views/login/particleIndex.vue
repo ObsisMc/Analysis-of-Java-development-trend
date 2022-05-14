@@ -1,9 +1,9 @@
 <template>
-  <div @click="showTitle">
+  <div >
     <particles-bg type="circle" :bg="true"/>
     <div class="login">
-      <transition name="slide-fade">
-        <span v-if="show">
+      <transition name="slide-fade" >
+        <span v-if="show" @click="showTitle">
         Trend of Java Development
         </span>
       </transition>
