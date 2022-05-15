@@ -136,7 +136,12 @@ should have data: 39k(30+6+3) + 20k(10+4+6) + 1k + 1k +1k + 172
 4. when do users likely to work
 
 5. a repo 兴衰： commit数 by time
+![img.png](img.png)
+> data format: {date:[t0,t1,..,tn], data:[N0,N1,...,Nn]} 
 
+![img_1.png](img_1.png)
+> format: {hours:[...],days:[...],data:[[],[],...]} --> 
+> hours (str): X axis; days (str): Y axis; data: [x, y, n], there are n commits at (x, y)
 
 1. Bonus:
    1. user login
