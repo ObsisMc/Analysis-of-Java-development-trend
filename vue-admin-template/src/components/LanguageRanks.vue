@@ -1,7 +1,6 @@
 <template>
   <div >
-    <div id="languagerank" style="width: 600px;height:400px;"></div>
-<!--    <div id="languagerankline" style="width: 600px;height:400px;"></div>-->
+    <div id="languagerank" style="width: 100%;" :style="{height:hgt}"></div>
   </div>
 
 </template>
@@ -9,6 +8,7 @@
 <script>
 export default {
   name: "LanguageRanks",
+  props: ["hgt"],
   methods: {
     draw() {
       var newArr = null;

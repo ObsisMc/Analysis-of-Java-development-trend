@@ -1,16 +1,14 @@
 <template>
   <div class="dashboard-container">
     <panel-group/>
-    <el-row class="graph-container" :style="{height:rankHeight}">
+    <el-row class="graph-container" :style="{height:rankHeight}" style="padding: 16px 16px;">
       <TotalRank ref="totalRank"></TotalRank>
     </el-row>
-    <el-row>
-      <el-col :span="6">
-        <!--        TODO: total repo number by time ( dynamic line)-->
-        <LanguageRanks ref="rank"></LanguageRanks>
+    <el-row :gutter="40">
+      <el-col :span="12" class="graph-container" :style="{height:addRankHight,width:addRankWidth}" >
+        <LanguageRanks ref="rank" :hgt="rankhgt"></LanguageRanks>
       </el-col>
-      <el-col :span="6">
-        <!--        TODO: -->
+      <el-col :span="12" class="graph-container">
         <RelationshipJava ref="relation"></RelationshipJava>
       </el-col>
     </el-row>
@@ -31,15 +29,23 @@ import TotalRank from "@/views/dashboard/components/TotalRank";
 export default {
   name: 'Dashboard',
   data() {
-    return {
-    }
+    return {}
   },
   computed: {
     ...mapGetters([
       'name'
     ]),
-    rankHeight(){
+    rankHeight() {
       return window.innerHeight * 0.4 + "px";
+    },
+    addRankHight() {
+      return window.innerHeight * 0.5 + "px";
+    },
+    addRankWidth() {
+      return window.innerWidth * 0.4 + "px";
+    },
+    rankhgt(){
+      return window.innerHeight * 0.45 + "px";
     }
   },
   components: {
@@ -79,7 +85,7 @@ export default {
 
 .graph-container {
   background: #fff;
-  padding: 16px 16px 0;
+  padding: 16px 16px;
   margin-bottom: 32px;
 }
 </style>
