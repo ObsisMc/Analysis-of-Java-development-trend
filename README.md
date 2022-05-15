@@ -120,9 +120,9 @@ should have data: 39k(30+6+3) + 20k(10+4+6) + 1k + 1k +1k + 172
 1. java ranks
 
    1. total number rank
-
-      <img src="./README.assets/image-20220510224318327.png" alt="image-20220510224318327" style="zoom: 80%;" />
-
+   
+      ![img_2.png](img_2.png)![img_3.png](img_3.png)
+> format: [{ name: str , type: "line" stack: "Total", smooth: true, data: [] },{...},...]
    2. ![image-20220510224445556](./README.assets/image-20220510224445556.png)
 
 2. word cloud
@@ -140,7 +140,7 @@ should have data: 39k(30+6+3) + 20k(10+4+6) + 1k + 1k +1k + 172
 > data format: {date:[t0,t1,..,tn], data:[N0,N1,...,Nn]} 
 
 ![img_1.png](img_1.png)
-> format: {hours:[...],days:[...],data:[[],[],...]} --> 
+> format: {hours:[...], days:[...], data:[[],[],...]} --> 
 > hours (str): X axis; days (str): Y axis; data: [x, y, n], there are n commits at (x, y)
 
 1. Bonus:
