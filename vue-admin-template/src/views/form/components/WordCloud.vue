@@ -1,16 +1,45 @@
 <template>
-  <div id="app" style="background:#fff;padding:16px 16px 0;margin-bottom:32px;">
+  <div>
+
     <wordcloud
       :data="Words"
       nameKey="topic"
       valueKey="number"
       :color="myColors"
-      :showTooltip="true"
+      :showTooltip="false"
       :wordClick="wordClickHandler">
     </wordcloud>
-    <el-button @click="changeRange">
-      change
-    </el-button>
+    <el-button @click="refresh" icon="el-icon-refresh-left" type="primary"
+               style="float: right; z-index: 100"></el-button>
+    <el-dialog
+      title="Info"
+      :visible.sync="dialogVisible"
+      width="30%"
+      :before-close="handleClose">
+      <el-row>
+        <el-col :span="4">
+          Topic:
+        </el-col>
+        <el-col :span="20">
+          <span style="font-weight: bold;font-size: 20px;">
+            {{ selectedWord }}
+          </span>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="4">
+          Number:
+        </el-col>
+        <el-col :span="20">
+          <span style="font-weight: bold;font-size: 20px;">
+            {{ value }}
+          </span>
+        </el-col>
+      </el-row>
+      <span slot="footer" class="dialog-footer">
+    <el-button type="primary" @click="dialogVisible = false">Back</el-button>
+  </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -24,19 +53,27 @@ export default {
   },
   methods: {
     wordClickHandler(name, value, vm) {
-      console.log('wordClickHandler', name, value, vm);
+      this.selectedWord = name;
+      this.value = value;
+      this.dialogVisible = !this.dialogVisible;
     },
-    changeRange(){
+    refresh() {
       this.$axios.get("json/wordCloudVis.json").then(response => {
         // console.log(response.data);
         this.Words = response.data;
       })
+    },
+    handleClose() {
+      this.dialogVisible = !this.dialogVisible;
     }
   },
   data() {
     return {
       myColors: ['#1f77b4', '#629fc9', '#94bedb', '#c9e0ef'],
-      Words: [{topic:"no Word", number:1}]
+      Words: [{topic: "no Word", number: 1}],
+      dialogVisible: false,
+      selectedWord: '',
+      value: ''
     }
   },
   mounted() {
@@ -50,4 +87,7 @@ export default {
 
 <style scoped>
 
+wordcloud:hover {
+  cursor: pointer；
+}
 </style>

@@ -3,6 +3,15 @@
     <el-row>
       <Search></Search>
     </el-row>
+    <el-row>
+      <WordCloud></WordCloud>
+    </el-row>
+    <el-row >
+      <el-col class="graph-container">
+        <RelationshipJava ref="relation" :hgt="relationHeight"></RelationshipJava>
+      </el-col>
+
+    </el-row>
 
 
   </div>
@@ -10,11 +19,18 @@
 
 <script>
 import Search from "@/views/form/components/Search";
+import WordCloud from "@/views/form/components/WordCloud";
+import RelationshipJava from "@/views/form/components/RelationshipJava";
 export default {
-  components: {Search},
+  components: {RelationshipJava, Search, WordCloud},
   data() {
     return {
 
+    }
+  },
+  computed:{
+    relationHeight(){
+      return window.innerHeight * 0.4 + "px";
     }
   },
   methods: {
@@ -36,13 +52,19 @@ export default {
     handleChange(val) {
       console.log(val);
     }
+  },
+  mounted() {
+    this.$refs.relation.draw();
   }
 }
 </script>
 
 <style scoped>
-.line{
-  text-align: center;
+
+.graph-container {
+  background-color: rgb(240, 242, 245);
+  padding: 16px 16px;
+  margin-bottom: 32px;
 }
 </style>
 
