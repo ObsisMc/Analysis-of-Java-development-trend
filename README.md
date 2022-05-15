@@ -121,9 +121,9 @@ should have data: 39k(30+6+3) + 20k(10+4+6) + 1k + 1k +1k + 172
 
    1. total number rank
 
-      <img src="/home/zrh/Repository/gitrepo/CS209A_Project/README.assets/image-20220510224318327.png" alt="image-20220510224318327" style="zoom: 80%;" />
+      <img src="./README.assets/image-20220510224318327.png" alt="image-20220510224318327" style="zoom: 80%;" />
 
-   2. ![image-20220510224445556](/home/zrh/Repository/gitrepo/CS209A_Project/README.assets/image-20220510224445556.png)
+   2. ![image-20220510224445556](./README.assets/image-20220510224445556.png)
 
 2. word cloud
 
