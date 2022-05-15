@@ -22,8 +22,8 @@
 
 <script>
 import {mapGetters} from 'vuex'
-import LanguageRanks from "@/components/LanguageRanks";
-import RelationshipJava from "@/components/RelationshipJava";
+import LanguageRanks from "@/views/dashboard/components/LanguageRanks";
+import RelationshipJava from "@/views/form/components/RelationshipJava";
 import PanelGroup from "@/views/dashboard/components/PanelGroup";
 import TotalRank from "@/views/dashboard/components/TotalRank";
 import MetricRadar from "@/views/dashboard/components/MetricRadar";

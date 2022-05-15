@@ -48,6 +48,8 @@ JAVA发展趋势分析:
         - star最多的前20%（or fixed number）的repo中, which languages does JAVA coopereate with.
     3. what are hot topics and fields:
         - use description of repos to analyse frequency of words
+    4. license
+    5. relation of the number of contributors, issue, pr, stars, size
 
    > Goal: give users a picture about how popular Java is nowadays and give developers some suggestions about what they should learn to catch up with the development of JAVA
 
