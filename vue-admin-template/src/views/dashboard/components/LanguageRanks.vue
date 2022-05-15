@@ -7,7 +7,13 @@
                  :disabled="buttonValid">
       </el-button>
       <div slot="content">
-        Need to wait...
+        <span v-if="buttonValid">
+          Need to wait...
+        </span>
+        <span v-if="!buttonValid">
+          Run again!
+        </span>
+
       </div>
     </el-tooltip>
 
