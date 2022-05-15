@@ -1,10 +1,15 @@
 <template>
-  <div id="totalRank" style="height:100%;width:100%"></div>
+  <div id="totalRank" style="height:100%;width: 100%"></div>
 </template>
 
 <script>
 export default {
   name: "TotalRank",
+  data(){
+    return{
+      width: 0
+    }
+  },
   methods: {
     draw() {
       var chartDom = document.getElementById('totalRank');

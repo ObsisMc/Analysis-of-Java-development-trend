@@ -2,7 +2,6 @@
   <div class="dashboard-container">
     <panel-group/>
     <el-row class="graph-container" :style="{height:rankHeight}">
-      <!--      TODO: rank by time (line)-->
       <TotalRank ref="totalRank"></TotalRank>
     </el-row>
     <el-row>
