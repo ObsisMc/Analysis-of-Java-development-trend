@@ -12,7 +12,26 @@ public class JsonIO {
     public static void main(String[] args) {
 //        adjustRelationJSON(0.8f);
 //        getAllTopTopic();
-        transToVisFormat();
+//        transToVisFormat();
+        checkDuplication();
+    }
+
+    public static void checkDuplication() {
+        String jsonPath = "jsonTotal.json";
+        JSONArray jsonArray = readJSONArray(jsonPath);
+        assert jsonArray != null;
+        HashSet<Integer> ids = new HashSet<>();
+        int duplicateN = 0;
+        for (int i = 0; i < jsonArray.size(); i++) {
+            int id = jsonArray.getJSONObject(i).getInteger("id");
+            if (ids.contains(id)) {
+                duplicateN++;
+            } else {
+                ids.add(id);
+            }
+        }
+        System.out.printf("Actual size: %d, duplication: %d", ids.size(), duplicateN);
+
     }
 
     public static void saveJSONArray(JSONArray jsonArray, String path) {
@@ -211,7 +230,7 @@ public class JsonIO {
             }
         });
         LinkedHashMap<String, Integer> topicsMap = new LinkedHashMap<>();
-        for(int i=0;i<100;i++){
+        for (int i = 0; i < 100; i++) {
             topicsMap.put(topTopics.get(i).getKey(), topTopics.get(i).getValue());
         }
         return topicsMap;
