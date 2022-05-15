@@ -1,7 +1,17 @@
 <template>
   <div>
     <div id="languagerank" style="width: 100%;" :style="{height:hgt}"></div>
-    <el-button @click="draw" type="primary" circle size="mini" icon="el-icon-refresh-left" style="float: right"></el-button>
+    <el-tooltip  placement="top">
+      <el-button @click="draw" type="primary" circle size="mini"
+                 icon="el-icon-refresh-left" style="float: right"
+                 :disabled="buttonValid">
+      </el-button>
+      <div slot="content">
+        Need to wait...
+      </div>
+    </el-tooltip>
+
+
   </div>
 
 </template>
@@ -12,11 +22,13 @@ export default {
   props: ["hgt"],
   data() {
     return {
-      myChart: null
+      myChart: null,
+      buttonValid: false,
     }
   },
   methods: {
     draw() {
+      this.buttonValid = !this.buttonValid;
       var newArr = null;
       this.$axios.get("json/rank.json").then(response => {
         newArr = response.data;
@@ -165,6 +177,10 @@ export default {
           // 使用刚指定的配置项和数据显示图表。
           myChart.setOption(option);
         }
+
+        setTimeout(() => {
+          this.buttonValid = !this.buttonValid;
+        }, 20000);
       }).catch(function (error) { // 请求失败处理
           console.log(error);
         }
