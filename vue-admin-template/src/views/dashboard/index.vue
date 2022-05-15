@@ -1,5 +1,6 @@
 <template>
   <div class="dashboard-container">
+    <panel-group />
     <el-row>
       <el-col :span="6">
         <LanguageRanks ref="rank"></LanguageRanks>
@@ -19,6 +20,7 @@ import {mapGetters} from 'vuex'
 import LanguageRanks from "@/components/LanguageRanks";
 import RelationshipJava from "@/components/RelationshipJava";
 import WordCloud from "@/components/WordCloud";
+import PanelGroup from "@/views/dashboard/components/PanelGroup";
 
 export default {
   name: 'Dashboard',
@@ -30,7 +32,8 @@ export default {
   components: {
     WordCloud,
     RelationshipJava,
-    LanguageRanks
+    LanguageRanks,
+    PanelGroup
   },
   mounted() {
     this.$refs.rank.initEcharts();
@@ -58,4 +61,5 @@ export default {
   position: relative;
 
 }
+
 </style>
