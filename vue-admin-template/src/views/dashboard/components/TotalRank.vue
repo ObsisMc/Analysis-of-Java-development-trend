@@ -7,13 +7,13 @@ export default {
   name: "TotalRank",
   data(){
     return{
-      width: 0
+      width: 0,
+      myCharts: null,
+      chartDom: null
     }
   },
   methods: {
     draw() {
-      var chartDom = document.getElementById('totalRank');
-      var myChart = this.$echarts.init(chartDom);
       var option = {
         title: {
           text: 'Stacked Line'
@@ -77,8 +77,15 @@ export default {
         ]
       };
 
-      myChart.setOption(option);
+      this.myChart.setOption(option);
     }
+  },
+  mounted() {
+    this.chartDom = document.getElementById('totalRank');
+    this.myChart = this.$echarts.init(this.chartDom);
+    window.onresize = function() {
+      this.myChart.resize();
+    };
   }
 }
 </script>

@@ -1,6 +1,7 @@
 <template>
-  <div >
+  <div>
     <div id="languagerank" style="width: 100%;" :style="{height:hgt}"></div>
+    <el-button @click="draw" type="primary" circle size="mini" icon="el-icon-refresh-left" style="float: right"></el-button>
   </div>
 
 </template>
@@ -9,10 +10,14 @@
 export default {
   name: "LanguageRanks",
   props: ["hgt"],
+  data() {
+    return {
+      myChart: null
+    }
+  },
   methods: {
     draw() {
       var newArr = null;
-      console.log("hi");
       this.$axios.get("json/rank.json").then(response => {
         newArr = response.data;
         // 柱形颜色
@@ -32,7 +37,7 @@ export default {
         };
 
         // 基于准备好的dom，初始化echarts实例
-        var myChart = this.$echarts.init(document.getElementById('languagerank'));
+        var myChart = this.myChart
         var updateFrequency = 2000;	// 数据更新速度
         var years = [];
         var startIndex = 0;
@@ -164,97 +169,10 @@ export default {
           console.log(error);
         }
       )
-    },
-    runLines() {
-      this.$axios.get("/static/demoline.json").then(response => {
-        var _rawData = response.data;
-        var myChart = this.$echarts.init(document.getElementById('languagerankline'));
-        // var countries = ['Australia', 'Canada', 'China', 'Cuba', 'Finland', 'France', 'Germany', 'Iceland', 'India', 'Japan', 'North Korea', 'South Korea', 'New Zealand', 'Norway', 'Poland', 'Russia', 'Turkey', 'United Kingdom', 'United States'];
-        const countries = [
-          'Finland',
-          'France',
-          'Germany',
-          'Iceland',
-          'Norway',
-          'Poland',
-          'Russia',
-          'United Kingdom'
-        ];
-        const datasetWithFilters = [];
-        const seriesList = [];
-        this.$echarts.util.each(countries, function (country) {
-          var datasetId = 'dataset_' + country;
-          datasetWithFilters.push({
-            id: datasetId,
-            fromDatasetId: 'dataset_raw',
-            transform: {
-              type: 'filter',
-              config: {
-                and: [
-                  {dimension: 'Year', gte: 1950},
-                  {dimension: 'Country', '=': country}
-                ]
-              }
-            }
-          });
-          seriesList.push({
-            type: 'line',
-            datasetId: datasetId,
-            showSymbol: false,
-            name: country,
-            endLabel: {
-              show: true,
-              formatter: function (params) {
-                return params.value[3] + ': ' + params.value[0];
-              }
-            },
-            labelLayout: {
-              moveOverlap: 'shiftY'
-            },
-            emphasis: {
-              focus: 'series'
-            },
-            encode: {
-              x: 'Year',
-              y: 'Income',
-              label: ['Country', 'Income'],
-              itemName: 'Year',
-              tooltip: ['Income']
-            }
-          });
-        });
-        console.log(seriesList);
-        var option = {
-          series: seriesList,
-          animationDuration: 10000,
-          dataset: [
-            {
-              id: 'dataset_raw',
-              source: _rawData
-            },
-            ...datasetWithFilters
-          ],
-          title: {
-            text: 'Income of Germany and France since 1950'
-          },
-          tooltip: {
-            order: 'valueDesc',
-            trigger: 'axis'
-          },
-          xAxis: {
-            type: 'category',
-            nameLocation: 'middle'
-          },
-          yAxis: {
-            name: 'Income'
-          },
-          grid: {
-            right: 140
-          }
-        };
-        myChart.setOption(option);
-      });
     }
+  },
+  mounted() {
+    this.myChart = this.$echarts.init(document.getElementById('languagerank'));
   }
 }
 </script>
