@@ -1,5 +1,5 @@
 <template>
-  <div  style="background:#fff;padding:16px 16px 0;margin-bottom:32px;width: 600px;height:450px; ">
+  <div >
     <div id="languagerank" style="width: 600px;height:400px;"></div>
 <!--    <div id="languagerankline" style="width: 600px;height:400px;"></div>-->
   </div>
@@ -10,7 +10,7 @@
 export default {
   name: "LanguageRanks",
   methods: {
-    initEcharts() {
+    draw() {
       var newArr = null;
       console.log("hi");
       this.$axios.get("json/rank.json").then(response => {
