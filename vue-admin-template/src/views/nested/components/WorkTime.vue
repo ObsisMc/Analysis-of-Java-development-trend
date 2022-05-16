@@ -1,10 +1,15 @@
 <template>
-  <div id="workTime" style="width:450px; height:450px; border-radius: 50%;"></div>
+  <div id="workTime" style="border-radius: 50%;" :style="{height:radius,width:radius}"></div>
 </template>
 
 <script>
 export default {
   name: "WorkTime",
+  computed:{
+    radius(){
+      return Math.max(window.innerHeight, window.innerWidth)  * 0.3+"px";
+    }
+  },
   methods: {
     draw() {
       // prettier-ignore
@@ -27,11 +32,13 @@ export default {
       var option;
       option = {
         title: {
-          text: 'Punch Card of Github'
+          text: 'Punch Card of Github',
+          left: 'center'
         },
         legend: {
           data: ['Punch Card'],
-          left: 'right'
+          left: 'center',
+          top: "bottom"
         },
         polar: {},
         tooltip: {
