@@ -56,11 +56,20 @@ JAVA发展趋势分析:
 2. community situation:
 
 > haven't come up with detail solutions, followings are just conceptions
-
-1. number of issue, PR, comments
-2. updated time of things above
+1. commit number by time
+2. activity:
+   1. author
+      1. issues' tags number
+      2. issue time span
+      3. average comments of pr
+      4. release number
+   2. contributor
+      1. number of contributor
+   3. both
+      1. average comments of issue
 3. habits of users involved in JAVA repos
     1. what's the work time for them during a day (or a week)
+4. 
 
 > Goal: manifest vigour of JAVA, and also give JAVA developers advice on how and when to communicate with other JAVA developers.
 

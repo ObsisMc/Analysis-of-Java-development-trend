@@ -68,6 +68,9 @@ export default {
         var startCut = years[startIndex].nums;
 
         var option = {
+          title: {
+            text: 'Rank by time'
+          },
           // 图标的上下左右边界
           grid: {
             top: 10,

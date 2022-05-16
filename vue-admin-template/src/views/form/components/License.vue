@@ -12,6 +12,9 @@ export default {
       var option;
 
       option = {
+        title: {
+          text: 'Popular license'
+        },
         legend: {
           top: 'bottom'
         },
@@ -28,7 +31,7 @@ export default {
           {
             name: 'Nightingale Chart',
             type: 'pie',
-            radius: [50, 250],
+            radius: [40, 200],
             center: ['50%', '50%'],
             roseType: 'area',
             itemStyle: {
