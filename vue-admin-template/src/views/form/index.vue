@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="dashboard-container">
     <el-row>
       <Search></Search>
     </el-row>
@@ -70,9 +70,16 @@ export default {
 <style scoped>
 
 .graph-container {
-  background-color: rgb(240, 242, 245);
+  background-color: rgb(255, 255, 255);
   padding: 16px 16px;
   margin-bottom: 32px;
+}
+.dashboard-container {
+  padding: 32px;
+  background-color: rgb(240, 242, 245);
+  position: relative;
+  margin: 30px;
+
 }
 </style>
 
