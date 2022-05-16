@@ -7,7 +7,7 @@
       placeholder="请输入内容"
       :trigger-on-focus="false"
       @select="handleSelect"
-      style="width: 100%"
+      style="width: 80%"
     ></el-autocomplete>
   </div>
 </template>
