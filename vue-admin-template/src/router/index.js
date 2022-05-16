@@ -73,7 +73,7 @@ export const constantRoutes = [
     children: [
       {
         path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
+        component: () => import('@/views/nested/index'), // Parent router-view
         name: 'Menu1',
         meta: {
           title: 'Community',
