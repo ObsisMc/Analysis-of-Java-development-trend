@@ -4,7 +4,7 @@
       <Search></Search>
     </el-row>
     <el-row style="margin-bottom: 16px">
-      <WordCloud></WordCloud>
+      <WordCloud class="graph-container" style="border-radius: 50%; margin-top: 10px"></WordCloud>
     </el-row>
     <el-row >
       <el-col class="graph-container" :span="11">
@@ -12,9 +12,7 @@
       </el-col>
       <el-col :span="1" style="border: 1px solid transparent"></el-col>
       <el-col class="graph-container" :span="12">
-
           <License ref="license"></License>
-
       </el-col>
 
     </el-row>
