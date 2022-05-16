@@ -2,15 +2,17 @@
 <div class="dashboard-container">
     <SearchInput></SearchInput>
   <ContributorPanel></ContributorPanel>
+  <TimeShow></TimeShow>
 </div>
 </template>
 
 <script>
 import SearchInput from "@/views/nested/components/SearchInput";
 import ContributorPanel from "@/views/nested/components/ContributorPanel";
+import TimeShow from "@/views/nested/components/TimeShow";
 export default {
   name: "index",
-  components:{ContributorPanel, SearchInput}
+  components:{ContributorPanel, SearchInput,TimeShow}
 }
 </script>
 
@@ -23,4 +25,5 @@ export default {
   margin: 30px;
 
 }
+
 </style>
