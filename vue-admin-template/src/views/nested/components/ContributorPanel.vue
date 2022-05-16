@@ -2,7 +2,7 @@
   <div>
     <el-row>
       <el-col :span="10">
-        hi
+        <MultiMetric ref="multiMetric" class="graph-container"></MultiMetric>
       </el-col>
       <el-col :span="10">
         <WorkTime ref="workTime" class="graph-container"></WorkTime>
@@ -38,9 +38,10 @@
 
 <script>
 import WorkTime from "@/views/nested/components/WorkTime";
+import MultiMetric from "@/views/nested/components/MultiMetric";
 export default {
   name: "ContributorPanel",
-  components: {WorkTime},
+  components: {MultiMetric, WorkTime},
   data() {
     return {
       url: 'https://avatars.githubusercontent.com/u/15308811?v=4',
@@ -55,6 +56,7 @@ export default {
   },
   mounted() {
     this.$refs.workTime.draw();
+    this.$refs.multiMetric.draw();
   }
 }
 </script>
