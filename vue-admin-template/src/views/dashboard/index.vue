@@ -14,7 +14,6 @@
         <NumberRatioByTime></NumberRatioByTime>
       </el-col>
     </el-row>
-    <Test></Test>
   </div>
 </template>
 
@@ -24,7 +23,6 @@ import LanguageRanks from "@/views/dashboard/components/LanguageRanks";
 import RelationshipJava from "@/views/form/components/RelationshipJava";
 import PanelGroup from "@/views/dashboard/components/PanelGroup";
 import TotalRank from "@/views/dashboard/components/TotalRank";
-import Test from "@/views/dashboard/test";
 import NumberRatioByTime from "@/views/dashboard/components/NumberRatioByTime";
 
 export default {
@@ -48,7 +46,6 @@ export default {
   },
   components: {
     NumberRatioByTime,
-    Test,
     TotalRank,
     RelationshipJava,
     LanguageRanks,
