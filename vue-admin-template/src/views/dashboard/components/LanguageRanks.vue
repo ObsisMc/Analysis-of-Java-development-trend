@@ -198,6 +198,7 @@ export default {
   },
   mounted() {
     this.myChart = this.$echarts.init(document.getElementById('languagerank'));
+    this.draw();
   }
 }
 </script>

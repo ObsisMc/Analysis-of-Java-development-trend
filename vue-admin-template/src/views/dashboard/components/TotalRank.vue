@@ -83,6 +83,7 @@ export default {
   mounted() {
     this.chartDom = document.getElementById('totalRank');
     this.myChart = this.$echarts.init(this.chartDom);
+    this.draw();
   }
 }
 </script>

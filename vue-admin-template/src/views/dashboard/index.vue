@@ -55,8 +55,6 @@ export default {
     PanelGroup
   },
   mounted() {
-    this.$refs.rank.draw();
-    this.$refs.totalRank.draw();
   },
   watch: {}
 }
