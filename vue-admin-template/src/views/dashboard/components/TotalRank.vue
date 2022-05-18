@@ -83,9 +83,6 @@ export default {
   mounted() {
     this.chartDom = document.getElementById('totalRank');
     this.myChart = this.$echarts.init(this.chartDom);
-    window.onresize = function() {
-      this.myChart.resize();
-    };
   }
 }
 </script>
