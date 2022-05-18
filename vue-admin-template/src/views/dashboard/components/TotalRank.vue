@@ -5,8 +5,8 @@
 <script>
 export default {
   name: "TotalRank",
-  data(){
-    return{
+  data() {
+    return {
       width: 0,
       myCharts: null,
       chartDom: null
@@ -76,7 +76,9 @@ export default {
           }
         ]
       };
-
+      this.myChart.on('updateAxisPointer', (event) => {
+        this.$evenBus.$emit("changeNumberRatio");
+      });
       this.myChart.setOption(option);
     }
   },
