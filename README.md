@@ -69,7 +69,8 @@ JAVA发展趋势分析:
       1. average comments of issue
 3. habits of users involved in JAVA repos
     1. what's the work time for them during a day (or a week)
-4. 
+
+> star history api: https://api.codetabs.com/v1/stars/?repo=01ankidroid/Anki-Android 
 
 > Goal: manifest vigour of JAVA, and also give JAVA developers advice on how and when to communicate with other JAVA developers.
 
