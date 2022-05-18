@@ -11,13 +11,10 @@
       <el-col :span="1" style="border: 1px solid transparent">
       </el-col>
       <el-col :span="12" class="graph-container" :style="{height:secondHeight}">
-        <MetricRadar ref="radar" :hgt="rankhgt"></MetricRadar>
+        <NumberRatioByTime></NumberRatioByTime>
       </el-col>
     </el-row>
     <Test></Test>
-
-
-<!--    <WordCloud ref="wordCloud"></WordCloud>-->
   </div>
 </template>
 
@@ -27,8 +24,8 @@ import LanguageRanks from "@/views/dashboard/components/LanguageRanks";
 import RelationshipJava from "@/views/form/components/RelationshipJava";
 import PanelGroup from "@/views/dashboard/components/PanelGroup";
 import TotalRank from "@/views/dashboard/components/TotalRank";
-import MetricRadar from "@/views/dashboard/components/MetricRadar";
 import Test from "@/views/dashboard/test";
+import NumberRatioByTime from "@/views/dashboard/components/NumberRatioByTime";
 
 export default {
   name: 'Dashboard',
@@ -50,8 +47,8 @@ export default {
     }
   },
   components: {
+    NumberRatioByTime,
     Test,
-    MetricRadar,
     TotalRank,
     RelationshipJava,
     LanguageRanks,
@@ -59,7 +56,6 @@ export default {
   },
   mounted() {
     this.$refs.rank.draw();
-    this.$refs.radar.draw();
     this.$refs.totalRank.draw();
   },
   watch: {}
