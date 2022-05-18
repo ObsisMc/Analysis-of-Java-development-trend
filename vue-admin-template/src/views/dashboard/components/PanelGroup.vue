@@ -1,68 +1,76 @@
 <template>
-  <el-row :gutter="40" class="panel-group">
-    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" >
-        <div class="card-panel-icon-wrapper icon-people">
-          <svg-icon icon-class="fork" class-name="card-panel-icon" />
-        </div>
-        <div class="card-panel-description">
-          <div class="card-panel-text">
-            fork
+  <div>
+    <el-row :gutter="40" class="panel-group">
+      <el-col :xs="16" :sm="16" :lg="8" class="card-panel-col">
+        <div class="card-panel" @click="showPartOneChart">
+          <div class="card-panel-icon-wrapper icon-people">
+            <svg-icon icon-class="peoples" class-name="card-panel-icon"/>
           </div>
-          <count-to :start-val="0" :end-val="102400" :duration="2600" class="card-panel-num" />
-        </div>
-      </div>
-    </el-col>
-    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" >
-        <div class="card-panel-icon-wrapper icon-message">
-          <svg-icon icon-class="watch" class-name="card-panel-icon" />
-        </div>
-        <div class="card-panel-description">
-          <div class="card-panel-text">
-            Watch
+          <div class="card-panel-description">
+            <div class="card-panel-text">
+              Users
+            </div>
+            <count-to :start-val="0" :end-val="102400" :duration="2600" class="card-panel-num"/>
           </div>
-          <count-to :start-val="0" :end-val="81212" :duration="3000" class="card-panel-num" />
         </div>
-      </div>
-    </el-col>
-    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" >
-        <div class="card-panel-icon-wrapper icon-money">
-          <svg-icon icon-class="issue-opened" class-name="card-panel-icon" />
-        </div>
-        <div class="card-panel-description">
-          <div class="card-panel-text">
-            Open issue
+      </el-col>
+      <el-col :xs="16" :sm="16" :lg="8" class="card-panel-col">
+        <div class="card-panel" @click="showPartOneChart">
+          <div class="card-panel-icon-wrapper icon-message">
+            <svg-icon icon-class="git-repository" class-name="card-panel-icon"/>
           </div>
-          <count-to :start-val="0" :end-val="9280" :duration="3200" class="card-panel-num" />
-        </div>
-      </div>
-    </el-col>
-    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" >
-        <div class="card-panel-icon-wrapper icon-shopping">
-          <svg-icon icon-class="commit" class-name="card-panel-icon" />
-        </div>
-        <div class="card-panel-description">
-          <div class="card-panel-text">
-            Commit
+          <div class="card-panel-description">
+            <div class="card-panel-text">
+              Repositories
+            </div>
+            <count-to :start-val="0" :end-val="81212" :duration="3000" class="card-panel-num"/>
           </div>
-          <count-to :start-val="0" :end-val="13600" :duration="3600" class="card-panel-num" />
         </div>
-      </div>
-    </el-col>
-  </el-row>
+      </el-col>
+      <el-col :xs="16" :sm="16" :lg="8" class="card-panel-col">
+        <div class="card-panel" @click="showPartOneChart">
+          <div class="card-panel-icon-wrapper icon-money">
+            <svg-icon icon-class="issue-opened" class-name="card-panel-icon"/>
+          </div>
+          <div class="card-panel-description">
+            <div class="card-panel-text">
+              Open issues
+            </div>
+            <count-to :start-val="0" :end-val="9280" :duration="3200" class="card-panel-num"/>
+          </div>
+        </div>
+      </el-col>
+    </el-row>
+    <el-dialog
+      :visible.sync="dialogVisible"
+      width="60%">
+      <span slot="footer" class="dialog-footer"> </span>
+      <ThreeValueByTime ref="threeCharts"></ThreeValueByTime>
+    </el-dialog>
+  </div>
+
 </template>
 
 <script>
 import CountTo from 'vue-count-to'
+import ThreeValueByTime from "@/views/dashboard/components/ThreeValueByTime";
 
 export default {
   components: {
+    ThreeValueByTime,
     CountTo
   },
+  data() {
+    return {
+      dialogVisible: false
+    }
+  },
   methods: {
+    showPartOneChart() {
+      this.dialogVisible = !this.dialogVisible;
+    }
+  },
+  mounted() {
   }
 }
 </script>
@@ -157,7 +165,7 @@ export default {
   }
 }
 
-@media (max-width:550px) {
+@media (max-width: 550px) {
   .card-panel-description {
     display: none;
   }

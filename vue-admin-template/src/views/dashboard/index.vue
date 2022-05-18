@@ -14,6 +14,7 @@
         <MetricRadar ref="radar" :hgt="rankhgt"></MetricRadar>
       </el-col>
     </el-row>
+    <Test></Test>
 
 
 <!--    <WordCloud ref="wordCloud"></WordCloud>-->
@@ -27,6 +28,7 @@ import RelationshipJava from "@/views/form/components/RelationshipJava";
 import PanelGroup from "@/views/dashboard/components/PanelGroup";
 import TotalRank from "@/views/dashboard/components/TotalRank";
 import MetricRadar from "@/views/dashboard/components/MetricRadar";
+import Test from "@/views/dashboard/test";
 
 export default {
   name: 'Dashboard',
@@ -48,6 +50,7 @@ export default {
     }
   },
   components: {
+    Test,
     MetricRadar,
     TotalRank,
     RelationshipJava,
