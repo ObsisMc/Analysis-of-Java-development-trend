@@ -1,4 +1,4 @@
-package com.sustech.cs209a_project.Utils;
+package com.sustech.cs209a_project.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -8,7 +8,6 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 
 import java.io.IOException;
-import java.sql.SQLSyntaxErrorException;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;

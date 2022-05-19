@@ -1,4 +1,4 @@
-package com.sustech.cs209a_project.Utils;
+package com.sustech.cs209a_project.utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
