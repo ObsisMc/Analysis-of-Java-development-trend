@@ -32,6 +32,10 @@ public class LanguageSearcher {
         JsonIO.saveJSON(res, "languageByTime.json");
     }
 
+    public static String parseURLName(String name) {
+        return name.replaceAll("#", "%23").replaceAll("[+]", "%2B");
+    }
+
     public static JSONObject crawlLanguageRepoIncrByMonth(int yearBegin, int yearEnd) throws IOException {
         String urlFormat = "https://api.github.com/search/repositories?q=language:%s+created:%s";
         String keyName = "total_count";
@@ -43,7 +47,7 @@ public class LanguageSearcher {
                 for (int keyI = 0; keyI < popularLanguage.size(); ) {
                     String languageKey = popularLanguage.get(keyI);
                     try {
-                        Connection.Response response = Jsoup.connect(String.format(urlFormat, languageKey, yearMonth))
+                        Connection.Response response = Jsoup.connect(String.format(urlFormat, parseURLName(languageKey), yearMonth))
                                 .header("Authorization", String.format("token %s", token))
                                 .ignoreContentType(true).ignoreHttpErrors(true)
                                 .timeout(5000)
