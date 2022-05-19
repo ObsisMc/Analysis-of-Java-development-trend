@@ -15,7 +15,7 @@ public class JsonIO {
 //        adjustRelationJSON(0.8f);
 //        getAllTopTopic();
 //        transToVisFormat();
-        checkDuplication(false);
+        checkDuplication(true);
 //        test();
     }
 
@@ -36,7 +36,7 @@ public class JsonIO {
 
     public static void checkDuplication(boolean drop) {
 //        String jsonPath = "jsonTotal.json";
-        String jsonPath = "jsonTotalWithoutDuplicate.json";
+        String jsonPath = "jsonTotal.json";
         String outputPath = "jsonTotalWithoutDuplicate.json";
 
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
