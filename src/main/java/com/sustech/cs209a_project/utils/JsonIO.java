@@ -6,13 +6,77 @@ import com.alibaba.fastjson.JSONObject;
 import com.sustech.cs209a_project.pojo.RelationNode;
 
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class JsonIO {
     public static void main(String[] args) {
 //        adjustRelationJSON(0.8f);
 //        getAllTopTopic();
-        transToVisFormat();
+//        transToVisFormat();
+        checkDuplication(false);
+//        test();
+    }
+
+    public static void test() {
+        JSONArray jsonArray = readJSONArray("jsonTotal.json");
+        String date_json1 = jsonArray.getJSONObject(0).getString("updated_at");
+        String date_json2 = jsonArray.getJSONObject(1).getString("updated_at");
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        try {
+            Date date1 = df.parse(date_json1);
+            Date date2 = df.parse(date_json2);
+            System.out.printf("%s > %s: %d", date1, date2, date1.compareTo(date2));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void checkDuplication(boolean drop) {
+//        String jsonPath = "jsonTotal.json";
+        String jsonPath = "jsonTotalWithoutDuplicate.json";
+        String outputPath = "jsonTotalWithoutDuplicate.json";
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+        JSONArray jsonArray = readJSONArray(jsonPath);
+        assert jsonArray != null;
+        HashSet<Integer> ids = new HashSet<>();
+        HashMap<Integer, JSONObject> res = new HashMap<>();
+
+        int duplicateN = 0;
+        for (int i = 0; i < jsonArray.size(); i++) {
+            JSONObject tmp = jsonArray.getJSONObject(i);
+            int id = tmp.getInteger("id");
+            if (ids.contains(id)) {
+                duplicateN++;
+
+                try {
+                    Date now_date = df.parse(tmp.getString("updated_at"));
+                    Date before_date = df.parse(res.get(id).getString("updated_at"));
+                    if (now_date.compareTo(before_date) >= 0) {
+                        res.put(id, tmp);
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+            } else {
+                ids.add(id);
+                res.put(id, tmp);
+            }
+        }
+        if(drop){
+            JSONArray resArray = new JSONArray();
+            for(Integer id: res.keySet()){
+                resArray.add(res.get(id));
+            }
+            saveJSONArray(resArray,outputPath);
+        }
+        System.out.printf("Actual size: %d, duplication: %d", ids.size(), duplicateN);
+
     }
 
     public static void saveJSONArray(JSONArray jsonArray, String path) {
@@ -211,7 +275,7 @@ public class JsonIO {
             }
         });
         LinkedHashMap<String, Integer> topicsMap = new LinkedHashMap<>();
-        for(int i=0;i<100;i++){
+        for (int i = 0; i < 100; i++) {
             topicsMap.put(topTopics.get(i).getKey(), topTopics.get(i).getValue());
         }
         return topicsMap;

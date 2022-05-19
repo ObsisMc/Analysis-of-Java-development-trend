@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div id="relationJava" style="width:1200px;height:800px">
+  <div id="relationJava" style="width:100%" :style="{height:hgt}">
   </div>
 </div>
 </template>
@@ -8,6 +8,7 @@
 <script>
 export default {
   name: "RelationshipJava",
+  props: ["hgt"],
   methods:{
     draw(){
       var myChart = this.$echarts.init(document.getElementById('relationJava'));

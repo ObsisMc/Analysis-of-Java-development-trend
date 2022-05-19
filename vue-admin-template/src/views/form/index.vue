@@ -1,66 +1,41 @@
 <template>
-  <div class="app-container">
-    <el-form ref="form" :model="form" label-width="120px">
-      <el-form-item label="Activity name">
-        <el-input v-model="form.name" />
-      </el-form-item>
-      <el-form-item label="Activity zone">
-        <el-select v-model="form.region" placeholder="please select your zone">
-          <el-option label="Zone one" value="shanghai" />
-          <el-option label="Zone two" value="beijing" />
-        </el-select>
-      </el-form-item>
-      <el-form-item label="Activity time">
-        <el-col :span="11">
-          <el-date-picker v-model="form.date1" type="date" placeholder="Pick a date" style="width: 100%;" />
-        </el-col>
-        <el-col :span="2" class="line">-</el-col>
-        <el-col :span="11">
-          <el-time-picker v-model="form.date2" type="fixed-time" placeholder="Pick a time" style="width: 100%;" />
-        </el-col>
-      </el-form-item>
-      <el-form-item label="Instant delivery">
-        <el-switch v-model="form.delivery" />
-      </el-form-item>
-      <el-form-item label="Activity type">
-        <el-checkbox-group v-model="form.type">
-          <el-checkbox label="Online activities" name="type" />
-          <el-checkbox label="Promotion activities" name="type" />
-          <el-checkbox label="Offline activities" name="type" />
-          <el-checkbox label="Simple brand exposure" name="type" />
-        </el-checkbox-group>
-      </el-form-item>
-      <el-form-item label="Resources">
-        <el-radio-group v-model="form.resource">
-          <el-radio label="Sponsor" />
-          <el-radio label="Venue" />
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item label="Activity form">
-        <el-input v-model="form.desc" type="textarea" />
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="onSubmit">Create</el-button>
-        <el-button @click="onCancel">Cancel</el-button>
-      </el-form-item>
-    </el-form>
+  <div class="dashboard-container">
+    <el-row>
+      <Search></Search>
+    </el-row>
+    <el-row style="margin-bottom: 16px">
+      <WordCloud class="graph-container" style="border-radius: 50%; margin-top: 10px"></WordCloud>
+    </el-row>
+    <el-row >
+      <el-col class="graph-container" :span="11">
+        <RelationshipJava ref="relation" :hgt="relationHeight"></RelationshipJava>
+      </el-col>
+      <el-col :span="1" style="border: 1px solid transparent"></el-col>
+      <el-col class="graph-container" :span="12">
+          <License ref="license"></License>
+      </el-col>
+
+    </el-row>
+
+
   </div>
 </template>
 
 <script>
+import Search from "@/views/form/components/Search";
+import WordCloud from "@/views/form/components/WordCloud";
+import RelationshipJava from "@/views/form/components/RelationshipJava";
+import License from "@/views/form/components/License";
 export default {
+  components: {License, RelationshipJava, Search, WordCloud},
   data() {
     return {
-      form: {
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
-      }
+
+    }
+  },
+  computed:{
+    relationHeight(){
+      return window.innerHeight * 1.2 + "px";
     }
   },
   methods: {
@@ -68,18 +43,41 @@ export default {
       this.$message('submit!')
     },
     onCancel() {
+      this.form.date='';
+      this.form.sizeMin='';
+      this.form.sizeMax='';
+      this.form.starMin='';
+      this.form.starMax='';
       this.$message({
         message: 'cancel!',
         type: 'warning'
-      })
+      });
+
+    },
+    handleChange(val) {
+      console.log(val);
     }
+  },
+  mounted() {
+    this.$refs.relation.draw();
+    this.$refs.license.draw();
   }
 }
 </script>
 
 <style scoped>
-.line{
-  text-align: center;
+
+.graph-container {
+  background-color: rgb(255, 255, 255);
+  padding: 16px 16px;
+  margin-bottom: 32px;
+}
+.dashboard-container {
+  padding: 32px;
+  background-color: rgb(240, 242, 245);
+  position: relative;
+  margin: 30px;
+
 }
 </style>
 

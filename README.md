@@ -48,17 +48,29 @@ JAVA发展趋势分析:
         - star最多的前20%（or fixed number）的repo中, which languages does JAVA coopereate with.
     3. what are hot topics and fields:
         - use description of repos to analyse frequency of words
+    4. license
+    5. relation of the number of contributors, issue, pr, stars, size
 
    > Goal: give users a picture about how popular Java is nowadays and give developers some suggestions about what they should learn to catch up with the development of JAVA
 
 2. community situation:
 
 > haven't come up with detail solutions, followings are just conceptions
-
-1. number of issue, PR, comments
-2. updated time of things above
+1. commit number by time
+2. activity:
+   1. author
+      1. issues' tags number
+      2. issue time span
+      3. average comments of pr
+      4. release number
+   2. contributor
+      1. number of contributor
+   3. both
+      1. average comments of issue
 3. habits of users involved in JAVA repos
     1. what's the work time for them during a day (or a week)
+
+> star history api: https://api.codetabs.com/v1/stars/?repo=01ankidroid/Anki-Android 
 
 > Goal: manifest vigour of JAVA, and also give JAVA developers advice on how and when to communicate with other JAVA developers.
 
@@ -120,9 +132,9 @@ should have data: 39k(30+6+3) + 20k(10+4+6) + 1k + 1k +1k + 172
 1. java ranks
 
    1. total number rank
-
-      <img src="./README.assets/image-20220510224318327.png" alt="image-20220510224318327" style="zoom: 80%;" />
-
+   
+      ![img_2.png](img_2.png)![img_3.png](img_3.png)
+> format: [{ name: str , type: "line" stack: "Total", smooth: true, data: [] },{...},...]
    2. ![image-20220510224445556](./README.assets/image-20220510224445556.png)
 
 2. word cloud
@@ -136,7 +148,12 @@ should have data: 39k(30+6+3) + 20k(10+4+6) + 1k + 1k +1k + 172
 4. when do users likely to work
 
 5. a repo 兴衰： commit数 by time
+![img.png](img.png)
+> data format: {date:[t0,t1,..,tn], data:[N0,N1,...,Nn]} 
 
+![img_1.png](img_1.png)
+> format: {hours:[...], days:[...], data:[[],[],...]} --> 
+> hours (str): X axis; days (str): Y axis; data: [x, y, n], there are n commits at (x, y)
 
 1. Bonus:
    1. user login

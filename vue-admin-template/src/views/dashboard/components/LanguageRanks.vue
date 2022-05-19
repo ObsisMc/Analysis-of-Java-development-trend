@@ -1,7 +1,23 @@
 <template>
-  <div  style="background:#fff;padding:16px 16px 0;margin-bottom:32px;width: 600px;height:450px; ">
-    <div id="languagerank" style="width: 600px;height:400px;"></div>
-<!--    <div id="languagerankline" style="width: 600px;height:400px;"></div>-->
+  <div>
+    <div id="languagerank" style="width: 100%;" :style="{height:hgt}"></div>
+    <el-tooltip  placement="top">
+      <el-button @click="draw" type="primary" circle size="mini"
+                 icon="el-icon-refresh-left" style="float: right"
+                 :disabled="buttonValid">
+      </el-button>
+      <div slot="content">
+        <span v-if="buttonValid">
+          Need to wait...
+        </span>
+        <span v-if="!buttonValid">
+          Run again!
+        </span>
+
+      </div>
+    </el-tooltip>
+
+
   </div>
 
 </template>
@@ -9,10 +25,17 @@
 <script>
 export default {
   name: "LanguageRanks",
+  props: ["hgt"],
+  data() {
+    return {
+      myChart: null,
+      buttonValid: false,
+    }
+  },
   methods: {
-    initEcharts() {
+    draw() {
+      this.buttonValid = !this.buttonValid;
       var newArr = null;
-      console.log("hi");
       this.$axios.get("json/rank.json").then(response => {
         newArr = response.data;
         // 柱形颜色
@@ -32,7 +55,7 @@ export default {
         };
 
         // 基于准备好的dom，初始化echarts实例
-        var myChart = this.$echarts.init(document.getElementById('languagerank'));
+        var myChart = this.myChart
         var updateFrequency = 2000;	// 数据更新速度
         var years = [];
         var startIndex = 0;
@@ -45,6 +68,9 @@ export default {
         var startCut = years[startIndex].nums;
 
         var option = {
+          title: {
+            text: 'Rank by time'
+          },
           // 图标的上下左右边界
           grid: {
             top: 10,
@@ -160,101 +186,19 @@ export default {
           // 使用刚指定的配置项和数据显示图表。
           myChart.setOption(option);
         }
+
+        setTimeout(() => {
+          this.buttonValid = !this.buttonValid;
+        }, 20000);
       }).catch(function (error) { // 请求失败处理
           console.log(error);
         }
       )
-    },
-    runLines() {
-      this.$axios.get("/static/demoline.json").then(response => {
-        var _rawData = response.data;
-        var myChart = this.$echarts.init(document.getElementById('languagerankline'));
-        // var countries = ['Australia', 'Canada', 'China', 'Cuba', 'Finland', 'France', 'Germany', 'Iceland', 'India', 'Japan', 'North Korea', 'South Korea', 'New Zealand', 'Norway', 'Poland', 'Russia', 'Turkey', 'United Kingdom', 'United States'];
-        const countries = [
-          'Finland',
-          'France',
-          'Germany',
-          'Iceland',
-          'Norway',
-          'Poland',
-          'Russia',
-          'United Kingdom'
-        ];
-        const datasetWithFilters = [];
-        const seriesList = [];
-        this.$echarts.util.each(countries, function (country) {
-          var datasetId = 'dataset_' + country;
-          datasetWithFilters.push({
-            id: datasetId,
-            fromDatasetId: 'dataset_raw',
-            transform: {
-              type: 'filter',
-              config: {
-                and: [
-                  {dimension: 'Year', gte: 1950},
-                  {dimension: 'Country', '=': country}
-                ]
-              }
-            }
-          });
-          seriesList.push({
-            type: 'line',
-            datasetId: datasetId,
-            showSymbol: false,
-            name: country,
-            endLabel: {
-              show: true,
-              formatter: function (params) {
-                return params.value[3] + ': ' + params.value[0];
-              }
-            },
-            labelLayout: {
-              moveOverlap: 'shiftY'
-            },
-            emphasis: {
-              focus: 'series'
-            },
-            encode: {
-              x: 'Year',
-              y: 'Income',
-              label: ['Country', 'Income'],
-              itemName: 'Year',
-              tooltip: ['Income']
-            }
-          });
-        });
-        console.log(seriesList);
-        var option = {
-          series: seriesList,
-          animationDuration: 10000,
-          dataset: [
-            {
-              id: 'dataset_raw',
-              source: _rawData
-            },
-            ...datasetWithFilters
-          ],
-          title: {
-            text: 'Income of Germany and France since 1950'
-          },
-          tooltip: {
-            order: 'valueDesc',
-            trigger: 'axis'
-          },
-          xAxis: {
-            type: 'category',
-            nameLocation: 'middle'
-          },
-          yAxis: {
-            name: 'Income'
-          },
-          grid: {
-            right: 140
-          }
-        };
-        myChart.setOption(option);
-      });
     }
+  },
+  mounted() {
+    this.myChart = this.$echarts.init(document.getElementById('languagerank'));
+    this.draw();
   }
 }
 </script>
