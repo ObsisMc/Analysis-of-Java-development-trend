@@ -1,0 +1,1907 @@
+{
+  "2007": [
+    {
+      "count": 0,
+      "name": "C",
+      "value": 0
+    },
+    {
+      "count": 0,
+      "name": "C#",
+      "value": 0
+    },
+    {
+      "count": 0,
+      "name": "C++",
+      "value": 0
+    },
+    {
+      "count": 0,
+      "name": "CoffeeScript",
+      "value": 0
+    },
+    {
+      "count": 0,
+      "name": "CSS",
+      "value": 0
+    },
+    {
+      "count": 0,
+      "name": "Dart",
+      "value": 0
+    },
+    {
+      "count": 0,
+      "name": "DM",
+      "value": 0
+    },
+    {
+      "count": 0,
+      "name": "Elixir",
+      "value": 0
+    },
+    {
+      "count": 0,
+      "name": "Go",
+      "value": 0
+    },
+    {
+      "count": 0,
+      "name": "Groovy",
+      "value": 0
+    },
+    {
+      "count": 0,
+      "name": "HTML",
+      "value": 0
+    },
+    {
+      "count": 0,
+      "name": "Java",
+      "value": 0
+    },
+    {
+      "count": 0,
+      "name": "JavaScript",
+      "value": 0
+    },
+    {
+      "count": 0,
+      "name": "Kotlin",
+      "value": 0
+    },
+    {
+      "count": 0,
+      "name": "Objective-C",
+      "value": 0
+    },
+    {
+      "count": 0,
+      "name": "Perl",
+      "value": 0
+    },
+    {
+      "count": 0,
+      "name": "PHP",
+      "value": 0
+    },
+    {
+      "count": 0,
+      "name": "PowerShell",
+      "value": 0
+    },
+    {
+      "count": 0,
+      "name": "Python",
+      "value": 0
+    },
+    {
+      "count": 1,
+      "name": "Ruby",
+      "value": 1
+    },
+    {
+      "count": 0,
+      "name": "Rust",
+      "value": 0
+    },
+    {
+      "count": 0,
+      "name": "Scala",
+      "value": 0
+    },
+    {
+      "count": 0,
+      "name": "Shell",
+      "value": 0
+    },
+    {
+      "count": 0,
+      "name": "Swift",
+      "value": 0
+    },
+    {
+      "count": 0,
+      "name": "TypeScript",
+      "value": 0
+    }
+  ],
+  "2008": [
+    {
+      "count": 875,
+      "name": "C",
+      "value": 875
+    },
+    {
+      "count": 134,
+      "name": "C#",
+      "value": 134
+    },
+    {
+      "count": 507,
+      "name": "C++",
+      "value": 507
+    },
+    {
+      "count": 1,
+      "name": "CoffeeScript",
+      "value": 1
+    },
+    {
+      "count": 80,
+      "name": "CSS",
+      "value": 80
+    },
+    {
+      "count": 0,
+      "name": "Dart",
+      "value": 0
+    },
+    {
+      "count": 0,
+      "name": "DM",
+      "value": 0
+    },
+    {
+      "count": 0,
+      "name": "Elixir",
+      "value": 0
+    },
+    {
+      "count": 5,
+      "name": "Go",
+      "value": 5
+    },
+    {
+      "count": 30,
+      "name": "Groovy",
+      "value": 30
+    },
+    {
+      "count": 122,
+      "name": "HTML",
+      "value": 122
+    },
+    {
+      "count": 555,
+      "name": "Java",
+      "value": 555
+    },
+    {
+      "count": 1847,
+      "name": "JavaScript",
+      "value": 1847
+    },
+    {
+      "count": 0,
+      "name": "Kotlin",
+      "value": 0
+    },
+    {
+      "count": 302,
+      "name": "Objective-C",
+      "value": 302
+    },
+    {
+      "count": 719,
+      "name": "Perl",
+      "value": 719
+    },
+    {
+      "count": 722,
+      "name": "PHP",
+      "value": 722
+    },
+    {
+      "count": 0,
+      "name": "PowerShell",
+      "value": 0
+    },
+    {
+      "count": 1399,
+      "name": "Python",
+      "value": 1399
+    },
+    {
+      "count": 7518,
+      "name": "Ruby",
+      "value": 7519
+    },
+    {
+      "count": 1,
+      "name": "Rust",
+      "value": 1
+    },
+    {
+      "count": 49,
+      "name": "Scala",
+      "value": 49
+    },
+    {
+      "count": 295,
+      "name": "Shell",
+      "value": 295
+    },
+    {
+      "count": 1,
+      "name": "Swift",
+      "value": 1
+    },
+    {
+      "count": 2,
+      "name": "TypeScript",
+      "value": 2
+    }
+  ],
+  "2009": [
+    {
+      "count": 3739,
+      "name": "C",
+      "value": 4614
+    },
+    {
+      "count": 1138,
+      "name": "C#",
+      "value": 1272
+    },
+    {
+      "count": 2447,
+      "name": "C++",
+      "value": 2954
+    },
+    {
+      "count": 11,
+      "name": "CoffeeScript",
+      "value": 12
+    },
+    {
+      "count": 257,
+      "name": "CSS",
+      "value": 337
+    },
+    {
+      "count": 1,
+      "name": "Dart",
+      "value": 1
+    },
+    {
+      "count": 0,
+      "name": "DM",
+      "value": 0
+    },
+    {
+      "count": 6,
+      "name": "Elixir",
+      "value": 6
+    },
+    {
+      "count": 100,
+      "name": "Go",
+      "value": 105
+    },
+    {
+      "count": 191,
+      "name": "Groovy",
+      "value": 221
+    },
+    {
+      "count": 433,
+      "name": "HTML",
+      "value": 555
+    },
+    {
+      "count": 3651,
+      "name": "Java",
+      "value": 4206
+    },
+    {
+      "count": 7246,
+      "name": "JavaScript",
+      "value": 9093
+    },
+    {
+      "count": 2,
+      "name": "Kotlin",
+      "value": 2
+    },
+    {
+      "count": 1579,
+      "name": "Objective-C",
+      "value": 1881
+    },
+    {
+      "count": 4487,
+      "name": "Perl",
+      "value": 5206
+    },
+    {
+      "count": 4003,
+      "name": "PHP",
+      "value": 4725
+    },
+    {
+      "count": 11,
+      "name": "PowerShell",
+      "value": 11
+    },
+    {
+      "count": 7059,
+      "name": "Python",
+      "value": 8458
+    },
+    {
+      "count": 16172,
+      "name": "Ruby",
+      "value": 23691
+    },
+    {
+      "count": 9,
+      "name": "Rust",
+      "value": 10
+    },
+    {
+      "count": 471,
+      "name": "Scala",
+      "value": 520
+    },
+    {
+      "count": 1303,
+      "name": "Shell",
+      "value": 1598
+    },
+    {
+      "count": 5,
+      "name": "Swift",
+      "value": 6
+    },
+    {
+      "count": 8,
+      "name": "TypeScript",
+      "value": 10
+    }
+  ],
+  "2010": [
+    {
+      "count": 8698,
+      "name": "C",
+      "value": 13312
+    },
+    {
+      "count": 3439,
+      "name": "C#",
+      "value": 4711
+    },
+    {
+      "count": 5815,
+      "name": "C++",
+      "value": 8769
+    },
+    {
+      "count": 166,
+      "name": "CoffeeScript",
+      "value": 178
+    },
+    {
+      "count": 613,
+      "name": "CSS",
+      "value": 950
+    },
+    {
+      "count": 3,
+      "name": "Dart",
+      "value": 4
+    },
+    {
+      "count": 0,
+      "name": "DM",
+      "value": 0
+    },
+    {
+      "count": 4,
+      "name": "Elixir",
+      "value": 10
+    },
+    {
+      "count": 382,
+      "name": "Go",
+      "value": 487
+    },
+    {
+      "count": 611,
+      "name": "Groovy",
+      "value": 832
+    },
+    {
+      "count": 997,
+      "name": "HTML",
+      "value": 1552
+    },
+    {
+      "count": 12436,
+      "name": "Java",
+      "value": 16642
+    },
+    {
+      "count": 20050,
+      "name": "JavaScript",
+      "value": 29143
+    },
+    {
+      "count": 18,
+      "name": "Kotlin",
+      "value": 20
+    },
+    {
+      "count": 3389,
+      "name": "Objective-C",
+      "value": 5270
+    },
+    {
+      "count": 5061,
+      "name": "Perl",
+      "value": 10267
+    },
+    {
+      "count": 12196,
+      "name": "PHP",
+      "value": 16921
+    },
+    {
+      "count": 30,
+      "name": "PowerShell",
+      "value": 41
+    },
+    {
+      "count": 15996,
+      "name": "Python",
+      "value": 24454
+    },
+    {
+      "count": 27271,
+      "name": "Ruby",
+      "value": 50962
+    },
+    {
+      "count": 13,
+      "name": "Rust",
+      "value": 23
+    },
+    {
+      "count": 1284,
+      "name": "Scala",
+      "value": 1804
+    },
+    {
+      "count": 3268,
+      "name": "Shell",
+      "value": 4866
+    },
+    {
+      "count": 17,
+      "name": "Swift",
+      "value": 23
+    },
+    {
+      "count": 40,
+      "name": "TypeScript",
+      "value": 50
+    }
+  ],
+  "2011": [
+    {
+      "count": 18897,
+      "name": "C",
+      "value": 32209
+    },
+    {
+      "count": 8740,
+      "name": "C#",
+      "value": 13451
+    },
+    {
+      "count": 15403,
+      "name": "C++",
+      "value": 24172
+    },
+    {
+      "count": 2019,
+      "name": "CoffeeScript",
+      "value": 2197
+    },
+    {
+      "count": 2076,
+      "name": "CSS",
+      "value": 3026
+    },
+    {
+      "count": 13,
+      "name": "Dart",
+      "value": 17
+    },
+    {
+      "count": 1,
+      "name": "DM",
+      "value": 1
+    },
+    {
+      "count": 9,
+      "name": "Elixir",
+      "value": 19
+    },
+    {
+      "count": 1171,
+      "name": "Go",
+      "value": 1658
+    },
+    {
+      "count": 1373,
+      "name": "Groovy",
+      "value": 2205
+    },
+    {
+      "count": 3104,
+      "name": "HTML",
+      "value": 4656
+    },
+    {
+      "count": 39082,
+      "name": "Java",
+      "value": 55724
+    },
+    {
+      "count": 51350,
+      "name": "JavaScript",
+      "value": 80493
+    },
+    {
+      "count": 29,
+      "name": "Kotlin",
+      "value": 49
+    },
+    {
+      "count": 9132,
+      "name": "Objective-C",
+      "value": 14402
+    },
+    {
+      "count": 7975,
+      "name": "Perl",
+      "value": 18242
+    },
+    {
+      "count": 30774,
+      "name": "PHP",
+      "value": 47695
+    },
+    {
+      "count": 100,
+      "name": "PowerShell",
+      "value": 141
+    },
+    {
+      "count": 35701,
+      "name": "Python",
+      "value": 60155
+    },
+    {
+      "count": 56593,
+      "name": "Ruby",
+      "value": 107555
+    },
+    {
+      "count": 145,
+      "name": "Rust",
+      "value": 168
+    },
+    {
+      "count": 2978,
+      "name": "Scala",
+      "value": 4782
+    },
+    {
+      "count": 9459,
+      "name": "Shell",
+      "value": 14325
+    },
+    {
+      "count": 40,
+      "name": "Swift",
+      "value": 63
+    },
+    {
+      "count": 113,
+      "name": "TypeScript",
+      "value": 163
+    }
+  ],
+  "2012": [
+    {
+      "count": 34710,
+      "name": "C",
+      "value": 66919
+    },
+    {
+      "count": 22363,
+      "name": "C#",
+      "value": 35814
+    },
+    {
+      "count": 33695,
+      "name": "C++",
+      "value": 57867
+    },
+    {
+      "count": 5837,
+      "name": "CoffeeScript",
+      "value": 8034
+    },
+    {
+      "count": 7269,
+      "name": "CSS",
+      "value": 10295
+    },
+    {
+      "count": 424,
+      "name": "Dart",
+      "value": 441
+    },
+    {
+      "count": 6,
+      "name": "DM",
+      "value": 7
+    },
+    {
+      "count": 96,
+      "name": "Elixir",
+      "value": 115
+    },
+    {
+      "count": 3786,
+      "name": "Go",
+      "value": 5444
+    },
+    {
+      "count": 2860,
+      "name": "Groovy",
+      "value": 5065
+    },
+    {
+      "count": 7859,
+      "name": "HTML",
+      "value": 12515
+    },
+    {
+      "count": 90846,
+      "name": "Java",
+      "value": 146570
+    },
+    {
+      "count": 126890,
+      "name": "JavaScript",
+      "value": 207383
+    },
+    {
+      "count": 116,
+      "name": "Kotlin",
+      "value": 165
+    },
+    {
+      "count": 21498,
+      "name": "Objective-C",
+      "value": 35900
+    },
+    {
+      "count": 9763,
+      "name": "Perl",
+      "value": 28005
+    },
+    {
+      "count": 61901,
+      "name": "PHP",
+      "value": 109596
+    },
+    {
+      "count": 664,
+      "name": "PowerShell",
+      "value": 805
+    },
+    {
+      "count": 67349,
+      "name": "Python",
+      "value": 127504
+    },
+    {
+      "count": 97122,
+      "name": "Ruby",
+      "value": 204677
+    },
+    {
+      "count": 199,
+      "name": "Rust",
+      "value": 367
+    },
+    {
+      "count": 5363,
+      "name": "Scala",
+      "value": 10145
+    },
+    {
+      "count": 20190,
+      "name": "Shell",
+      "value": 34515
+    },
+    {
+      "count": 79,
+      "name": "Swift",
+      "value": 142
+    },
+    {
+      "count": 282,
+      "name": "TypeScript",
+      "value": 445
+    }
+  ],
+  "2013": [
+    {
+      "count": 53555,
+      "name": "C",
+      "value": 120474
+    },
+    {
+      "count": 44635,
+      "name": "C#",
+      "value": 80449
+    },
+    {
+      "count": 66055,
+      "name": "C++",
+      "value": 123922
+    },
+    {
+      "count": 9882,
+      "name": "CoffeeScript",
+      "value": 17916
+    },
+    {
+      "count": 63182,
+      "name": "CSS",
+      "value": 73477
+    },
+    {
+      "count": 1435,
+      "name": "Dart",
+      "value": 1876
+    },
+    {
+      "count": 22,
+      "name": "DM",
+      "value": 29
+    },
+    {
+      "count": 732,
+      "name": "Elixir",
+      "value": 847
+    },
+    {
+      "count": 11511,
+      "name": "Go",
+      "value": 16955
+    },
+    {
+      "count": 3493,
+      "name": "Groovy",
+      "value": 8558
+    },
+    {
+      "count": 17764,
+      "name": "HTML",
+      "value": 30279
+    },
+    {
+      "count": 179198,
+      "name": "Java",
+      "value": 325768
+    },
+    {
+      "count": 255177,
+      "name": "JavaScript",
+      "value": 462560
+    },
+    {
+      "count": 225,
+      "name": "Kotlin",
+      "value": 390
+    },
+    {
+      "count": 41246,
+      "name": "Objective-C",
+      "value": 77146
+    },
+    {
+      "count": 12173,
+      "name": "Perl",
+      "value": 40178
+    },
+    {
+      "count": 105231,
+      "name": "PHP",
+      "value": 214827
+    },
+    {
+      "count": 1489,
+      "name": "PowerShell",
+      "value": 2294
+    },
+    {
+      "count": 120135,
+      "name": "Python",
+      "value": 247639
+    },
+    {
+      "count": 154568,
+      "name": "Ruby",
+      "value": 359245
+    },
+    {
+      "count": 639,
+      "name": "Rust",
+      "value": 1006
+    },
+    {
+      "count": 9119,
+      "name": "Scala",
+      "value": 19264
+    },
+    {
+      "count": 36533,
+      "name": "Shell",
+      "value": 71048
+    },
+    {
+      "count": 201,
+      "name": "Swift",
+      "value": 343
+    },
+    {
+      "count": 1502,
+      "name": "TypeScript",
+      "value": 1947
+    }
+  ],
+  "2014": [
+    {
+      "count": 88827,
+      "name": "C",
+      "value": 209301
+    },
+    {
+      "count": 81013,
+      "name": "C#",
+      "value": 161462
+    },
+    {
+      "count": 105210,
+      "name": "C++",
+      "value": 229132
+    },
+    {
+      "count": 14613,
+      "name": "CoffeeScript",
+      "value": 32529
+    },
+    {
+      "count": 167027,
+      "name": "CSS",
+      "value": 240504
+    },
+    {
+      "count": 2173,
+      "name": "Dart",
+      "value": 4049
+    },
+    {
+      "count": 112,
+      "name": "DM",
+      "value": 141
+    },
+    {
+      "count": 1442,
+      "name": "Elixir",
+      "value": 2289
+    },
+    {
+      "count": 25320,
+      "name": "Go",
+      "value": 42275
+    },
+    {
+      "count": 5599,
+      "name": "Groovy",
+      "value": 14157
+    },
+    {
+      "count": 83709,
+      "name": "HTML",
+      "value": 113988
+    },
+    {
+      "count": 329050,
+      "name": "Java",
+      "value": 654818
+    },
+    {
+      "count": 415481,
+      "name": "JavaScript",
+      "value": 878041
+    },
+    {
+      "count": 475,
+      "name": "Kotlin",
+      "value": 865
+    },
+    {
+      "count": 62216,
+      "name": "Objective-C",
+      "value": 139362
+    },
+    {
+      "count": 47541,
+      "name": "Perl",
+      "value": 87719
+    },
+    {
+      "count": 153906,
+      "name": "PHP",
+      "value": 368733
+    },
+    {
+      "count": 3621,
+      "name": "PowerShell",
+      "value": 5915
+    },
+    {
+      "count": 193936,
+      "name": "Python",
+      "value": 441575
+    },
+    {
+      "count": 182693,
+      "name": "Ruby",
+      "value": 541938
+    },
+    {
+      "count": 3074,
+      "name": "Rust",
+      "value": 4080
+    },
+    {
+      "count": 12738,
+      "name": "Scala",
+      "value": 32002
+    },
+    {
+      "count": 62156,
+      "name": "Shell",
+      "value": 133204
+    },
+    {
+      "count": 14060,
+      "name": "Swift",
+      "value": 14403
+    },
+    {
+      "count": 4021,
+      "name": "TypeScript",
+      "value": 5968
+    }
+  ],
+  "2015": [
+    {
+      "count": 138702,
+      "name": "C",
+      "value": 348003
+    },
+    {
+      "count": 160576,
+      "name": "C#",
+      "value": 322038
+    },
+    {
+      "count": 175095,
+      "name": "C++",
+      "value": 404227
+    },
+    {
+      "count": 14296,
+      "name": "CoffeeScript",
+      "value": 46825
+    },
+    {
+      "count": 189390,
+      "name": "CSS",
+      "value": 429894
+    },
+    {
+      "count": 1558,
+      "name": "Dart",
+      "value": 5607
+    },
+    {
+      "count": 203,
+      "name": "DM",
+      "value": 344
+    },
+    {
+      "count": 4365,
+      "name": "Elixir",
+      "value": 6654
+    },
+    {
+      "count": 43655,
+      "name": "Go",
+      "value": 85930
+    },
+    {
+      "count": 5711,
+      "name": "Groovy",
+      "value": 19868
+    },
+    {
+      "count": 368376,
+      "name": "HTML",
+      "value": 482364
+    },
+    {
+      "count": 622488,
+      "name": "Java",
+      "value": 1277306
+    },
+    {
+      "count": 641316,
+      "name": "JavaScript",
+      "value": 1519357
+    },
+    {
+      "count": 1828,
+      "name": "Kotlin",
+      "value": 2693
+    },
+    {
+      "count": 81251,
+      "name": "Objective-C",
+      "value": 220613
+    },
+    {
+      "count": 15015,
+      "name": "Perl",
+      "value": 102734
+    },
+    {
+      "count": 232989,
+      "name": "PHP",
+      "value": 601722
+    },
+    {
+      "count": 7847,
+      "name": "PowerShell",
+      "value": 13762
+    },
+    {
+      "count": 313306,
+      "name": "Python",
+      "value": 754881
+    },
+    {
+      "count": 211184,
+      "name": "Ruby",
+      "value": 753122
+    },
+    {
+      "count": 7893,
+      "name": "Rust",
+      "value": 11973
+    },
+    {
+      "count": 19617,
+      "name": "Scala",
+      "value": 51619
+    },
+    {
+      "count": 134691,
+      "name": "Shell",
+      "value": 267895
+    },
+    {
+      "count": 54132,
+      "name": "Swift",
+      "value": 68535
+    },
+    {
+      "count": 7143,
+      "name": "TypeScript",
+      "value": 13111
+    }
+  ],
+  "2016": [
+    {
+      "count": 166571,
+      "name": "C",
+      "value": 514574
+    },
+    {
+      "count": 230452,
+      "name": "C#",
+      "value": 552490
+    },
+    {
+      "count": 222161,
+      "name": "C++",
+      "value": 626388
+    },
+    {
+      "count": 8386,
+      "name": "CoffeeScript",
+      "value": 55211
+    },
+    {
+      "count": 288274,
+      "name": "CSS",
+      "value": 718168
+    },
+    {
+      "count": 1312,
+      "name": "Dart",
+      "value": 6919
+    },
+    {
+      "count": 216,
+      "name": "DM",
+      "value": 560
+    },
+    {
+      "count": 9992,
+      "name": "Elixir",
+      "value": 16646
+    },
+    {
+      "count": 60829,
+      "name": "Go",
+      "value": 146759
+    },
+    {
+      "count": 6476,
+      "name": "Groovy",
+      "value": 26344
+    },
+    {
+      "count": 664179,
+      "name": "HTML",
+      "value": 1146543
+    },
+    {
+      "count": 933211,
+      "name": "Java",
+      "value": 2210517
+    },
+    {
+      "count": 1013299,
+      "name": "JavaScript",
+      "value": 2532656
+    },
+    {
+      "count": 6237,
+      "name": "Kotlin",
+      "value": 8930
+    },
+    {
+      "count": 96015,
+      "name": "Objective-C",
+      "value": 316628
+    },
+    {
+      "count": 13077,
+      "name": "Perl",
+      "value": 115811
+    },
+    {
+      "count": 283095,
+      "name": "PHP",
+      "value": 884817
+    },
+    {
+      "count": 12715,
+      "name": "PowerShell",
+      "value": 26477
+    },
+    {
+      "count": 463537,
+      "name": "Python",
+      "value": 1218418
+    },
+    {
+      "count": 210975,
+      "name": "Ruby",
+      "value": 964097
+    },
+    {
+      "count": 11994,
+      "name": "Rust",
+      "value": 23967
+    },
+    {
+      "count": 25383,
+      "name": "Scala",
+      "value": 77002
+    },
+    {
+      "count": 119211,
+      "name": "Shell",
+      "value": 387106
+    },
+    {
+      "count": 102619,
+      "name": "Swift",
+      "value": 171154
+    },
+    {
+      "count": 44653,
+      "name": "TypeScript",
+      "value": 57764
+    }
+  ],
+  "2017": [
+    {
+      "count": 201697,
+      "name": "C",
+      "value": 716271
+    },
+    {
+      "count": 334549,
+      "name": "C#",
+      "value": 887039
+    },
+    {
+      "count": 292456,
+      "name": "C++",
+      "value": 918844
+    },
+    {
+      "count": 4183,
+      "name": "CoffeeScript",
+      "value": 59394
+    },
+    {
+      "count": 354930,
+      "name": "CSS",
+      "value": 1073098
+    },
+    {
+      "count": 1959,
+      "name": "Dart",
+      "value": 8878
+    },
+    {
+      "count": 215,
+      "name": "DM",
+      "value": 775
+    },
+    {
+      "count": 12234,
+      "name": "Elixir",
+      "value": 28880
+    },
+    {
+      "count": 86472,
+      "name": "Go",
+      "value": 233231
+    },
+    {
+      "count": 7672,
+      "name": "Groovy",
+      "value": 34016
+    },
+    {
+      "count": 1027475,
+      "name": "HTML",
+      "value": 2174018
+    },
+    {
+      "count": 1273198,
+      "name": "Java",
+      "value": 3483715
+    },
+    {
+      "count": 1467885,
+      "name": "JavaScript",
+      "value": 4000541
+    },
+    {
+      "count": 26647,
+      "name": "Kotlin",
+      "value": 35577
+    },
+    {
+      "count": 79162,
+      "name": "Objective-C",
+      "value": 395790
+    },
+    {
+      "count": 13801,
+      "name": "Perl",
+      "value": 129612
+    },
+    {
+      "count": 376172,
+      "name": "PHP",
+      "value": 1260989
+    },
+    {
+      "count": 20418,
+      "name": "PowerShell",
+      "value": 46895
+    },
+    {
+      "count": 731343,
+      "name": "Python",
+      "value": 1949761
+    },
+    {
+      "count": 231058,
+      "name": "Ruby",
+      "value": 1195155
+    },
+    {
+      "count": 18936,
+      "name": "Rust",
+      "value": 42903
+    },
+    {
+      "count": 28294,
+      "name": "Scala",
+      "value": 105296
+    },
+    {
+      "count": 159744,
+      "name": "Shell",
+      "value": 546850
+    },
+    {
+      "count": 129137,
+      "name": "Swift",
+      "value": 300291
+    },
+    {
+      "count": 162541,
+      "name": "TypeScript",
+      "value": 220305
+    }
+  ],
+  "2018": [
+    {
+      "count": 225486,
+      "name": "C",
+      "value": 941757
+    },
+    {
+      "count": 425103,
+      "name": "C#",
+      "value": 1312142
+    },
+    {
+      "count": 393847,
+      "name": "C++",
+      "value": 1312691
+    },
+    {
+      "count": 2163,
+      "name": "CoffeeScript",
+      "value": 61557
+    },
+    {
+      "count": 411809,
+      "name": "CSS",
+      "value": 1484907
+    },
+    {
+      "count": 18522,
+      "name": "Dart",
+      "value": 27400
+    },
+    {
+      "count": 230,
+      "name": "DM",
+      "value": 1005
+    },
+    {
+      "count": 12610,
+      "name": "Elixir",
+      "value": 41490
+    },
+    {
+      "count": 121986,
+      "name": "Go",
+      "value": 355217
+    },
+    {
+      "count": 8612,
+      "name": "Groovy",
+      "value": 42628
+    },
+    {
+      "count": 1332706,
+      "name": "HTML",
+      "value": 3506724
+    },
+    {
+      "count": 1552235,
+      "name": "Java",
+      "value": 5035950
+    },
+    {
+      "count": 1944428,
+      "name": "JavaScript",
+      "value": 5944969
+    },
+    {
+      "count": 71303,
+      "name": "Kotlin",
+      "value": 106880
+    },
+    {
+      "count": 55429,
+      "name": "Objective-C",
+      "value": 451219
+    },
+    {
+      "count": 10772,
+      "name": "Perl",
+      "value": 140384
+    },
+    {
+      "count": 410076,
+      "name": "PHP",
+      "value": 1671065
+    },
+    {
+      "count": 21568,
+      "name": "PowerShell",
+      "value": 68463
+    },
+    {
+      "count": 1044272,
+      "name": "Python",
+      "value": 2994033
+    },
+    {
+      "count": 220844,
+      "name": "Ruby",
+      "value": 1415999
+    },
+    {
+      "count": 28430,
+      "name": "Rust",
+      "value": 71333
+    },
+    {
+      "count": 27353,
+      "name": "Scala",
+      "value": 132649
+    },
+    {
+      "count": 173674,
+      "name": "Shell",
+      "value": 720524
+    },
+    {
+      "count": 144201,
+      "name": "Swift",
+      "value": 444492
+    },
+    {
+      "count": 286435,
+      "name": "TypeScript",
+      "value": 506740
+    }
+  ],
+  "2019": [
+    {
+      "count": 263428,
+      "name": "C",
+      "value": 1205185
+    },
+    {
+      "count": 486638,
+      "name": "C#",
+      "value": 1798780
+    },
+    {
+      "count": 434713,
+      "name": "C++",
+      "value": 1747404
+    },
+    {
+      "count": 1233,
+      "name": "CoffeeScript",
+      "value": 62790
+    },
+    {
+      "count": 476659,
+      "name": "CSS",
+      "value": 1961566
+    },
+    {
+      "count": 77726,
+      "name": "Dart",
+      "value": 105126
+    },
+    {
+      "count": 215,
+      "name": "DM",
+      "value": 1220
+    },
+    {
+      "count": 12638,
+      "name": "Elixir",
+      "value": 54128
+    },
+    {
+      "count": 149069,
+      "name": "Go",
+      "value": 504286
+    },
+    {
+      "count": 8681,
+      "name": "Groovy",
+      "value": 51309
+    },
+    {
+      "count": 1888963,
+      "name": "HTML",
+      "value": 5395687
+    },
+    {
+      "count": 1698530,
+      "name": "Java",
+      "value": 6734480
+    },
+    {
+      "count": 2286764,
+      "name": "JavaScript",
+      "value": 8231733
+    },
+    {
+      "count": 124220,
+      "name": "Kotlin",
+      "value": 231100
+    },
+    {
+      "count": 40723,
+      "name": "Objective-C",
+      "value": 491942
+    },
+    {
+      "count": 9430,
+      "name": "Perl",
+      "value": 149814
+    },
+    {
+      "count": 429015,
+      "name": "PHP",
+      "value": 2100080
+    },
+    {
+      "count": 22320,
+      "name": "PowerShell",
+      "value": 90783
+    },
+    {
+      "count": 1304250,
+      "name": "Python",
+      "value": 4298283
+    },
+    {
+      "count": 242431,
+      "name": "Ruby",
+      "value": 1658430
+    },
+    {
+      "count": 43451,
+      "name": "Rust",
+      "value": 114784
+    },
+    {
+      "count": 24258,
+      "name": "Scala",
+      "value": 156907
+    },
+    {
+      "count": 175713,
+      "name": "Shell",
+      "value": 896237
+    },
+    {
+      "count": 150723,
+      "name": "Swift",
+      "value": 595215
+    },
+    {
+      "count": 384676,
+      "name": "TypeScript",
+      "value": 891416
+    }
+  ],
+  "2020": [
+    {
+      "count": 303816,
+      "name": "C",
+      "value": 1509001
+    },
+    {
+      "count": 648834,
+      "name": "C#",
+      "value": 2447614
+    },
+    {
+      "count": 518750,
+      "name": "C++",
+      "value": 2266154
+    },
+    {
+      "count": 1001,
+      "name": "CoffeeScript",
+      "value": 63791
+    },
+    {
+      "count": 732721,
+      "name": "CSS",
+      "value": 2694287
+    },
+    {
+      "count": 193067,
+      "name": "Dart",
+      "value": 298193
+    },
+    {
+      "count": 313,
+      "name": "DM",
+      "value": 1533
+    },
+    {
+      "count": 12094,
+      "name": "Elixir",
+      "value": 66222
+    },
+    {
+      "count": 190686,
+      "name": "Go",
+      "value": 694972
+    },
+    {
+      "count": 9048,
+      "name": "Groovy",
+      "value": 60357
+    },
+    {
+      "count": 2663323,
+      "name": "HTML",
+      "value": 8059010
+    },
+    {
+      "count": 1905008,
+      "name": "Java",
+      "value": 8639488
+    },
+    {
+      "count": 3652698,
+      "name": "JavaScript",
+      "value": 11884431
+    },
+    {
+      "count": 193406,
+      "name": "Kotlin",
+      "value": 424506
+    },
+    {
+      "count": 24129,
+      "name": "Objective-C",
+      "value": 516071
+    },
+    {
+      "count": 9073,
+      "name": "Perl",
+      "value": 158887
+    },
+    {
+      "count": 518092,
+      "name": "PHP",
+      "value": 2618172
+    },
+    {
+      "count": 25709,
+      "name": "PowerShell",
+      "value": 116492
+    },
+    {
+      "count": 1869014,
+      "name": "Python",
+      "value": 6167297
+    },
+    {
+      "count": 565517,
+      "name": "Ruby",
+      "value": 2223947
+    },
+    {
+      "count": 67872,
+      "name": "Rust",
+      "value": 182656
+    },
+    {
+      "count": 24857,
+      "name": "Scala",
+      "value": 181764
+    },
+    {
+      "count": 220298,
+      "name": "Shell",
+      "value": 1116535
+    },
+    {
+      "count": 161436,
+      "name": "Swift",
+      "value": 756651
+    },
+    {
+      "count": 641363,
+      "name": "TypeScript",
+      "value": 1532779
+    }
+  ],
+  "2021": [
+    {
+      "count": 353672,
+      "name": "C",
+      "value": 1862673
+    },
+    {
+      "count": 778319,
+      "name": "C#",
+      "value": 3225933
+    },
+    {
+      "count": 580464,
+      "name": "C++",
+      "value": 2846618
+    },
+    {
+      "count": 649,
+      "name": "CoffeeScript",
+      "value": 64440
+    },
+    {
+      "count": 971801,
+      "name": "CSS",
+      "value": 3666088
+    },
+    {
+      "count": 257329,
+      "name": "Dart",
+      "value": 555522
+    },
+    {
+      "count": 344,
+      "name": "DM",
+      "value": 1877
+    },
+    {
+      "count": 15110,
+      "name": "Elixir",
+      "value": 81332
+    },
+    {
+      "count": 217207,
+      "name": "Go",
+      "value": 912179
+    },
+    {
+      "count": 9085,
+      "name": "Groovy",
+      "value": 69442
+    },
+    {
+      "count": 3761522,
+      "name": "HTML",
+      "value": 11820532
+    },
+    {
+      "count": 2033458,
+      "name": "Java",
+      "value": 10672946
+    },
+    {
+      "count": 4614150,
+      "name": "JavaScript",
+      "value": 16498581
+    },
+    {
+      "count": 269884,
+      "name": "Kotlin",
+      "value": 694390
+    },
+    {
+      "count": 14475,
+      "name": "Objective-C",
+      "value": 530546
+    },
+    {
+      "count": 6855,
+      "name": "Perl",
+      "value": 165742
+    },
+    {
+      "count": 601578,
+      "name": "PHP",
+      "value": 3219750
+    },
+    {
+      "count": 26201,
+      "name": "PowerShell",
+      "value": 142693
+    },
+    {
+      "count": 2274025,
+      "name": "Python",
+      "value": 8441322
+    },
+    {
+      "count": 321842,
+      "name": "Ruby",
+      "value": 2545789
+    },
+    {
+      "count": 91517,
+      "name": "Rust",
+      "value": 274173
+    },
+    {
+      "count": 23577,
+      "name": "Scala",
+      "value": 205341
+    },
+    {
+      "count": 239536,
+      "name": "Shell",
+      "value": 1356071
+    },
+    {
+      "count": 168219,
+      "name": "Swift",
+      "value": 924870
+    },
+    {
+      "count": 922096,
+      "name": "TypeScript",
+      "value": 2454875
+    }
+  ]
+}
