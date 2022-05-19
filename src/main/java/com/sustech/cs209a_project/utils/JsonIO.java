@@ -16,7 +16,7 @@ public class JsonIO {
 //        getAllTopTopic();
 //        transToVisFormat();
 //        checkDuplication(true);
-        getTotalRepoNumByLanguageTime();
+        getTotalNumByLanguageTime();
 //        test();
     }
 
@@ -292,8 +292,8 @@ public class JsonIO {
         saveJSONArray(res, "wordCloudVis.json");
     }
 
-    public static void getTotalRepoNumByLanguageTime() {
-        JSONObject jsonRaw = readJSON("languageRepoByTime.json");
+    public static void getTotalNumByLanguageTime() {
+        JSONObject jsonRaw = readJSON("languageUserByTime.json");
         assert jsonRaw != null;
 
         int yearBegin = 2007;
@@ -317,7 +317,7 @@ public class JsonIO {
             }
             res.put(String.valueOf(year), newLanguages);
         }
-        saveJSON(res, "LanguageTotalRepoByTime.json");
+        saveJSON(res, "LanguageTotalUserByTime.json");
     }
 
 }
