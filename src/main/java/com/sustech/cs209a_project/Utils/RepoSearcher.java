@@ -158,15 +158,11 @@ public class RepoSearcher {
                         System.out.println("Fault at " + url);
                         System.out.println(jsonRes.getString("message"));
                     } else {
-                        Instant epochSec = Instant.ofEpochSecond(rateJson.getJSONObject("rate").getLong("reset"));
-                        ZoneId zId = ZoneId.systemDefault();
-                        ZonedDateTime then = ZonedDateTime.ofInstant(epochSec, zId);
-                        ZonedDateTime now = ZonedDateTime.now();
-                        long diffMin = ChronoUnit.MINUTES.between(now, then);
-                        long diffSec = ChronoUnit.SECONDS.between(now, then);
-                        System.out.printf("Need to wait %d min\n (now %s)", diffMin, now);
+                        long waitSec = TimeUtils.waitSecond(rateJson.getJSONObject("rate").getLong("reset"));
+                        long waitMin = waitSec / 60;
+                        System.out.printf("Need to wait %d min\n (now %s)", waitMin, ZonedDateTime.now());
                         try {
-                            Thread.sleep(diffSec * 1000);
+                            Thread.sleep(waitSec * 1000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
