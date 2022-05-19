@@ -28,16 +28,21 @@ public class LanguageSearcher {
     public static void getLanguageRepoIncrByMonth() throws IOException {
         getPopularLanguage();
         String[] searchItems = {"repositories", "users", "issues"};
-        JSONObject res = crawlLanguageRepoIncrByMonth(2007, 2021);
-        JsonIO.saveJSON(res, "language" + "Repo" + "ByTime.json");
+        String[] searchJsonName = {"Repo", "User", "Issue"};
+        for (int i = 1; i < searchItems.length; i++) {
+            JSONObject res = crawlLanguageRepoIncrByMonth(2007, 2021, searchItems[i]);
+            JsonIO.saveJSON(res, "language" + searchJsonName[i] + "ByTime.json");
+        }
+
     }
 
     public static String parseURLName(String name) {
         return name.replaceAll("#", "%23").replaceAll("[+]", "%2B");
     }
 
-    public static JSONObject crawlLanguageRepoIncrByMonth(int yearBegin, int yearEnd) throws IOException {
-        String type = "repositories";
+    public static JSONObject crawlLanguageRepoIncrByMonth(int yearBegin, int yearEnd, String type) throws IOException {
+        assert type.equals("repositories") || type.equals("users") || type.equals("issues");
+
         String urlFormat = "https://api.github.com/search/" + type + "?q=language:%s+created:%s";
         String keyName = "total_count";
         JSONObject res = new JSONObject();
