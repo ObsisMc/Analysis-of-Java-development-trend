@@ -77,7 +77,7 @@ public class RepoSearcher {
                 Connection.Response response = null;
                 try {
                     response = Jsoup.connect(url)
-                            .header("Authorization", String.format("token %s", token))
+                            .header("Authorization", String.format("token %s", token)).timeout(5000)
                             .ignoreHttpErrors(true).ignoreContentType(true).execute();
                 } catch (IOException e) {
                     System.out.println("Trigger exception when get language_url:  " + e.getMessage());
