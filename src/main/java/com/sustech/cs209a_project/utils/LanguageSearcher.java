@@ -29,7 +29,7 @@ public class LanguageSearcher {
         getPopularLanguage();
         String[] searchItems = {"repositories", "users", "issues"};
         JSONObject res = crawlLanguageRepoIncrByMonth(2007, 2021);
-        JsonIO.saveJSON(res, "languageByTime.json");
+        JsonIO.saveJSON(res, "language" + "Repo" + "ByTime.json");
     }
 
     public static String parseURLName(String name) {
@@ -37,7 +37,8 @@ public class LanguageSearcher {
     }
 
     public static JSONObject crawlLanguageRepoIncrByMonth(int yearBegin, int yearEnd) throws IOException {
-        String urlFormat = "https://api.github.com/search/repositories?q=language:%s+created:%s";
+        String type = "repositories";
+        String urlFormat = "https://api.github.com/search/" + type + "?q=language:%s+created:%s";
         String keyName = "total_count";
         JSONObject res = new JSONObject();
         for (int y = yearBegin; y <= yearEnd; y++) {
