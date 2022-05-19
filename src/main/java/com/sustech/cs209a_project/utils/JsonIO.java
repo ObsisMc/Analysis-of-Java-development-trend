@@ -15,7 +15,8 @@ public class JsonIO {
 //        adjustRelationJSON(0.8f);
 //        getAllTopTopic();
 //        transToVisFormat();
-        checkDuplication(true);
+//        checkDuplication(true);
+        getTotalRepoNumByLanguageTime();
 //        test();
     }
 
@@ -68,12 +69,12 @@ public class JsonIO {
                 res.put(id, tmp);
             }
         }
-        if(drop){
+        if (drop) {
             JSONArray resArray = new JSONArray();
-            for(Integer id: res.keySet()){
+            for (Integer id : res.keySet()) {
                 resArray.add(res.get(id));
             }
-            saveJSONArray(resArray,outputPath);
+            saveJSONArray(resArray, outputPath);
         }
         System.out.printf("Actual size: %d, duplication: %d", ids.size(), duplicateN);
 
@@ -91,8 +92,6 @@ public class JsonIO {
         try (BufferedReader bfr = new BufferedReader(new InputStreamReader(new FileInputStream(path)))) {
             String jsonStr = bfr.readLine();
             return JSON.parseArray(jsonStr);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -103,8 +102,6 @@ public class JsonIO {
         try (BufferedReader bfr = new BufferedReader(new InputStreamReader(new FileInputStream(path)))) {
             String jsonStr = bfr.readLine();
             return JSON.parseObject(jsonStr);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -268,7 +265,7 @@ public class JsonIO {
             }
         }
         List<Map.Entry<String, Integer>> topTopics = new ArrayList<>(wordsFrequency.entrySet());
-        Collections.sort(topTopics, new Comparator<Map.Entry<String, Integer>>() {
+        topTopics.sort(new Comparator<Map.Entry<String, Integer>>() {
             @Override
             public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
                 return o2.getValue() - o1.getValue();
@@ -293,6 +290,34 @@ public class JsonIO {
             res.add(word);
         }
         saveJSONArray(res, "wordCloudVis.json");
+    }
+
+    public static void getTotalRepoNumByLanguageTime() {
+        JSONObject jsonRaw = readJSON("languageRepoByTime.json");
+        assert jsonRaw != null;
+
+        int yearBegin = 2007;
+        int yearEnd = 2021;
+        HashMap<String, Integer> languageValue = new HashMap<>();
+        JSONObject res = new JSONObject();
+        for (int year = yearBegin; year < yearEnd + 1; year++) {
+            JSONArray languagesRaw = jsonRaw.getJSONArray(String.valueOf(year));
+            JSONArray newLanguages = new JSONArray();
+            for (int i = 0; i < languagesRaw.size(); i++) {
+                JSONObject language = languagesRaw.getJSONObject(i);
+                String languageName = language.getString("name");
+                int count = language.getInteger("count");
+                int base = 0;
+                if (languageValue.containsKey(languageName)) {
+                    base = languageValue.get(languageName);
+                }
+                language.put("value", base + count);
+                newLanguages.add(language);
+                languageValue.put(languageName, base + count);
+            }
+            res.put(String.valueOf(year), newLanguages);
+        }
+        saveJSON(res, "LanguageTotalRepoByTime.json");
     }
 
 }
