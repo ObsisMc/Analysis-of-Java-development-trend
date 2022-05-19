@@ -3,6 +3,8 @@ package com.sustech.cs209a_project.Utils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.sustech.cs209a_project.pojo.LanguageRank;
+import com.sustech.cs209a_project.pojo.RelationNode;
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -12,19 +14,34 @@ import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.LinkedHashMap;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Crawler {
+    public static List<String> popularLanguage;
+    final private static String token = "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";
+
+    public static void getPopularLanguage() {
+        JSONArray languages = JsonIO.readJSON("popularLanguage.json").getJSONArray("language");
+        popularLanguage = languages.stream().map(o -> (String) o).collect(Collectors.toList());
+    }
+
     public static void main(String[] args) throws IOException {
-        int yearBegin = 2012;
+//        getLanguageNumByYear();
+        getLanguageRepoIncrByMonth();
+    }
+
+    public static void getJavaInfoFromSearch() {
+
+    }
+
+    public static void getLanguageNumByYear() throws IOException {
+        int yearBegin = 2007;
         int yearEnd = 2021;
-        Hashtable<Integer, LinkedHashMap<String, Long>> ranks = getLanguageNumByYear(yearBegin, yearEnd);
+        Hashtable<Integer, LinkedHashMap<String, Long>> ranks = crawlLanguageIncrByYear(yearBegin, yearEnd);
         // get json
         JSONArray jsonArray = new JSONArray();
-        for (int y = yearBegin ; y<=yearEnd;y++) {
+        for (int y = yearBegin; y <= yearEnd; y++) {
             System.out.printf("Year %d\n", y);
             String[] languages = new String[10];
             Long[] nums = new Long[10];
@@ -41,11 +58,12 @@ public class Crawler {
         JsonIO.saveJSONArray(jsonArray, "./rank.json");
     }
 
-    public static Hashtable<Integer, LinkedHashMap<String, Long>> getLanguageNumByYear(int yearBegin, int yearEnd) throws IOException {
+    public static Hashtable<Integer, LinkedHashMap<String, Long>> crawlLanguageIncrByYear(int yearBegin, int yearEnd) throws IOException {
         String urlFormat = "https://github.com/search?q=created:%04d";
         Hashtable<Integer, LinkedHashMap<String, Long>> res = new Hashtable<>();
         for (int t = yearBegin; t <= yearEnd; t++) {
-            Document document = Jsoup.connect(String.format(urlFormat, t)).get();
+            Document document = Jsoup.connect("https://github.com/search?q=created:2015")
+                    .header("Authorization", String.format("token %s", token)).get();
             Element applicationMain = document.select("div[class=application-main ]").get(0);
             Element container = applicationMain.selectFirst("div");
             Element sortList = container.select("div").get(1).selectFirst("div").selectFirst("ul");
@@ -59,6 +77,64 @@ public class Crawler {
                 rank.put(language, Long.valueOf(num.replaceAll(",", "")));
             }
             res.put(t, rank);
+        }
+        return res;
+    }
+
+    public static void getLanguageRepoIncrByMonth() throws IOException {
+        getPopularLanguage();
+        Hashtable<String, LinkedHashMap<String, Integer>> res = crawlLanguageRepoIncrByMonth(2007, 2007);
+        System.out.println(res);
+    }
+
+    public static Hashtable<String, LinkedHashMap<String, Integer>> crawlLanguageRepoIncrByMonth(int yearBegin, int yearEnd) throws IOException {
+        String urlFormat = "https://github.com/search?q=created:%s+language:%s&type=repositories";
+        Hashtable<String, LinkedHashMap<String, Integer>> res = new Hashtable<>();
+        long sleepTime = 16000;
+        for (int t = yearBegin; t <= yearEnd; t++) {
+            for (int m = 10; m < 11; m++) {
+                LinkedHashMap<String, Integer> repoIncr = new LinkedHashMap<>();
+                String yearMonth = String.format("%04d-%02d", t, m);
+                for (int keyI = 0; keyI < popularLanguage.size(); ) {
+                    String key = popularLanguage.get(keyI);
+                    try {
+                        Document document = Jsoup.connect(String.format(urlFormat, yearMonth, key))
+                                .header("Authorization", String.format("token %s", token))
+                                .get();
+                        Element applicationMain = document.select("div[class=application-main ]").get(0);
+                        Element container = applicationMain.select("div[class='container-lg px-md-2 mt-lg-4 clearfix']").get(0);
+                        Element repoInfo = container.select("div[class='col-12 col-md-9 float-left px-2 pt-3 pt-md-0 codesearch-results']").get(0);
+                        Element px2 = repoInfo.select("div[class='px-2']").get(0);
+                        Element h3 = px2.selectFirst("h3");
+                        String prompt = h3.text();
+                        if (prompt.startsWith("We couldn’t find")) {
+                            repoIncr.put(key, 0);
+                        } else {
+                            repoIncr.put(key, Integer.parseInt(prompt.split(" ")[0].replaceAll(",", "")));
+                        }
+                    } catch (Exception e) {
+                        Connection.Response response = Jsoup.connect(String.format(urlFormat, yearMonth, key))
+                                .header("Authorization", String.format("token %s", token)).ignoreHttpErrors(true)
+                                .execute();
+                        sleepTime = 2 * sleepTime;
+                        System.out.printf("Status: %d, url: %s -> begin to sleep:%ds\n",
+                                response.statusCode(), response.url(), sleepTime/1000);
+                        try {
+
+                            Thread.sleep(sleepTime);
+                        } catch (InterruptedException ex) {
+                            ex.printStackTrace();
+                        }
+                        continue;
+                    }
+                    keyI++;
+                    sleepTime -= 1000;
+                    if(sleepTime <0){
+                        sleepTime = 16000;
+                    }
+                }
+                res.put(yearMonth, repoIncr);
+            }
         }
         return res;
     }
