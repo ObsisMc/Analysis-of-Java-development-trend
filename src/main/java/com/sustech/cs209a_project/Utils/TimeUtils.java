@@ -6,6 +6,9 @@ import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 
 public class TimeUtils {
+    public static void main(String[] args) {
+        System.out.println(waitSecond(1652942758));
+    }
     public static long waitSecond(long epochSecond){
         Instant epochSec = Instant.ofEpochSecond(epochSecond);
         ZoneId zId = ZoneId.systemDefault();
