@@ -16,8 +16,10 @@ public class JsonIO {
 //        getAllTopTopic();
 //        transToVisFormat();
 //        checkDuplication(true);
-        getTotalNumByLanguageTime();
+//        getTotalNumByLanguageTime();
 //        test();
+        integrateJSON();
+        checkDuplication(false);
     }
 
     public static void test() {
@@ -37,7 +39,7 @@ public class JsonIO {
 
     public static void checkDuplication(boolean drop) {
 //        String jsonPath = "jsonTotal.json";
-        String jsonPath = "jsonTotal.json";
+        String jsonPath = "jsonTotalWithLanguage.json";
         String outputPath = "jsonTotalWithoutDuplicate.json";
 
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
@@ -120,18 +122,20 @@ public class JsonIO {
     }
 
     /* followings are specific functions*/
-    public void integrateJSON() {
-        JSONArray json4 = readJSONArray("repos10000to1000000.json");
-        JSONArray json1 = readJSONArray("repos10to100.json");
-        JSONArray json2 = readJSONArray("repos100to1000.json");
-        JSONArray json3 = readJSONArray("repos1000to10000.json");
-        System.out.printf("%d, %d, %d, %d\n", json1.size(), json2.size(), json3.size(), json4.size());
+    public static void integrateJSON() {
+        String[] jsonPath = {"jsonTotal0to5000.json", "jsonTotal5000to10000.json", "jsonTotal10000to15000.json",
+                "jsonTotal20000to25000.json", "jsonTotal25000to30000.json", "jsonTotal30000to35000.json",
+                "jsonTotal35000to40000.json", "jsonTotal40000to45000.json", "jsonTotal45000to50000.json",
+                "jsonTotal50000to55000.json"};
         JSONArray jsonTotal = new JSONArray();
-        jsonTotal.addAll(json1);
-        jsonTotal.addAll(json2);
-        jsonTotal.addAll(json3);
-        jsonTotal.addAll(json4);
-        saveJSONArray(jsonTotal, "jsonTotal.json");
+        for (String path : jsonPath) {
+            JSONArray tmp = readJSONArray(path);
+            assert tmp != null;
+            jsonTotal.addAll(tmp);
+            System.out.printf("%s size: %d\n", path, tmp.size());
+        }
+
+        saveJSONArray(jsonTotal, "jsonTotalWithLanguage.json");
     }
 
     public static void adjustRelationJSON(float threshold) {
