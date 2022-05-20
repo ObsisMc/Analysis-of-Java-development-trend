@@ -1,4 +1,7 @@
 package com.sustech.cs209a_project.service;
 
+import java.io.IOException;
+
 public interface ApiService {
+    String getCommitWithTime(String url) throws IOException;
 }

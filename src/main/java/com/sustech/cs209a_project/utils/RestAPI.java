@@ -9,6 +9,7 @@ import com.sustech.cs209a_project.pojo.Repository;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
 
 import java.io.BufferedReader;
@@ -42,36 +43,14 @@ public class RestAPI {
         String stargazersUrl = repository.getStargazersUrl();
     }
 
-    public static void getRepositoryStar(String repositoryFullName, String stargazersUrl) throws IOException {
-        BufferedReader in = HttpClient.doGet(stargazersUrl);
-        Gson gson = new GsonBuilder().setFieldNamingStrategy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
-    }
+//    public static void getRepositoryStar(String repositoryFullName, String stargazersUrl) throws IOException {
+//        BufferedReader in = HttpClient.doGet(stargazersUrl);
+//        Gson gson = new GsonBuilder().setFieldNamingStrategy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
+//    }
 
 
-    public static void getCommits(String user, String repo) throws IOException {
-        String request = "https://api.github.com/repos/" + user + "/" + repo + "/commits?page=1&per_page=100";
-        BufferedReader in = HttpClient.doGet(request);
-        Gson gson = new GsonBuilder().setFieldNamingStrategy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
-        CommitSearchResult[] results = gson.fromJson(in, CommitSearchResult[].class);
-        System.out.println();
-    }
-
-    public static void parseRepo(String user, String repo) throws IOException {
-        Document doc = Jsoup.connect("https://github.com/" + user + "/" + repo).get();
-        Element application_main = doc.body().getElementsByClass("application-main ").get(0);
-        Elements es = application_main.getElementsByClass("d-none d-sm-inline");
-        for (Element e : es) {
-            var a = e.getElementsByTag("strong");
-            if(a.size()==0){
-                continue;
-            }
-            var result = a.get(0).childNode(0);
-            System.out.println(result.toString());
-        }
-        System.out.println();
-    }
 
     public static void main(String[] args) throws IOException {
-        parseRepo("xbdeng", "taskManager");
+
     }
 }
