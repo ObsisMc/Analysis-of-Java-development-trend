@@ -54,7 +54,7 @@ public class RepoSearcher {
 
         double step = 5000;
         int times = (int) Math.ceil(jsonArray.size() / step);
-        for (int i = 0; i < 11; i++) {
+        for (int i = 6; i < 11; i++) {
             int begin = (int) step * i;
             int end = (int) step * (i + 1);
             System.out.printf("Begin %d ~ %d\n", begin, end);
@@ -73,6 +73,7 @@ public class RepoSearcher {
             String url = jsonArray.getJSONObject(i).getString(urlKey);
 
             boolean hasGet = false;
+            int duplica = 0;
             while (!hasGet) {
                 Connection.Response response = null;
                 try {
@@ -109,7 +110,8 @@ public class RepoSearcher {
                         continue;
                     }
                     if (rateJson.getJSONObject("rate").getInteger("remaining") > 0) {
-                        System.out.println(jsonRes.getString("message"));
+                        System.out.printf("%d: %s at %s\n", response.statusCode(), jsonRes.getString("message"),
+                                response.url());
                     } else {
                         long waitSec = TimeUtils.waitSecond(rateJson.getJSONObject("rate").getLong("reset"));
                         if (waitSec > 0) {
@@ -121,6 +123,11 @@ public class RepoSearcher {
                                 e.printStackTrace();
                             }
                         }
+                    }
+                    duplica++;
+                    if(duplica == 3){
+                        System.out.printf("Try many times but fail, skip %s\n", response.url());
+                        hasGet = true;
                     }
                 }
             }
