@@ -18,11 +18,12 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 public class RepoSearcher {
-    static String token = "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";
+    static String token = "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";
 
     public static void main(String[] args) throws IOException, InterruptedException {
 //        getRepoStarTenToMAX();
-        getRelationship();
+//        getRelationship();
+        addLanguageToRepo();
 
     }
 
@@ -46,6 +47,95 @@ public class RepoSearcher {
         }
     }
 
+    public static void addLanguageToRepo() {
+        JSONArray jsonArray = JsonIO.readJSONArray("jsonTotalWithoutDuplicate.json");
+        assert jsonArray != null;
+        System.out.printf("Number of repos: %d\n", jsonArray.size());
+
+        double step = 5000;
+        int times = (int) Math.ceil(jsonArray.size() / step);
+        for (int i = 6; i < 11; i++) {
+            int begin = (int) step * i;
+            int end = (int) step * (i + 1);
+            System.out.printf("Begin %d ~ %d\n", begin, end);
+            JSONArray resArray = addRepoLanguage(jsonArray, begin, end);
+            JsonIO.saveJSONArray(resArray, String.format("jsonTotal%dto%d.json", begin, end));
+        }
+
+    }
+
+    public static JSONArray addRepoLanguage(JSONArray jsonArray, int begin, int end) {
+        String urlKey = "languages_url";
+        JSONArray res = new JSONArray();
+
+        for (int i = begin; i < Math.min(end, jsonArray.size()); i++) {
+            JSONObject rawObject = jsonArray.getJSONObject(i);
+            String url = jsonArray.getJSONObject(i).getString(urlKey);
+
+            boolean hasGet = false;
+            int duplica = 0;
+            while (!hasGet) {
+                Connection.Response response = null;
+                try {
+                    response = Jsoup.connect(url)
+                            .header("Authorization", String.format("token %s", token)).timeout(5000)
+                            .ignoreHttpErrors(true).ignoreContentType(true).execute();
+                } catch (IOException e) {
+                    System.out.println("Trigger exception when get language_url:  " + e.getMessage());
+                    continue;
+                }
+                JSONObject jsonRes = null;
+                try {
+                    jsonRes = JSON.parseObject(response.body());
+                } catch (Exception | Error e) {
+                    System.out.println("Jsoup's unknown error");
+                    continue;
+                }
+
+                if (response.statusCode() == 200) {
+                    hasGet = true;
+                    rawObject.put("languages", jsonRes);
+                } else if (response.statusCode() == 404) {
+                    System.out.println("Not found at " + url);
+                    hasGet = true;
+                } else {
+                    // rate is limited by github
+                    JSONObject rateJson;
+                    try {
+                        rateJson = JSON.parseObject(Jsoup.connect("https://api.github.com/rate_limit")
+                                .header("Authorization", String.format("token %s", token))
+                                .ignoreContentType(true).execute().body());
+                    } catch (IOException e) {
+                        System.out.println("Trigger exception when get rate_limit: " + e.getMessage());
+                        continue;
+                    }
+                    if (rateJson.getJSONObject("rate").getInteger("remaining") > 0) {
+                        System.out.printf("%d: %s at %s\n", response.statusCode(), jsonRes.getString("message"),
+                                response.url());
+                    } else {
+                        long waitSec = TimeUtils.waitSecond(rateJson.getJSONObject("rate").getLong("reset"));
+                        if (waitSec > 0) {
+                            long waitMin = waitSec / 60;
+                            System.out.printf("Need to wait %d min\n (now %s)", waitMin, ZonedDateTime.now());
+                            try {
+                                Thread.sleep(waitSec * 1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                    duplica++;
+                    if(duplica == 3){
+                        System.out.printf("Try many times but fail, skip %s\n", response.url());
+                        hasGet = true;
+                    }
+                }
+            }
+            res.add(rawObject);
+        }
+        return res;
+    }
+
     public static void getRelationship() throws IOException {
         JSONArray jsonArray = JsonIO.readJSONArray("jsonTotal.json");
         assert jsonArray != null;
@@ -60,7 +150,6 @@ public class RepoSearcher {
             JSONObject json = getRelationWithOthersFromJSONArray(jsonArray, begin, end);
             JsonIO.saveJSON(json, String.format("relation%dto%d.json", begin, end));
         }
-
     }
 
     public static JSONObject getRelationWithOthersFromJSONArray(JSONArray jsonArray, int begin, int end) {
@@ -157,15 +246,11 @@ public class RepoSearcher {
                         System.out.println("Fault at " + url);
                         System.out.println(jsonRes.getString("message"));
                     } else {
-                        Instant epochSec = Instant.ofEpochSecond(rateJson.getJSONObject("rate").getLong("reset"));
-                        ZoneId zId = ZoneId.systemDefault();
-                        ZonedDateTime then = ZonedDateTime.ofInstant(epochSec, zId);
-                        ZonedDateTime now = ZonedDateTime.now();
-                        long diffMin = ChronoUnit.MINUTES.between(now, then);
-                        long diffSec = ChronoUnit.SECONDS.between(now, then);
-                        System.out.printf("Need to wait %d min\n (now %s)", diffMin, now);
+                        long waitSec = TimeUtils.waitSecond(rateJson.getJSONObject("rate").getLong("reset"));
+                        long waitMin = waitSec / 60;
+                        System.out.printf("Need to wait %d min\n (now %s)", waitMin, ZonedDateTime.now());
                         try {
-                            Thread.sleep(diffSec * 1000);
+                            Thread.sleep(waitSec * 1000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }

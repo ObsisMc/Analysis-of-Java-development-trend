@@ -1,19 +1,18 @@
 <template>
-<div>
-  <div id="relationJava" style="width:100%" :style="{height:hgt}">
+  <div>
+    <div id="relationJava" style="width:100%" :style="{height:hgt}"></div>
   </div>
-</div>
 </template>
 
 <script>
 export default {
   name: "RelationshipJava",
   props: ["hgt"],
-  methods:{
-    draw(){
+  methods: {
+    draw() {
       var myChart = this.$echarts.init(document.getElementById('relationJava'));
       var option;
-      this.$axios.get("json/adjust_relation55000to60000.json").then(response=>{
+      this.$axios.get("json/adjust_relation55000to60000.json").then(response => {
         var graph = response.data;
         graph.nodes.forEach(function (node) {
           node.label = {
