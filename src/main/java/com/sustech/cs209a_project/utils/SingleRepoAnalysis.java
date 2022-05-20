@@ -92,8 +92,7 @@ public class SingleRepoAnalysis {
                             JSONObject rateJson = JSON.parseObject(Jsoup.connect("https://api.github.com/rate_limit")
                                     .header("Authorization", String.format("token %s", token))
                                     .ignoreContentType(true).execute().body());
-                            JSONObject searchRate = rateJson.getJSONObject("resources")
-                                    .getJSONObject("search");
+                            JSONObject searchRate = rateJson.getJSONObject("rate");
                             if (searchRate.getInteger("remaining") > 0) {
                                 System.out.printf("But still have %d remaining\n", searchRate.getInteger("remaining"));
                                 continue;
