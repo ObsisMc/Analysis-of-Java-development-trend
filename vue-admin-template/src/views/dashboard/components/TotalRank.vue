@@ -72,7 +72,7 @@ export default {
             name: 'Search Engine',
             type: 'line',
             stack: 'Total',
-            data: [820, 932, 901, 934, 1290, 1330, 1320]
+            data: [ ,  0, 901, 934, 1290, 1330, 1320]
           }
         ]
       };
