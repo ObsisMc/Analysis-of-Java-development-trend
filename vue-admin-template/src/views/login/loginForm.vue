@@ -114,14 +114,14 @@ export default {
             headers: {
               "Authorization": "token " + this.loginForm.password
             },
-            timeout: 3000
+            timeout: 2000
           }).then(response => {
             this.$message({
               message: 'Authenticate successfully!',
               type: 'success',
             });
           }).catch((error) => {
-            console.log(error.response);
+            console.log(this.$store.getters.authenticated);
             this.$message({
               message: 'No credential',
               type: 'warning',
