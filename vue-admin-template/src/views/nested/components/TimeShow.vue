@@ -1,7 +1,7 @@
 <template>
 <div>
   <el-row>
-    <CommitByTime ref="commit" :height="commitHeight" class="graph-container"></CommitByTime>
+    <CommitByTime :height="commitHeight" class="graph-container"></CommitByTime>
   </el-row>
 
 </div>
@@ -18,7 +18,6 @@ export default {
     }
   },
   mounted(){
-    this.$refs.commit.draw();
   }
 }
 </script>
