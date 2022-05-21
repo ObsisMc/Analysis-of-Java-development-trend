@@ -14,15 +14,65 @@ export default {
   },
   methods: {
     draw() {
+      const datasetWithFilters = [];
+      const seriesList = [];
+      const languages = ["Email", "Union Ads", "Video Ads"]
+      const raw_data = [["name", "rank", "year"],["Email", 1, 2018], ["Email", 1, 2019], ["Email",2, 2020], ["Email", 3, 2021],
+        ["Union Ads", 2, 2018],["Union Ads", 2, 2019], ["Union Ads", 1, 2020], ["Union Ads", 1, 2021],
+        ["Video Ads", 3, 2018], ["Video Ads", 3, 2019], ["Video Ads", 3, 2020], ["Video Ads", 2, 2021],]
+      this.$echarts.util.each(languages, function (language) {
+        var datasetId = 'dataset_' + language;
+        datasetWithFilters.push({
+          id: datasetId,
+          fromDatasetId: 'dataset_raw',
+          transform: {
+            type: 'filter',
+            config: {
+              and: [
+                {dimension: 'year', gte: 2016},
+                {dimension: 'name', '=': language}
+              ]
+            }
+          }
+        })
+        seriesList.push({
+          type: 'line',
+          datasetId: datasetId,
+          name: language,
+          smooth:0.5,
+          endLabel: {
+            show: true,
+            formatter: function (params) {
+              return params.seriesName;
+            }
+          },
+          labelLayout: {
+            moveOverlap: 'shiftY'
+          },
+          emphasis: {
+            focus: 'series'
+          },
+          encode: {
+            x: 'year',
+            y: 'rank',
+            tooltip: ['rank']
+          }
+        });
+      });
+
       var option = {
+        dataset: [
+          {
+            id: 'dataset_raw',
+            source: raw_data
+          },
+          ...datasetWithFilters
+        ],
         title: {
-          text: 'Stacked Line'
+          text: 'Language rank by time'
         },
         tooltip: {
           trigger: 'axis'
-        },
-        legend: {
-          data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
         },
         grid: {
           left: '3%',
@@ -37,47 +87,48 @@ export default {
         },
         xAxis: {
           type: 'category',
-          boundaryGap: false,
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+          axisLine:{
+            show:false
+          }
         },
         yAxis: {
           type: 'value',
-          inverse: true
+          inverse: true,
+          min: 1,
+          max: 3,
+          minInterval: 1,
         },
-        series: [
-          {
-            name: 'Email',
-            type: 'line',
-            data: [120, 132, 101, 134, 90, 230, 210],
-            endLabel: {
-              show: true,
-              formatter: function (params) {
-                return params.seriesName;
-              }
-            }
-          },
-          {
-            name: 'Union Ads',
-            type: 'line',
-            data: [220, 182, 191, 234, 290, 330, 310]
-          },
-          {
-            name: 'Video Ads',
-            type: 'line',
-            data: [150, 232, 201, 154, 190, 330, 410]
-          },
-          {
-            name: 'Direct',
-            type: 'line',
-            data: [320, 332, 301, 334, 390, 330, 320]
-          },
-          {
-            name: 'Search Engine',
-            type: 'line',
-            data: [, 0, 901, 934, 1290, 1330, 1320],
-            smooth: true
-          }
-        ]
+        series: seriesList
+        //   [
+        //   {
+        //     name: 'Email',
+        //     type: 'line',
+        //     smooth: true,
+        //     data: [1, 2, 1, 1, 1, 1, 1],
+        //     endLabel: {
+        //       show: true,
+        //       formatter: function (params) {
+        //         return params.seriesName;
+        //       }
+        //     }
+        //   },
+        //   {
+        //     name: 'Union Ads',
+        //     type: 'line',
+        //     smooth: true,
+        //     data: [2, 1, 2, 2, 2, 2, 2]
+        //   },
+        //   {
+        //     name: 'Video Ads',
+        //     type: 'line',
+        //     data: [3, 3, 3, 3, 3, 3, 3]
+        //   },
+        //   {
+        //     name: 'Direct',
+        //     type: 'line',
+        //     data: [4, 4, 4, 4, 4, 4, 4]
+        //   }
+        // ]
       };
       this.myChart.on('updateAxisPointer', (event) => {
         this.$evenBus.$emit("changeNumberRatio");
