@@ -57,7 +57,6 @@ export default {
         {value: 800, name: 'Direct'},
         {value: 400, name: 'Email'},
         {value: 100, name: 'Union Ads'},
-        {value: 600, name: 'Video Ads'}
       ];
       // let l = this.option.series[0].data.length;
       // for (let i = 0; i < l; i++) {

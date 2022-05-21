@@ -26,7 +26,7 @@ export default {
         },
         {
           value: 40,
-          name: 'Good',
+          name: 'Issue comments (avg)',
           title: {
             offsetCenter: ['0%', '0%']
           },
