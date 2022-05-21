@@ -77,5 +77,10 @@ public class ApiController {
 
     }
 
+    @GetMapping("language_relation")
+    public void getLanguageRelation(){
+
+    }
+
 
 }
