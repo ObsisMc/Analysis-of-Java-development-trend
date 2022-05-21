@@ -4,7 +4,7 @@
     <div class="login">
       <transition name="slide-fade" >
         <span v-if="show" @click="showTitle">
-        Trend of Java Development
+        Analysis of JAVA development's current situation
         </span>
       </transition>
       <transition name="login-fade">
@@ -95,7 +95,7 @@ export default {
 span {
   font-family: myFirstFont;
   color: black;
-  font-size: 100px;
+  font-size: 60px;
   font-weight: 450;
 }
 
