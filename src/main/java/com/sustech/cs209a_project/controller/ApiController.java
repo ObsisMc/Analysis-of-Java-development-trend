@@ -24,5 +24,34 @@ public class ApiController {
         }
     }
 
+    @GetMapping("total_rank")
+    public void getTotalRank(){
+
+    }
+
+
+    @GetMapping("total_rank_pie")
+    public void getTotalRankPie(){
+
+    }
+
+    @GetMapping("increase_rank")
+    public void getIncreaseRank(){
+
+    }
+
+
+    // [{"topic": "ababa", number: 1}]
+    @GetMapping("world_cloud")
+    public void getWorldCloud(int number){
+
+    }
+
+
+    @GetMapping("popular_license")
+    public void getPopularLicense(){
+
+    }
+
 
 }
