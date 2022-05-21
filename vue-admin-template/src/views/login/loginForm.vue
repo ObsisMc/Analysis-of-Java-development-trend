@@ -116,12 +116,13 @@ export default {
             },
             timeout: 3500
           }).then(response => {
+            this.$store.dispatch('user/authenticate');
             this.$message({
               message: 'Authenticate successfully!',
               type: 'success',
             });
           }).catch((error) => {
-            this.$store.dispatch('user/closeAuthentic');
+
             this.$message({
               message: 'No credential',
               type: 'warning',

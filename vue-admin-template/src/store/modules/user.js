@@ -8,7 +8,7 @@ const getDefaultState = () => {
     name: '',
     avatar: '',
     passwd: '',
-    authenticated: true
+    authenticated: false
   }
 }
 
@@ -52,8 +52,8 @@ const actions = {
       })
     })
   },
-  closeAuthentic({commit}) {
-    commit("SET_AUTH", false);
+  authenticate({commit}) {
+    commit("SET_AUTH", true);
   },
 
   // get user info
