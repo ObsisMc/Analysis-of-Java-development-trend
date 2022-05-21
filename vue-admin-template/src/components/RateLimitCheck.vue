@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "RateLimitCheck",
   data() {
@@ -21,7 +23,25 @@ export default {
   computed: {},
   methods: {},
   mounted() {
-    this.$evenBus.$on("checkRateLimit",()=>{
+    console.log(this.$store.getters.authenticated);
+    let autenticated = this.$store.getters.authenticated;
+    axios.get("https://api.github.com/rate_limit", {
+      headers: {
+        "Authorization": autenticated ? ("token " + this.$store.getters.passwd) : ''
+      },
+      timeout: 3000
+    }).then(response => {
+      let data = response.data;
+      this.search = data.resources.search.remaining;
+        this.core = data.rate.remaining;
+    }).catch(() => {
+      this.$message({
+        message: "Fail to get rate limit",
+        type: "error"
+      });
+    })
+
+    this.$evenBus.$on("checkRateLimit", () => {
       alert("check");
     });
   }
