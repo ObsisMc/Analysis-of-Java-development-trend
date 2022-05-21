@@ -17,6 +17,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -32,8 +33,8 @@ public class ApiServiceImpl implements ApiService {
                 continue;
             }
             Node result = a.get(0).childNode(0);
-            System.out.println(result);
-            return Integer.parseInt(result.toString());
+            String t = result.toString().replaceAll(",","");
+            return Integer.parseInt(t);
         }
         throw new RuntimeException("Server error");
     }
@@ -53,9 +54,9 @@ public class ApiServiceImpl implements ApiService {
             searchResults.addAll(List.of(result));
             System.out.println("hello" + i + " end");
         }
-        var s = searchResults.stream().map(CommitSearchResult::getCommitTime).collect(Collectors.groupingBy(Function.identity(),Collectors.counting()));
+        Map<String, Long> s = searchResults.stream().map(CommitSearchResult::getCommitTime).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
         Gson gson = new Gson();
-        var a = gson.toJson(s);
+        String a = gson.toJson(s);
         System.out.println(a);
         return a;
     }
