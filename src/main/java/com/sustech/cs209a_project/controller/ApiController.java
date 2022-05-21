@@ -62,7 +62,16 @@ public class ApiController {
 
     }
 
-
+    /**
+     * {
+     *     repos:["top1RepoName","top2RepoName","top3RepoName"],
+     *     data:{
+     *         stars:[1,2,3],
+     *         forks:[],
+     *         watchs:[]
+     *     }
+     * }
+     */
     @GetMapping("top_repo_rank")
     public void getTopRepoRank(){
 
