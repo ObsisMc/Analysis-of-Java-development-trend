@@ -48,7 +48,13 @@ export default {
           {
             name: 'Email',
             type: 'line',
-            data: [120, 132, 101, 134, 90, 230, 210]
+            data: [120, 132, 101, 134, 90, 230, 210],
+            endLabel: {
+              show: true,
+              formatter: function (params) {
+                return params.seriesName;
+              }
+            }
           },
           {
             name: 'Union Ads',
@@ -68,7 +74,7 @@ export default {
           {
             name: 'Search Engine',
             type: 'line',
-            data: [ ,  0, 901, 934, 1290, 1330, 1320],
+            data: [, 0, 901, 934, 1290, 1330, 1320],
             smooth: true
           }
         ]
