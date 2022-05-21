@@ -22,17 +22,14 @@ export default {
         const countries = [
           'Finland',
           'France',
-          'Germany',
-          'Iceland',
-          'Norway',
-          'Poland',
-          'Russia',
-          'United Kingdom'
+          'Germany'
         ];
         const datasetWithFilters = [];
         const seriesList = [];
+        let n = 0;
         this.$echarts.util.each(countries, function (country) {
           var datasetId = 'dataset_' + country;
+          n++;
           datasetWithFilters.push({
             id: datasetId,
             fromDatasetId: 'dataset_raw',
@@ -51,12 +48,7 @@ export default {
             datasetId: datasetId,
             showSymbol: false,
             name: country,
-            endLabel: {
-              show: true,
-              formatter: function (params) {
-                return params.value[3] + ': ' + params.value[0];
-              }
-            },
+            yAxisIndex: n === 2 ? 1 : 0,
             labelLayout: {
               moveOverlap: 'shiftY'
             },
@@ -66,14 +58,18 @@ export default {
             encode: {
               x: 'Year',
               y: 'Income',
-              label: ['Country', 'Income'],
-              itemName: 'Year',
+              // label: ['Country', 'Income'],
+              // itemName: 'Year',
               tooltip: ['Income']
             }
           });
         });
         option = {
-          animationDuration: 10000,
+          legend:{
+            data:countries,
+            top:"bottom"
+          },
+          animationDuration: 3000,
           dataset: [
             {
               id: 'dataset_raw',
@@ -82,7 +78,8 @@ export default {
             ...datasetWithFilters
           ],
           title: {
-            text: 'Income of Germany and France since 1950'
+            text: 'Number of users & repos & issues by time',
+            left: "center"
           },
           tooltip: {
             order: 'valueDesc',
@@ -93,13 +90,11 @@ export default {
             nameLocation: 'middle'
           },
           yAxis: [
-            {name: 'Income'},
+            {name: "Number of users & repos"},
             {
-              name: 'Rainfall(mm)',
-              nameLocation: 'start',
+              name: 'Number of issues',
               alignTicks: true,
-              type: 'value',
-              inverse: true
+              type: 'value'
             }
           ],
           grid: {
