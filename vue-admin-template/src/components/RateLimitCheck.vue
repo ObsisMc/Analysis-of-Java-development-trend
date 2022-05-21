@@ -29,7 +29,7 @@ export default {
       headers: {
         "Authorization": autenticated ? ("token " + this.$store.getters.passwd) : ''
       },
-      timeout: 3000
+      timeout: 5000
     }).then(response => {
       let data = response.data;
       this.search = data.resources.search.remaining;
