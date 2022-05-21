@@ -54,4 +54,10 @@ public class ApiController {
     }
 
 
+    @GetMapping("top_repo_rank")
+    public void getTopRepoRank(){
+
+    }
+
+
 }
