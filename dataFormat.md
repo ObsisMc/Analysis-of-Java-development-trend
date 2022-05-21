@@ -46,19 +46,22 @@
 
 ```json
 {
-    legend: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine'], // 要改成所有的语言名
-    xAxis: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], //改成年份
-    series: [
-        {
-            name: 'Email',
-            data: [120, 132, 101, 134, 90, 230, 210] // 要和xAxis对应， 注意应该是排名不是仓库数量
-          },
-          {
-            name: 'Union Ads',
-            data: [ ,  , 191, 234, 290, 330, 310] // 如果某个语言在某一年不是前七，那一年不用写数据
-          },
-        ...
-    ]
+  name: [
+    'Java',
+    'C',
+    'C++',
+    'Python',
+    ...
+  ],
+  // 要改成所有的语言名
+  "dataset": [
+    ["name","rank","year"],
+    ['Java',1,2015],
+    ['Java',1,2016],
+    ...,
+    ["Python",2,2015],
+    ...
+  ] // 第一行是表头，第一列对应java名，第二列是排名（不在前7的话留空就行），第三列年份；对于同一个语言需要按时间排序（年份小的放前面）
 }
 ```
 #### Pie graph at right-bottom corner
