@@ -1,5 +1,5 @@
 <template>
-  <div id="rateLoading" style="width: 80%;height: 100%;"></div>
+  <div id="rateLoading" style="width: 80%;height: 100%"></div>
 </template>
 
 <script>

@@ -1,11 +1,11 @@
 <template>
   <div class="dashboard-container">
-    <transition name="fade" mode="out-in">
-    <SearchLoading v-if="loading"></SearchLoading>
-    </transition>
-    <transition name="fade" mode="out-in">
-    <SearchInput v-if="!loading"></SearchInput>
-    </transition>
+    <div :style="{height:height}" style="border: transparent solid 1px;">
+      <transition name="component-fade" mode="out-in" >
+        <component v-bind:is="view" ></component>
+      </transition>
+    </div>
+
     <ContributorPanel></ContributorPanel>
     <TimeShow></TimeShow>
   </div>
@@ -20,18 +20,26 @@ import SearchLoading from "@/components/SearchLoading";
 export default {
   name: "index",
   components: {SearchLoading, ContributorPanel, SearchInput, TimeShow},
+  computed:{
+    height(){
+      return window.innerHeight*0.08 + "px";
+    }
+  },
   data() {
     return {
-      loading: false
+      loading: false,
+      view: SearchInput
     }
   },
   methods: {},
   mounted() {
     this.$evenBus.$on("beginSearch",()=>{
       this.loading = true;
+      this.view = SearchLoading;
     })
     this.$evenBus.$on("endSearch",()=>{
       this.loading = false;
+      this.view = SearchInput;
     })
   }
 
@@ -47,11 +55,11 @@ export default {
   margin: 30px;
 
 }
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+.component-fade-enter-active, .component-fade-leave-active {
+  transition: opacity .3s ease;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+.component-fade-enter, .component-fade-leave-to
+  /* .component-fade-leave-active for below version 2.1.8 */ {
   opacity: 0;
 }
-
 </style>
