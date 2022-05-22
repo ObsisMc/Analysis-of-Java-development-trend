@@ -47,8 +47,8 @@ public class ApiController {
 
 
     // [{"topic": "ababa", number: 1}]
-    @GetMapping("world_cloud")
-    public void getWorldCloud(int number){
+    @GetMapping("word_cloud")
+    public void getWordCloud(int number){
 
     }
 
