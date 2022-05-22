@@ -58,7 +58,7 @@ export default {
     return {
       myColors: ['#1f77b4', '#629fc9', '#94bedb', '#c9e0ef'],
       Words: [{topic: "no Word", number: 1}],
-      wordNum: 10,
+      wordNum: 100,
       dialogVisible: false,
       selectedWord: '',
       value: ''
