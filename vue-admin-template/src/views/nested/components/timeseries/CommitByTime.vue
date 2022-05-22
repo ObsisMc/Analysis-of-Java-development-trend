@@ -28,17 +28,16 @@ export default {
       axios.get("http://localhost:8080/api/commit_times", {
         params: {
           url: url
-        }
+        },
+        timeout: 10000
       }).then(response => {
-        // var responseData = eval("(" + response.data + ")");
-        // let data = [];
-        // let date = [];
-        // for (let i = 0; i < responseData.length; i++) {
-        //   data.push(responseData[i].count);
-        //   date.push(responseData[i].date);
-        // }
-        const date = ["2000-01-01", "2000-01-02"];
-        const data = [3, 5]
+        var responseData = eval("(" + response.data + ")");
+        let data = [];
+        let date = [];
+        for (let i = 0; i < responseData.length; i++) {
+          data.push(responseData[i].count);
+          date.push(responseData[i].date);
+        }
         this.option.xAxis.data = date;
         this.option.series.data = data;
         this.draw();
