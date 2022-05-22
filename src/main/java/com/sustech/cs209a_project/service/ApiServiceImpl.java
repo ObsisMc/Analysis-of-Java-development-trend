@@ -15,9 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -54,11 +52,18 @@ public class ApiServiceImpl implements ApiService {
             searchResults.addAll(List.of(result));
             System.out.println("hello" + i + " end");
         }
-        Map<String, Long> s = searchResults.stream().map(CommitSearchResult::getCommitTime).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-        Gson gson = new Gson();
-        String a = gson.toJson(s);
-        System.out.println(a);
-        return a;
+        LinkedHashSet<Map.Entry<String,Long>> s =  searchResults.stream().map(CommitSearchResult::getCommitTime).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                .entrySet().stream().sorted(Map.Entry.comparingByKey()).collect(Collectors.toCollection(LinkedHashSet::new));
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("[");
+        for (Map.Entry<String, Long> t : s) {
+            stringBuilder.append("{date:\"").append(t.getKey()).append("\",count:\"").append(t.getValue()).append("\"},");
+        }
+        stringBuilder.deleteCharAt(stringBuilder.length()-1);
+        stringBuilder.append("]");
+        System.out.println(stringBuilder);
+
+        return stringBuilder.toString();
     }
 
 //    public static void main(String[] args) throws IOException {
