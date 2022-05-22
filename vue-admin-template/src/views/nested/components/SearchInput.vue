@@ -41,7 +41,6 @@ export default {
   mounted() {
     this.$evenBus.$on("finishSearchRepo", (state) => {
       this.finished += 1;
-      console.log(state, this.error);
       if (!state && !this.error) {
         this.$notify.error({
           message: "Invalid URL or private repo"
