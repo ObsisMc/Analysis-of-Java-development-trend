@@ -1,9 +1,12 @@
 <template>
   <div>
     <div class="floatPanel" style="text-align: center">
-      <el-tag size="mini" class="tag">Search remain: {{ search }}</el-tag>
-      <br/>
-      <el-tag size="mini" class="tag">Core remain: {{ core }}</el-tag>
+      <div v-if="!loading">
+        <el-tag size="mini" class="tag">Search remain: {{ search }}</el-tag>
+        <br/>
+        <el-tag size="mini" class="tag">Core remain: {{ core }}</el-tag>
+      </div>
+
       <br/>
     </div>
   </div>
@@ -17,7 +20,8 @@ export default {
   data() {
     return {
       search: 0,
-      core: 0
+      core: 0,
+      loading: false
     }
   },
   computed: {},
