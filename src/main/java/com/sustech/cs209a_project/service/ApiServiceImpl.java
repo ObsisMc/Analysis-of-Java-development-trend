@@ -66,6 +66,11 @@ public class ApiServiceImpl implements ApiService {
         return stringBuilder.toString();
     }
 
+
+    public void getTotalRanks(){
+
+    }
+
 //    public static void main(String[] args) throws IOException {
 //        ApiServiceImpl apiService = new ApiServiceImpl();
 //        apiService.getCommitWithTime("https://github.com/xbdeng/taskManager");
