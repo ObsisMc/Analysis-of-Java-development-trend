@@ -4,4 +4,6 @@ import java.io.IOException;
 
 public interface ApiService {
     String getCommitWithTime(String url) throws IOException;
+
+    String getWordCloud(int count) throws IOException;
 }
