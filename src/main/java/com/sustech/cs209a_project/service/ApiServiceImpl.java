@@ -4,6 +4,7 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sustech.cs209a_project.pojo.CommitSearchResult;
+import com.sustech.cs209a_project.pojo.WordItem;
 import com.sustech.cs209a_project.utils.HttpClient;
 import com.sustech.cs209a_project.utils.PublicUtils;
 import org.jsoup.Jsoup;
@@ -90,9 +91,4 @@ public class ApiServiceImpl implements ApiService {
 //        apiService.getCommitWithTime("https://github.com/xbdeng/taskManager");
 //        System.out.println(apiService.getWordCloud(10));
 //    }
-}
-
-class WordItem {
-    String topic;
-    int number;
 }
