@@ -28,8 +28,7 @@ export default {
       axios.get("http://localhost:8080/api/commit_times", {
         params: {
           url: url
-        },
-        timeout: 10000
+        }
       }).then(response => {
         var responseData = eval("(" + response.data + ")");
         let data = [];
