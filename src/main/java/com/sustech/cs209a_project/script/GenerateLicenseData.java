@@ -17,14 +17,13 @@ public class GenerateLicenseData {
         try (Reader reader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8)) {
             Gson gson = new GsonBuilder().create();
             LicenseItem[] licenseItems = gson.fromJson(reader, LicenseItem[].class);
-            Map<String, Long> sortedMap = new LinkedHashMap<>();
-            Arrays.stream(licenseItems).map(LicenseItem::getKey)
+            LinkedHashSet<Map.Entry<String, Long>> sortedMap = Arrays.stream(licenseItems).map(LicenseItem::getKey)
                     .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                     .entrySet().stream().sorted((o1, o2) -> (int) (o2.getValue() - o1.getValue()))
-                    .forEachOrdered(i -> sortedMap.put(i.getKey(), i.getValue()));
+                    .collect(Collectors.toCollection(LinkedHashSet::new));
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append("[");
-            for (Map.Entry<String, Long> i : sortedMap.entrySet()) {
+            for (Map.Entry<String, Long> i : sortedMap) {
                 if (i.getKey().equals("")) {
                     continue;
                 }

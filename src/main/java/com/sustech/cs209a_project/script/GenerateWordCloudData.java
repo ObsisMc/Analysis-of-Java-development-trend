@@ -17,14 +17,13 @@ public class GenerateWordCloudData {
         try (Reader reader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8)) {
             Gson gson = new GsonBuilder().create();
             CloudDataItem[] items = gson.fromJson(reader, CloudDataItem[].class);
-            Map<String, Long> sortedMap = new LinkedHashMap<>();
-            Arrays.stream(items).map(CloudDataItem::getTopics).flatMap(Collection::stream)
+            LinkedHashSet<Map.Entry<String, Long>> a = Arrays.stream(items).map(CloudDataItem::getTopics).flatMap(Collection::stream)
                     .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                     .entrySet().stream().sorted((o1, o2) -> (int) (o2.getValue() - o1.getValue()))
-                    .forEachOrdered(i -> sortedMap.put(i.getKey(), i.getValue()));
+                    .collect(Collectors.toCollection(LinkedHashSet::new));
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append("[");
-            for (Map.Entry<String, Long> i : sortedMap.entrySet()) {
+            for (Map.Entry<String, Long> i : a) {
                 stringBuilder.append("{\"topic\": " + "\"").append(i.getKey()).append("\", \"number\": ").append(i.getValue()).append("},");
             }
             stringBuilder.deleteCharAt(stringBuilder.length() - 1);
@@ -38,8 +37,8 @@ public class GenerateWordCloudData {
 class CloudDataItem {
     String[] topics;
 
-    public List<String> getTopics(){
-        if(topics== null)return new ArrayList<>();
+    public List<String> getTopics() {
+        if (topics == null) return new ArrayList<>();
         return List.of(topics);
     }
 }
