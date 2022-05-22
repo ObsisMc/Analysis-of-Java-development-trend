@@ -4,6 +4,7 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sustech.cs209a_project.pojo.CommitSearchResult;
+import com.sustech.cs209a_project.pojo.LicenseItem;
 import com.sustech.cs209a_project.pojo.WordItem;
 import com.sustech.cs209a_project.utils.HttpClient;
 import com.sustech.cs209a_project.utils.PublicUtils;
@@ -74,8 +75,6 @@ public class ApiServiceImpl implements ApiService {
 
     @Override
     public String getWordCloud(int count) throws IOException {
-
-
         FileInputStream fileInputStream = new FileInputStream("src/main/resources/ripedata/wordCloudData.json");
         try (Reader reader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8)) {
             Gson gson = new GsonBuilder().create();
@@ -86,9 +85,19 @@ public class ApiServiceImpl implements ApiService {
         }
     }
 
+
+    public String getPopularLicense() throws IOException {
+        FileInputStream fileInputStream = new FileInputStream("src/main/resources/ripedata/licenseData.json");
+        try (Reader reader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8)) {
+            Gson gson = new GsonBuilder().create();
+            LicenseItem[] items = gson.fromJson(reader, LicenseItem[].class);
+            return gson.toJson(items);
+        }
+    }
+
 //    public static void main(String[] args) throws IOException {
 //        ApiServiceImpl apiService = new ApiServiceImpl();
 //        apiService.getCommitWithTime("https://github.com/xbdeng/taskManager");
-//        System.out.println(apiService.getWordCloud(10));
+//        System.out.println(apiService.getPopularLicense());
 //    }
 }
