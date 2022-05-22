@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <wordcloud
       :data="Words"
       nameKey="topic"
@@ -9,8 +8,12 @@
       :showTooltip="false"
       :wordClick="wordClickHandler">
     </wordcloud>
-    <el-button @click="refresh" icon="el-icon-refresh-left" type="primary"
-               style="float: right; z-index: 100"></el-button>
+    <el-slider
+      v-model="wordNum"
+      @change="getWordCloud"
+      height="200px"
+      max="200">
+    </el-slider>
     <el-dialog
       title="Info"
       :visible.sync="dialogVisible"
@@ -51,6 +54,16 @@ export default {
   components: {
     wordcloud
   },
+  data() {
+    return {
+      myColors: ['#1f77b4', '#629fc9', '#94bedb', '#c9e0ef'],
+      Words: [{topic: "no Word", number: 1}],
+      wordNum: 10,
+      dialogVisible: false,
+      selectedWord: '',
+      value: ''
+    }
+  },
   methods: {
     wordClickHandler(name, value, vm) {
       this.selectedWord = name;
@@ -65,22 +78,24 @@ export default {
     },
     handleClose() {
       this.dialogVisible = !this.dialogVisible;
-    }
-  },
-  data() {
-    return {
-      myColors: ['#1f77b4', '#629fc9', '#94bedb', '#c9e0ef'],
-      Words: [{topic: "no Word", number: 1}],
-      dialogVisible: false,
-      selectedWord: '',
-      value: ''
+    },
+    getWordCloud() {
+      this.$axios.get("http://localhost:8080/api/word_cloud", {
+        params: {
+          number: this.wordNum
+        }
+      }).then(response => {
+        // console.log(response.data);
+        this.Words = response.data;
+      }).catch(error => {
+
+      }).finally(() => {
+
+      })
     }
   },
   mounted() {
-    this.$axios.get("json/wordCloudVis.json").then(response => {
-      // console.log(response.data);
-      this.Words = response.data;
-    })
+    this.getWordCloud();
   }
 }
 </script>
