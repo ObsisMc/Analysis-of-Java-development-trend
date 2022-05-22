@@ -43,7 +43,7 @@ export default {
       this.finished += 1;
       if (!state && !this.error) {
         this.$notify.error({
-          message: "Invalid URL or private repo"
+          message: "Invalid URL, private repo or rate limit"
         })
         this.error = !this.error;
       }
