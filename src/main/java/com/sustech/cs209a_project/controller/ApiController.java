@@ -67,8 +67,12 @@ public class ApiController {
     //              { value: 18, name: 'rose 8' }
     //            ]
     @GetMapping("popular_license")
-    public void getPopularLicense(){
-
+    public String getPopularLicense(){
+        try {
+            return apiService.getPopularLicense();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

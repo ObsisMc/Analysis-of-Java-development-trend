@@ -11,34 +11,43 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class GenerateWordCloudData {
+public class GenerateLicenseData {
     public static void main(String[] args) throws IOException {
         FileInputStream fileInputStream = new FileInputStream("src/main/resources/rawdata/jsonTotalWithLanguage.json");
         try (Reader reader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8)) {
             Gson gson = new GsonBuilder().create();
-            CloudDataItem[] items = gson.fromJson(reader, CloudDataItem[].class);
-            LinkedHashSet<Map.Entry<String, Long>> a = Arrays.stream(items).map(CloudDataItem::getTopics).flatMap(Collection::stream)
+            LicenseItem[] licenseItems = gson.fromJson(reader, LicenseItem[].class);
+            LinkedHashSet<Map.Entry<String, Long>> sortedMap = Arrays.stream(licenseItems).map(LicenseItem::getKey)
                     .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                     .entrySet().stream().sorted((o1, o2) -> (int) (o2.getValue() - o1.getValue()))
                     .collect(Collectors.toCollection(LinkedHashSet::new));
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append("[");
-            for (Map.Entry<String, Long> i : a) {
-                stringBuilder.append("{\"topic\": " + "\"").append(i.getKey()).append("\", \"number\": ").append(i.getValue()).append("},");
+            for (Map.Entry<String, Long> i : sortedMap) {
+                if (i.getKey().equals("")) {
+                    continue;
+                }
+                stringBuilder.append("{\"name\": " + "\"").append(i.getKey()).append("\", \"value\": ").append(i.getValue()).append("},");
             }
             stringBuilder.deleteCharAt(stringBuilder.length() - 1);
             stringBuilder.append("]");
-            Files.write(Paths.get("src/main/resources/ripedata/wordCloudData.json"), Collections.singleton(stringBuilder));
+            Files.write(Paths.get("src/main/resources/ripedata/licenseData.json"), Collections.singleton(stringBuilder));
             System.out.println();
         }
     }
 }
 
-class CloudDataItem {
-    String[] topics;
+class LicenseItem {
+    License license;
 
-    public List<String> getTopics() {
-        if (topics == null) return new ArrayList<>();
-        return List.of(topics);
+    public String getKey() {
+        if (license == null) {
+            return "";
+        }
+        return license.key;
     }
+}
+
+class License {
+    String key;
 }
