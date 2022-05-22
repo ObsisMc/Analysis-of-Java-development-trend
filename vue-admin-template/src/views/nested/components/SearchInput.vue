@@ -22,29 +22,40 @@ export default {
     return {
       state: '',
       finished: 0,
+      error: false,
       need: 1
     }
   },
   methods: {
     querySearch(input, cb) {
-      cb([{value:"input"}]);
+      cb([{value: "input"}]);
     },
     handleSelect() {
-      console.log(this.state);
+      this.$evenBus.$emit("beginSearch");
       let repoURL = this.state.startsWith("http") ? this.state : "https://github.com/" + this.state;
       this.$evenBus.$emit("getCommitsByTime", repoURL);
     }
   },
   mounted() {
-    this.$evenBus.$on("finishSearchRepo", () => {
+    this.$evenBus.$on("finishSearchRepo", (state) => {
       this.finished += 1;
+      console.log(state, this.error);
+      if (!state && !this.error) {
+        this.$notify.error({
+          message: "Invalid URL or private repo"
+        })
+        this.error = !this.error;
+      }
       if (this.finished === this.need) {
         this.$message({
           message: "Finish searching repository",
-          type: "success"
+          type: "info"
         })
         this.finished = 0;
+        this.error = !this.error;
+        this.$evenBus.$emit("endSearch");
       }
+
     })
   }
 }

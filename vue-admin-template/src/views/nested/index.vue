@@ -1,18 +1,36 @@
 <template>
-<div class="dashboard-container">
+  <div class="dashboard-container">
+    <SearchLoading v-if="loading"></SearchLoading>
     <SearchInput></SearchInput>
-  <ContributorPanel></ContributorPanel>
-  <TimeShow></TimeShow>
-</div>
+    <ContributorPanel></ContributorPanel>
+    <TimeShow></TimeShow>
+  </div>
 </template>
 
 <script>
 import SearchInput from "@/views/nested/components/SearchInput";
 import ContributorPanel from "@/views/nested/components/ContributorPanel";
 import TimeShow from "@/views/nested/components/TimeShow";
+import SearchLoading from "@/components/SearchLoading";
+
 export default {
   name: "index",
-  components:{ContributorPanel, SearchInput,TimeShow}
+  components: {SearchLoading, ContributorPanel, SearchInput, TimeShow},
+  data() {
+    return {
+      loading: false
+    }
+  },
+  methods: {},
+  mounted() {
+    this.$evenBus.$on("beginSearch",()=>{
+      this.loading = true;
+    })
+    this.$evenBus.$on("endSearch",()=>{
+      this.loading = false;
+    })
+  }
+
 }
 </script>
 

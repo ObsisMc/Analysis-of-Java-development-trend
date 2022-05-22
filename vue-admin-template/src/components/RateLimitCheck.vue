@@ -1,14 +1,11 @@
 <template>
   <div>
     <div class="floatPanel" style="text-align: center">
-      <div v-if="!loading">
         <el-tag size="mini" class="tag">Search remain: {{ search }}</el-tag>
         <br/>
         <el-tag size="mini" class="tag">Core remain: {{ core }}</el-tag>
       </div>
-
       <br/>
-    </div>
   </div>
 </template>
 
@@ -20,14 +17,14 @@ export default {
   data() {
     return {
       search: 0,
-      core: 0,
-      loading: false
+      core: 0
     }
   },
   computed: {},
-  methods: {},
+  methods: {
+
+  },
   mounted() {
-    console.log(this.$store.getters.authenticated);
     let autenticated = this.$store.getters.authenticated;
     axios.get("https://api.github.com/rate_limit", {
       headers: {
@@ -37,7 +34,7 @@ export default {
     }).then(response => {
       let data = response.data;
       this.search = data.resources.search.remaining;
-        this.core = data.rate.remaining;
+      this.core = data.rate.remaining;
     }).catch(() => {
       this.$message({
         message: "Fail to get rate limit",

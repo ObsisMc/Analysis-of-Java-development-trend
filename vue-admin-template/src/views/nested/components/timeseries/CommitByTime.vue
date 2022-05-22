@@ -22,6 +22,7 @@ export default {
       this.myChart.setOption(this.option);
     },
     getData(url) {
+      let success = true;
       axios.get("http://localhost:8080/api/commit_times", {
         params: {
           url: url
@@ -40,20 +41,16 @@ export default {
         this.option.xAxis.data = date;
         this.option.series.data = data;
         this.draw();
-        this.$evenBus.$emit("finishSearchRepo");
       }).catch(error => {
         // todo: maybe bug
         this.option = this.defaultOption;
         this.draw();
-        this.$message({
-          message: "Invalid URL or non-public repository",
-          type: "error"
-        })
+        success = false;
       }).finally(() => {
-
+        this.$evenBus.$emit("finishSearchRepo", success);
       })
     },
-    init(){
+    init() {
       this.chartDom = document.getElementById('commitByTime');
       this.myChart = this.$echarts.init(this.chartDom);
 
