@@ -48,8 +48,12 @@ public class ApiController {
 
     // [{"topic": "ababa", number: 1}]
     @GetMapping("word_cloud")
-    public void getWordCloud(int number){
-
+    public String getWordCloud(int number){
+        try {
+            return apiService.getWordCloud(number);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     //[

@@ -4,6 +4,7 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sustech.cs209a_project.pojo.CommitSearchResult;
+import com.sustech.cs209a_project.pojo.WordItem;
 import com.sustech.cs209a_project.utils.HttpClient;
 import com.sustech.cs209a_project.utils.PublicUtils;
 import org.jsoup.Jsoup;
@@ -13,8 +14,8 @@ import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -31,7 +32,7 @@ public class ApiServiceImpl implements ApiService {
                 continue;
             }
             Node result = a.get(0).childNode(0);
-            String t = result.toString().replaceAll(",","");
+            String t = result.toString().replaceAll(",", "");
             return Integer.parseInt(t);
         }
         throw new RuntimeException("Server error");
@@ -52,14 +53,14 @@ public class ApiServiceImpl implements ApiService {
             searchResults.addAll(List.of(result));
             System.out.println("hello" + i + " end");
         }
-        LinkedHashSet<Map.Entry<String,Long>> s =  searchResults.stream().map(CommitSearchResult::getCommitTime).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+        LinkedHashSet<Map.Entry<String, Long>> s = searchResults.stream().map(CommitSearchResult::getCommitTime).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .entrySet().stream().sorted(Map.Entry.comparingByKey()).collect(Collectors.toCollection(LinkedHashSet::new));
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("[");
         for (Map.Entry<String, Long> t : s) {
             stringBuilder.append("{date:\"").append(t.getKey()).append("\",count:\"").append(t.getValue()).append("\"},");
         }
-        stringBuilder.deleteCharAt(stringBuilder.length()-1);
+        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
         stringBuilder.append("]");
         System.out.println(stringBuilder);
 
@@ -67,12 +68,27 @@ public class ApiServiceImpl implements ApiService {
     }
 
 
-    public void getTotalRanks(){
+    public void getTotalRanks() {
 
+    }
+
+    @Override
+    public String getWordCloud(int count) throws IOException {
+
+
+        FileInputStream fileInputStream = new FileInputStream("src/main/resources/ripedata/wordCloudData.json");
+        try (Reader reader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8)) {
+            Gson gson = new GsonBuilder().create();
+            WordItem[] items = gson.fromJson(reader, WordItem[].class);
+            List<WordItem> itemList = List.of(items);
+            itemList = itemList.subList(0, count);
+            return gson.toJson(itemList);
+        }
     }
 
 //    public static void main(String[] args) throws IOException {
 //        ApiServiceImpl apiService = new ApiServiceImpl();
 //        apiService.getCommitWithTime("https://github.com/xbdeng/taskManager");
+//        System.out.println(apiService.getWordCloud(10));
 //    }
 }
