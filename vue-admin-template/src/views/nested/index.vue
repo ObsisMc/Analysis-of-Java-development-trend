@@ -1,7 +1,11 @@
 <template>
   <div class="dashboard-container">
+    <transition name="fade" mode="out-in">
     <SearchLoading v-if="loading"></SearchLoading>
-    <SearchInput></SearchInput>
+    </transition>
+    <transition name="fade" mode="out-in">
+    <SearchInput v-if="!loading"></SearchInput>
+    </transition>
     <ContributorPanel></ContributorPanel>
     <TimeShow></TimeShow>
   </div>
@@ -42,6 +46,12 @@ export default {
   position: relative;
   margin: 30px;
 
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 
 </style>

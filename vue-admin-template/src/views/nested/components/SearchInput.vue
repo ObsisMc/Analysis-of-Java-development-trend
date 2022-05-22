@@ -15,9 +15,11 @@
 
 <script>
 import axios from "axios";
+import SearchLoading from "@/components/SearchLoading";
 
 export default {
   name: "SearchInput",
+  components: {SearchLoading},
   data() {
     return {
       state: '',
