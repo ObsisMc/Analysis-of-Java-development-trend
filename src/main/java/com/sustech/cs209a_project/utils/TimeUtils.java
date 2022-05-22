@@ -16,4 +16,10 @@ public class TimeUtils {
         ZonedDateTime now = ZonedDateTime.now();
         return ChronoUnit.SECONDS.between(now, then);
     }
+    public static ZonedDateTime getDate(long epochSecond){
+        Instant epochSec = Instant.ofEpochSecond(epochSecond);
+        ZoneId zId = ZoneId.systemDefault();
+        ZonedDateTime then = ZonedDateTime.ofInstant(epochSec, zId);
+        return then;
+    }
 }
