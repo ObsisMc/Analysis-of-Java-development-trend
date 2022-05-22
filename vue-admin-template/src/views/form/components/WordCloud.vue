@@ -12,7 +12,7 @@
       v-model="wordNum"
       @change="getWordCloud"
       height="200px"
-      max="200">
+      :max="200">
     </el-slider>
     <el-dialog
       title="Info"
