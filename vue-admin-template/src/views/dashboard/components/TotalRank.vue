@@ -108,7 +108,8 @@ export default {
             ...datasetWithFilters
           ],
           title: {
-            text: 'Language rank by time'
+            text: 'Rank of languages ',
+            left: "center"
           },
           tooltip: {
             trigger: 'axis',
