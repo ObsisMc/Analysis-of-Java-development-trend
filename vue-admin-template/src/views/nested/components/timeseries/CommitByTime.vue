@@ -19,8 +19,6 @@ export default {
   },
   methods: {
     draw() {
-      console.log(this.option.series.data);
-      console.log(this.option.xAxis.data);
       this.myChart.setOption(this.option);
     },
     getData(url) {
