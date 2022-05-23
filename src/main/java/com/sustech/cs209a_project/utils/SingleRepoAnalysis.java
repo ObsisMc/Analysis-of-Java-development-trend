@@ -36,7 +36,7 @@ public class SingleRepoAnalysis {
 
 
     public static void main(String[] args) {
-        taskTwo(1000, 10);
+        taskTwo(200, 10);
     }
 
     public static void taskOne(int sampleNum, int threadN) {
@@ -74,9 +74,11 @@ public class SingleRepoAnalysis {
             boolean finish = threadPoolExecutor.awaitTermination(2, TimeUnit.HOURS);
         } catch (InterruptedException e) {
             e.printStackTrace();
+        } finally {
+            JsonIO.saveJSON(commitTime, String.format("repoCommitTime%d.json", sampleNum));
         }
 
-        JsonIO.saveJSON(commitTime, String.format("repoCommitTime%d.json", sampleNum));
+
     }
 
     static class Retinue {
@@ -276,7 +278,7 @@ public class SingleRepoAnalysis {
                                         JSONArray dayTime = new JSONArray();
                                         for (int dt = 0; dt < 24; dt++) {
                                             JSONObject anHr = new JSONObject();
-                                            anHr.put("value",0);
+                                            anHr.put("value", 0);
                                             dayTime.add(anHr);
                                         }
                                         commitTime.put(date, dayTime);
@@ -292,7 +294,7 @@ public class SingleRepoAnalysis {
                                 skip = true;
                             }
                             pageN++;
-                            dupicatN = 0;
+                            dupicatN = -1;
                         } else if (response.statusCode() == 403) {
                             JSONObject rateJson = JSON.parseObject(Jsoup.connect("https://api.github.com/rate_limit")
                                     .header("Authorization", String.format("token %s", token))
@@ -312,15 +314,13 @@ public class SingleRepoAnalysis {
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
-                            dupicatN++;
                         } else {
                             System.out.printf("StatusCode %d at %s\n", response.statusCode(), url);
-                            dupicatN++;
                         }
-                    } catch (IOException e) {
+                    } catch (IOException  e) {
                         System.out.printf("Exception %s at %s\n", e.getMessage(), url);
-                        dupicatN++;
                     }
+                    dupicatN++;
                     if (dupicatN > 3) {
                         skip = true;
                     }
