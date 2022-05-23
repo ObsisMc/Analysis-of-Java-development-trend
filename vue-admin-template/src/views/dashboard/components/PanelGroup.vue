@@ -10,7 +10,7 @@
             <div class="card-panel-text">
               Users
             </div>
-            <count-to :start-val="0" :end-val="102400" :duration="2600" class="card-panel-num"/>
+            <count-to :start-val="0" :end-val="users" :duration="2600" class="card-panel-num"/>k
           </div>
         </div>
       </el-col>
@@ -23,7 +23,7 @@
             <div class="card-panel-text">
               Repositories
             </div>
-            <count-to :start-val="0" :end-val="81212" :duration="3000" class="card-panel-num"/>
+            <count-to :start-val="0" :end-val="repos" :duration="3000" class="card-panel-num"/>k
           </div>
         </div>
       </el-col>
@@ -36,7 +36,7 @@
             <div class="card-panel-text">
               Open issues
             </div>
-            <count-to :start-val="0" :end-val="9280" :duration="3200" class="card-panel-num"/>
+            <count-to :start-val="0" :end-val="issues" :duration="3200" class="card-panel-num"/>k
           </div>
         </div>
       </el-col>
@@ -54,6 +54,7 @@
 <script>
 import CountTo from 'vue-count-to'
 import ThreeValueByTime from "@/views/dashboard/components/ThreeValueByTime";
+import axios from "axios";
 
 export default {
   components: {
@@ -62,15 +63,21 @@ export default {
   },
   data() {
     return {
-      dialogVisible: false
+      dialogVisible: false,
+      users: 3492,
+      repos: 10672,
+      issues: 22065
     }
   },
   methods: {
     showPartOneChart() {
       this.dialogVisible = !this.dialogVisible;
+    },
+    getData(){
     }
   },
   mounted() {
+
   }
 }
 </script>

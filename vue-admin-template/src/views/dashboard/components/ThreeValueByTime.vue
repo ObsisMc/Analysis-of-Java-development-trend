@@ -9,26 +9,46 @@ export default {
   name: "ThreeValueByTime",
   data() {
     return {
-      test: 0
+      chartDom: null,
+      myChart: null,
+      option: null,
+      title: "Number of Repo, User and Issue in recent 10 years"
     }
   },
   methods: {
+    getDataSet(raw_data) {
+      console.log(typeof raw_data)
+      let dataset = [["Name", "Value", "Year"]];
+      for (let i = 0; i < raw_data.length; i++) {
+        let name = raw_data[i].type;
+
+        let data1 = raw_data[i].dataset;
+        for (let j = 0; j < data1.length; j++) {
+          let year = data1[j].year;
+
+          let languages = data1[j].languages;
+          for (let k = 0; k < languages.length; k++) {
+            if (languages[k].name === "Java") {
+              dataset.push([name, languages[k].value, year]);
+              break;
+            }
+          }
+        }
+      }
+      return dataset;
+    },
     draw() {
-      axios.get("json/demo.json").then(response => {
-        var _rawData = response.data;
-        var chartDom = document.getElementById('threeByTime');
-        var myChart = this.$echarts.init(chartDom);
-        var option;
-        const countries = [
-          'Finland',
-          'France',
-          'Germany'
-        ];
+      axios.get("http://localhost:8080/api/user_issue_repo").then(response => {
+        // var _rawData = response.data;
+        var _rawData = this.getDataSet(response.data);
+
+        const types = ["user", "repo", "issue"];
+
         const datasetWithFilters = [];
         const seriesList = [];
         let n = 0;
-        this.$echarts.util.each(countries, function (country) {
-          var datasetId = 'dataset_' + country;
+        this.$echarts.util.each(types, function (tp) {
+          var datasetId = 'dataset_' + tp;
           n++;
           datasetWithFilters.push({
             id: datasetId,
@@ -37,8 +57,8 @@ export default {
               type: 'filter',
               config: {
                 and: [
-                  {dimension: 'Year', gte: 1950},
-                  {dimension: 'Country', '=': country}
+                  {dimension: 'Year', gte: 2012},
+                  {dimension: 'Name', '=': tp}
                 ]
               }
             }
@@ -47,8 +67,8 @@ export default {
             type: 'line',
             datasetId: datasetId,
             showSymbol: false,
-            name: country,
-            yAxisIndex: n === 2 ? 1 : 0,
+            name: tp,
+            yAxisIndex: 0,
             labelLayout: {
               moveOverlap: 'shiftY'
             },
@@ -57,19 +77,19 @@ export default {
             },
             encode: {
               x: 'Year',
-              y: 'Income',
+              y: 'Value',
               // label: ['Country', 'Income'],
               // itemName: 'Year',
-              tooltip: ['Income']
+              tooltip: ['Value']
             }
           });
         });
-        option = {
-          legend:{
-            data:countries,
-            top:"bottom"
+        var option = {
+          legend: {
+            data: types,
+            top: "bottom"
           },
-          animationDuration: 3000,
+          animationDuration: 1000,
           dataset: [
             {
               id: 'dataset_raw',
@@ -78,7 +98,7 @@ export default {
             ...datasetWithFilters
           ],
           title: {
-            text: 'Number of users & repos & issues by time',
+            text: this.title,
             left: "center"
           },
           tooltip: {
@@ -90,24 +110,24 @@ export default {
             nameLocation: 'middle'
           },
           yAxis: [
-            {name: "Number of users & repos"},
-            {
-              name: 'Number of issues',
-              alignTicks: true,
-              type: 'value'
-            }
+            {name: "Number"}
           ],
           grid: {
             right: 140
           },
           series: seriesList
         };
-        myChart.setOption(option);
+        this.myChart.setOption(option);
 
       })
+    },
+    init() {
+      this.chartDom = document.getElementById('threeByTime');
+      this.myChart = this.$echarts.init(this.chartDom);
     }
   },
   mounted() {
+    this.init();
     this.draw();
   }
 }

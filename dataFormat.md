@@ -149,6 +149,36 @@
 
 ## Part 2
 
+![image-20220523203720821](dataFormat.assets/image-20220523203720821.png)
+
+```json
+// 用jsonTotalWithLanguage.json里面的"lanugages"，"languages"里面的值可能表示行数，值比较大，可能要处理一下（我之前是算百分比）
+{
+    "nodes":[ // 就是图上的球
+        {
+            "id":0,
+            "name":"Java"，
+           	"value":100.44
+        },
+        {
+            "id":1,
+            "name":"HTML",
+            "value":10.23
+        },
+        ...
+    ],
+    "links":[ // 线，这里的边是有向边，但两个节点间最多一个线就行了不然太乱
+        {
+        	"source": 0,
+        	"target": 1
+        },
+		...
+    ]
+}
+```
+
+**只留value最大的前15个语言 as nodes！**
+
 ## Part 3
 ![img.png](./dataFormat.assets/img.png)
 

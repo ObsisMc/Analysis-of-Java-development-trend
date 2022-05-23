@@ -13,7 +13,7 @@ export default {
       myCharts: null,
       chartDom: null,
       option: null,
-      title: "Rank of languages in recent 10 years"
+      title: "Languages' Popularity Rank in recent 10 years"
     }
   },
   methods: {
