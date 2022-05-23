@@ -25,9 +25,9 @@ public class ApiController {
      * [{date:"2021-09-17",count:"8"},{date:"2021-09-19",count:"6"},{date:"2021-09-26",count:"7"},...]
      */
     @GetMapping("commit_times")
-    public String getCommitTimes(String url) {
+    public String getCommitTimes(String url, String identity) {
         try {
-            return apiService.getCommitWithTime(url);
+            return apiService.getCommitWithTime(url, identity);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

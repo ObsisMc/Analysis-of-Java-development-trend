@@ -9,6 +9,11 @@ import com.sustech.cs209a_project.pojo.WordItem;
 import com.sustech.cs209a_project.utils.HttpClient;
 import com.sustech.cs209a_project.utils.PublicUtils;
 import com.sustech.cs209a_project.utils.RedisUtil;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -47,7 +52,12 @@ public class ApiServiceImpl implements ApiService {
     }
 
     @Override
-    public String getCommitWithTime(String url) throws IOException {
+    public String getCommitWithTime(String url, String identity) throws IOException {
+        String access_token = (String) redisUtil.get(identity);
+        if (redisUtil.hasKey("[commitWithTime]" + url)) {
+            redisUtil.expire("[commitWithTime]" + url, 10 * 60);
+            return (String) redisUtil.get("[commitWithTime]" + url);
+        }
         int count = getCommitCount(url);
         String repo = PublicUtils.getUserAndRepoFromUrl(url);
         int iterationTime = count / 100 + 1;
@@ -55,9 +65,13 @@ public class ApiServiceImpl implements ApiService {
         for (int i = 1; i <= iterationTime; i++) {
             System.out.println("hello" + i + " begin");
             String request = "https://api.github.com/repos/" + repo + "/commits?page=" + i + "&per_page=100";
-            BufferedReader in = HttpClient.doGet(request);
+            HttpGet httpGet = new HttpGet(request);
+            httpGet.setHeader("Authorization", "token " + access_token);
+            CloseableHttpClient httpClient = HttpClients.createDefault();
+            CloseableHttpResponse response = httpClient.execute(httpGet);
+            String r = EntityUtils.toString(response.getEntity());
             Gson gson = new GsonBuilder().setFieldNamingStrategy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
-            CommitSearchResult[] result = gson.fromJson(in, CommitSearchResult[].class);
+            CommitSearchResult[] result = gson.fromJson(r, CommitSearchResult[].class);
             searchResults.addAll(List.of(result));
             System.out.println("hello" + i + " end");
         }
@@ -71,7 +85,7 @@ public class ApiServiceImpl implements ApiService {
         stringBuilder.deleteCharAt(stringBuilder.length() - 1);
         stringBuilder.append("]");
         System.out.println(stringBuilder);
-
+        redisUtil.set("[commitWithTime]" + url, stringBuilder.toString(), 10 * 60);
         return stringBuilder.toString();
     }
 
@@ -145,7 +159,7 @@ public class ApiServiceImpl implements ApiService {
         String s = request.postForObject(accessTokenUrl, String.class, String.class, map);
         String[] str = s.split("&");
         String access_token = str[0].substring(str[0].indexOf("=")).substring(1);
-        redisUtil.set(identity,access_token,60*30);
+        redisUtil.set(identity, access_token, 60 * 30);
     }
 
 
