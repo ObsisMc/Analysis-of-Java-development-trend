@@ -8,6 +8,7 @@ import org.jsoup.Jsoup;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -26,12 +27,16 @@ public class SingleRepoAnalysis {
     static JSONArray rawArray;
     static float totalNum = 0;
     static int actualSampleN = 0;
+
     static Lock nLock = new ReentrantLock();
     static Lock sectionLock = new ReentrantLock();
 
+    // CommitWorker HashMap<<String, int[]>>
+    static JSONObject commitTime = new JSONObject();
+
 
     public static void main(String[] args) {
-        taskOne(1500, 10);
+        taskTwo(500, 10);
     }
 
     public static void taskOne(int sampleNum, int threadN) {
@@ -53,6 +58,27 @@ public class SingleRepoAnalysis {
 
         JsonIO.saveJSON(res, String.format("repoAvgLable_%d.json", sampleNum));
         System.out.printf("Avg: %f\n", totalNum / (float) actualSampleN);
+    }
+
+    public static void taskTwo(int sampleNum, int threadN) {
+        rawArray = Objects.requireNonNull(JsonIO.readJSONArray("jsonTotalWithLanguage.json"));
+        size = rawArray.size();
+        step = (int) Math.ceil((double) size / sampleNum);
+
+        ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(threadN);
+        for (int i = 0; i < threadN; i++) {
+            threadPoolExecutor.submit(new CommitWorker());
+        }
+        threadPoolExecutor.shutdown();
+        try {
+            boolean finish = threadPoolExecutor.awaitTermination(2, TimeUnit.HOURS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            JsonIO.saveJSON(commitTime, String.format("repoCommitTime%d.json", sampleNum));
+        }
+
+
     }
 
     static class Retinue {
@@ -204,6 +230,99 @@ public class SingleRepoAnalysis {
                     actualSampleN++;
                     sectionLock.unlock();
                 }
+            }
+        }
+    }
+
+    static class CommitWorker implements Runnable {
+
+        @Override
+        public void run() {
+            while (n < size) {
+                nLock.lock();
+                JSONObject repo = rawArray.getJSONObject(n);
+                n += step;
+                nLock.unlock();
+
+                String fullName = repo.getString("full_name");
+                String urlFormat = "https://api.github.com/repos/" + fullName + "/commits?per_page=" + per_page + "&page=%s";
+
+                boolean skip = false;
+                int pageN = 1;
+                int dupicatN = 0;
+                do {
+                    String url = String.format(urlFormat, pageN);
+                    try {
+                        Connection.Response response = Jsoup.connect(url)
+                                .header("Authorization", String.format("token %s", token))
+                                .ignoreContentType(true).ignoreHttpErrors(true)
+                                .timeout(10000)
+                                .execute();
+                        if (response.statusCode() == 200) {
+                            JSONArray jsonArray = null;
+                            try {
+                                jsonArray = JSON.parseArray(response.body());
+                                assert jsonArray != null;
+                                for (int i = 0; i < jsonArray.size(); i++) {
+                                    String dateStr = jsonArray.getJSONObject(i).getJSONObject("commit")
+                                            .getJSONObject("author").getString("date");
+                                    String[] dateStrList = dateStr.split("T");
+                                    String date = dateStrList[0];
+                                    try {
+                                        sectionLock.lock();
+                                        if (!commitTime.containsKey(date)) {
+                                            JSONArray dayTime = new JSONArray();
+                                            for (int dt = 0; dt < 24; dt++) {
+                                                JSONObject anHr = new JSONObject();
+                                                anHr.put("value", 0);
+                                                dayTime.add(anHr);
+                                            }
+                                            commitTime.put(date, dayTime);
+                                        }
+                                        int dayHour = Integer.parseInt(dateStrList[1].split(":")[0]);
+                                        JSONObject hr = commitTime.getJSONArray(date).getJSONObject(dayHour);
+                                        hr.put("value", hr.getInteger("value") + 1);
+                                    } finally {
+                                        sectionLock.unlock();
+                                    }
+                                }
+                                if (jsonArray.size() < per_page) {
+                                    skip = true;
+                                }
+                                pageN++;
+                                dupicatN = -1;
+                            } catch (Exception | Error e) {
+                                System.out.printf("Unknow error at %s\n", url);
+                            }
+                        } else if (response.statusCode() == 403) {
+                            JSONObject rateJson = JSON.parseObject(Jsoup.connect("https://api.github.com/rate_limit")
+                                    .header("Authorization", String.format("token %s", token))
+                                    .ignoreContentType(true).execute().body());
+                            JSONObject searchRate = rateJson.getJSONObject("rate");
+                            if (searchRate.getInteger("remaining") > 0) {
+                                System.out.printf("But still have %d remaining\n", searchRate.getInteger("remaining"));
+                            }
+                            long waitSec = TimeUtils.waitSecond(searchRate.getLong("reset"));
+                            if (waitSec > 0) {
+                                System.out.printf("Need to wait %ds\n", waitSec);
+                                try {
+                                    Thread.sleep(waitSec * 1000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                        } else {
+                            System.out.printf("StatusCode %d at %s\n", response.statusCode(), url);
+                        }
+                    } catch (IOException e) {
+                        System.out.printf("Exception %s at %s\n", e.getMessage(), url);
+                    }
+                    dupicatN++;
+                    if (dupicatN > 3) {
+                        skip = true;
+                    }
+                } while (!skip);
             }
         }
     }
