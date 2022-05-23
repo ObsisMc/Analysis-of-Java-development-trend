@@ -17,8 +17,8 @@ public class ApiController {
 
 
     @GetMapping("auth")
-    public void getAuth(String code,String identity){
-        System.out.println(code + identity);
+    public void getAuth(String code, String identity) {
+        apiService.auth(code, identity);
     }
 
     /**
@@ -133,7 +133,7 @@ public class ApiController {
 
 
     @GetMapping("user_issue_repo")
-    public String getUserIssueRepo(){
+    public String getUserIssueRepo() {
         try {
             return apiService.getUserIssueRepo();
         } catch (IOException e) {
