@@ -17,6 +17,7 @@
 <script>
 import {ParticlesBg} from "particles-bg-vue";
 import loginForm from "@/views/login/loginForm";
+import axios from "axios";
 
 export default {
   name: "particleIndex",
@@ -53,6 +54,15 @@ export default {
   },
   mounted() {
     this.getViewPort();
+    let url = window.location.href;
+    let dz_url = url.split("#")[0];
+    let code = dz_url.split("code=")[1];
+
+    axios.get("http://localhost:8080/api/auth",{
+      params:{
+
+      }
+    })
     window.addEventListener('resize', this.getViewPort);
   },
   components: {

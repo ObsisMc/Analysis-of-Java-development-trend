@@ -5,7 +5,7 @@
       <TotalRank ref="totalRank"></TotalRank>
     </el-row>
     <el-row>
-      <el-col :span="11" class="graph-container" :style="{height:secondHeight}" >
+      <el-col :span="11" class="graph-container" :style="{height:secondHeight}">
         <LanguageRanks ref="rank" :hgt="rankhgt"></LanguageRanks>
       </el-col>
       <el-col :span="1" style="border: 1px solid transparent">
@@ -24,6 +24,7 @@ import RelationshipJava from "@/views/form/components/RelationshipJava";
 import PanelGroup from "@/views/dashboard/components/PanelGroup";
 import TotalRank from "@/views/dashboard/components/TotalRank";
 import NumberRatioByTime from "@/views/dashboard/components/NumberRatioByTime";
+import axios from "axios";
 
 export default {
   name: 'Dashboard',
@@ -40,7 +41,7 @@ export default {
     secondHeight() {
       return window.innerHeight * 0.5 + "px";
     },
-    rankhgt(){
+    rankhgt() {
       return window.innerHeight * 0.45 + "px";
     }
   },

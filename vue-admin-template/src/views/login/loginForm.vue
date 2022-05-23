@@ -143,21 +143,15 @@ export default {
         }
       })
     },
-    authenGithub(){
-      // this.$router.push()
-      let url = "https://github.com/login/oauth/authorize?client_id=1b620213701eebcda787&redirect_uri=http://localhost:8080/api/auth";
-      axios.get("https://github.com/login/oauth/authorize",{
-        params:{
-          client_id: "1b620213701eebcda787",
-          redirect_uri: "http://localhost:8080/api/auth"
-        }
-      }).then(response =>{
-
-      }).catch(e=>{
-
-      })
-
+    authenGithub() {
+      let redirect = "http://localhost:9528/#/dashboard";
+      let client_id = "1b620213701eebcda787";
+      let url = "https://github.com/login/oauth/authorize?client_id=1b620213701eebcda787&redirect_uri="+redirect;
+      window.location.href = url;
     }
+  },
+  mounted() {
+    console.log(this.$route.path);
   }
 }
 </script>
