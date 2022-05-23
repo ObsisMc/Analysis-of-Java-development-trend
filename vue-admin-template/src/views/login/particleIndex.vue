@@ -68,7 +68,8 @@ export default {
     if (dz_url.indexOf("code=") !== -1) {
       let code = dz_url.split("code=")[1];
       let ident = String(Math.random() * Math.random());
-      axios.post("http://localhost:8080/api/auth", {
+      console.log(code,ident);
+      axios.get("http://localhost:8080/api/auth", {
         params: {
           code: code,
           identity: ident
@@ -76,7 +77,7 @@ export default {
       }).then(response =>{
 
       }).finally(()=>{
-          this.
+
       })
     }
 
