@@ -8,4 +8,6 @@ public interface ApiService {
     String getWordCloud(int count) throws IOException;
 
     String getPopularLicense() throws IOException;
+
+    String getTotalRank() throws IOException;
 }

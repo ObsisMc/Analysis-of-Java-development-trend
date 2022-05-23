@@ -96,9 +96,18 @@ public class ApiServiceImpl implements ApiService {
         }
     }
 
+    @Override
+    public String getTotalRank() throws IOException {
+        FileInputStream fileInputStream = new FileInputStream("src/main/resources/ripedata/totalRankData.json");
+        try (Reader reader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8)) {
+            BufferedReader bufferedReader = new BufferedReader(reader);
+            return bufferedReader.readLine();
+        }
+    }
+
 //    public static void main(String[] args) throws IOException {
 //        ApiServiceImpl apiService = new ApiServiceImpl();
 //        apiService.getCommitWithTime("https://github.com/xbdeng/taskManager");
-//        System.out.println(apiService.getPopularLicense());
+//        System.out.println(apiService.getTotalRank());
 //    }
 }
