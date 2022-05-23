@@ -48,6 +48,8 @@
         <span> password: any</span>
       </div>
 
+      <el-button @click="authenGithub">to Github</el-button>
+
     </el-form>
   </div>
 </template>
@@ -140,6 +142,21 @@ export default {
           return false
         }
       })
+    },
+    authenGithub(){
+      // this.$router.push()
+      let url = "https://github.com/login/oauth/authorize?client_id=1b620213701eebcda787&redirect_uri=http://localhost:8080/api/auth";
+      axios.get("https://github.com/login/oauth/authorize",{
+        params:{
+          client_id: "1b620213701eebcda787",
+          redirect_uri: "http://localhost:8080/api/auth"
+        }
+      }).then(response =>{
+
+      }).catch(e=>{
+
+      })
+
     }
   }
 }
