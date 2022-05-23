@@ -10,4 +10,6 @@ public interface ApiService {
     String getPopularLicense() throws IOException;
 
     String getTotalRank() throws IOException;
+
+    String getTotalRankPie() throws IOException;
 }
