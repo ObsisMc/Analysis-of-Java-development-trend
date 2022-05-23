@@ -18,4 +18,6 @@ public interface ApiService {
     String getUserIssueRepo() throws IOException;
 
     void auth(String code, String identity);
+
+    String getTopRepoRank() throws IOException;
 }
