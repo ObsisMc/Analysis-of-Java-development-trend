@@ -108,7 +108,7 @@ export default {
             ...datasetWithFilters
           ],
           title: {
-            text: 'Rank of languages ',
+            text: 'Rank of languages in recent 10 years',
             left: "center"
           },
           tooltip: {
