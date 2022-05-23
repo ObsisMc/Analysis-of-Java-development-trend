@@ -8,9 +8,11 @@
         </span>
       </transition>
       <transition name="login-fade">
-        <el-button v-if="loginShow" @click="authenGithub">
-          To Github
-        </el-button>
+<!--        <loginForm v-if="loginShow"></loginForm>-->
+                <el-button v-if="loginShow" @click="authenGithub">
+                  To Github
+                </el-button>
+
       </transition>
     </div>
   </div>
@@ -60,6 +62,12 @@ export default {
       let client_id = "1b620213701eebcda787";
       let url = "https://github.com/login/oauth/authorize?client_id=1b620213701eebcda787&redirect_uri=" + redirect;
       window.location.href = url;
+    },
+    test() {
+      this.$store.dispatch('user/login', {"username": "admin", passwd: "11111"}).then(() => {
+        this.$router.push({path: '/dashboard' || '/'})
+      })
+
     }
   },
   mounted() {
@@ -68,18 +76,22 @@ export default {
     if (dz_url.indexOf("code=") !== -1) {
       let code = dz_url.split("code=")[1];
       let ident = String(Math.random() * Math.random());
-      console.log(code,ident);
+      console.log(code, ident);
       axios.get("http://localhost:8080/api/auth", {
         params: {
           code: code,
           identity: ident
         }
-      }).then(response =>{
-
-      }).finally(()=>{
+      }).then(response => {
+        this.$store.dispatch('user/login', {username: "admin", passwd: ident}).then(() => {
+          console.log( this.$store.getters.passwd);
+          this.$router.push({path: this.$route.query.redirect || '/'})
+        })
+      }).finally(() => {
 
       })
     }
+
 
     this.getViewPort();
     window.addEventListener('resize', this.getViewPort);
