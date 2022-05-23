@@ -18,11 +18,13 @@ import java.util.concurrent.locks.ReentrantLock;
 public class SingleRepoAnalysis {
     final private static String token = "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";
     static int n = 0;
+    static int per_page = 100;
     static int size;
     static int step;
+    static Retinue retinue;
     static JSONObject res = new JSONObject();
     static JSONArray rawArray;
-    static int totalNum = 0;
+    static float totalNum = 0;
     static int actualSampleN = 0;
     static Lock nLock = new ReentrantLock();
     static Lock sectionLock = new ReentrantLock();
@@ -37,6 +39,7 @@ public class SingleRepoAnalysis {
         size = rawArray.size();
         step = (int) Math.ceil((double) size / sampleNum);
 
+        retinue = new Retinue(1);
         ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(threadN);
         for (int i = 0; i < threadN; i++) {
             threadPoolExecutor.submit(new Worker());
@@ -48,25 +51,103 @@ public class SingleRepoAnalysis {
             e.printStackTrace();
         }
 
-        JsonIO.saveJSON(res, "repoContributorNum.json");
+        JsonIO.saveJSON(res, String.format("repoAvgLable_%d.json", sampleNum));
         System.out.printf("Avg: %f\n", totalNum / (float) actualSampleN);
     }
 
+    static class Retinue {
+        static public int taskId;
+        static public String task;
+
+        public Retinue(int taskId) {
+            Retinue.taskId = taskId;
+            switch (taskId) {
+                case 0:
+                    task = "contributors";
+                    break;
+                case 1:
+                case 2:
+                    task = "issues";
+                    break;
+            }
+        }
+
+        public String getURL(String fullName) {
+            return "https://api.github.com/repos/" + fullName +
+                    "/" + task + "?per_page=" + per_page + "&page=%s";
+        }
+
+        public int[] work(JSONArray jsonArray) {
+            switch (Retinue.taskId) {
+                case 0:
+                    return taskOne(jsonArray);
+                case 1:
+                    return taskTwo(jsonArray);
+                case 2:
+                    return taskThree(jsonArray);
+            }
+            return new int[]{0, 0};
+        }
+
+        public int[] taskOne(JSONArray jsonArray) {
+            return new int[]{jsonArray.size(), 0};
+        }
+
+        public int[] taskTwo(JSONArray jsonArray) {
+            int num = 0;
+            int validN = 0;
+            for (int i = 0; i < jsonArray.size(); i++) {
+                JSONObject object = jsonArray.getJSONObject(i);
+                num += object.getInteger("comments");
+                validN += 1;
+            }
+            return new int[]{num, validN};
+        }
+
+        public int[] taskThree(JSONArray jsonArray) {
+            int num = 0;
+            int validN = 0;
+            for (int i = 0; i < jsonArray.size(); i++) {
+                JSONObject object = jsonArray.getJSONObject(i);
+                num += object.getJSONArray("labels").size();
+                validN += 1;
+            }
+            return new int[]{num, validN};
+        }
+
+        public float postWork(int validN, int num) {
+            switch (Retinue.taskId) {
+                case 0:
+                    return num;
+                case 1:
+                case 2: {
+                    if (validN != 0)
+                        return num / (float) validN;
+                    else
+                        return 0;
+                }
+
+            }
+            return 0;
+        }
+    }
+
     static class Worker implements Runnable {
+
         @Override
         public void run() {
             while (n < size) {
+                int validN = 0;
                 nLock.lock();
                 JSONObject repo = rawArray.getJSONObject(n);
                 n += step;
                 nLock.unlock();
 
                 String fullName = repo.getString("full_name");
-                String urlFormat = "https://api.github.com/repos/" + fullName +
-                        "/contributors?per_page=100&page=%s";
+                String urlFormat = retinue.getURL(fullName);
                 boolean skip = false;
                 int pageN = 1;
-                int contributorN = 0;
+                int singleN = 0;
                 do {
                     String url = String.format(urlFormat, pageN);
                     try {
@@ -78,15 +159,15 @@ public class SingleRepoAnalysis {
 
                         if (response.statusCode() == 200) {
                             try {
-                                JSONArray jsonArray = JSON.parseArray(response.body());
-                                if (jsonArray.size() > 0) {
-                                    contributorN += jsonArray.size();
-                                    pageN++;
-                                } else {
+                                int[] num = retinue.work(JSON.parseArray(response.body()));
+                                singleN += num[0];
+                                validN += num[1];
+                                pageN++;
+                                if (num[0] < per_page) {
                                     skip = true;
                                 }
                             } catch (Exception | Error e) {
-                                System.out.printf("Unknow error at %s", url);
+                                System.out.printf("Unknow error at %s\n", url);
                             }
                         } else if (response.statusCode() == 403) {
                             JSONObject rateJson = JSON.parseObject(Jsoup.connect("https://api.github.com/rate_limit")
@@ -112,13 +193,14 @@ public class SingleRepoAnalysis {
                         }
 
                     } catch (IOException e) {
-                        System.out.printf("Timeout at %s\n", url);
+                        System.out.printf("Exception %s at %s\n", e.getMessage(), url);
                     }
                 } while (!skip);
-                if (contributorN > 0) {
+                float tmpN = retinue.postWork(validN, singleN);
+                if (tmpN > 0) {
                     sectionLock.lock();
-                    res.put(fullName, contributorN);
-                    totalNum += contributorN;
+                    res.put(fullName, tmpN);
+                    totalNum += tmpN;
                     actualSampleN++;
                     sectionLock.unlock();
                 }

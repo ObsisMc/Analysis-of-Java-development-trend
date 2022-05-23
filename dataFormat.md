@@ -128,10 +128,27 @@
 
 #### 最后一个图
 
-<img src="dataFormat.assets/image-20220520230615161.png" alt="image-20220520230615161" style="zoom:50%;" />
+![image-20220522214119474](dataFormat.assets/image-20220522214119474.png)
+
+```json
+{
+  name: ["users", "repos", "issues"],
+  // 要改成所有的语言名
+  "dataset": [
+    ["name","value","year"],
+    ['users',10000,2015],
+    ['users',12000,2016],
+    ...,
+    ["issues",1200000,2015],
+    ...
+  ] // 第一行是表头，第一列对应java名，第二列是排名（不在前7的话留空就行），第三列年份；对于同一个语言需要按时间排序（年份小的放前面）
+}
+```
+
 
 
 ## Part 2
+
 ## Part 3
 ![img.png](./dataFormat.assets/img.png)
 
