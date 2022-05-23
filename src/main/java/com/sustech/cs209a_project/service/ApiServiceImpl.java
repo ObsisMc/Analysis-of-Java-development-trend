@@ -8,12 +8,12 @@ import com.sustech.cs209a_project.pojo.LicenseItem;
 import com.sustech.cs209a_project.pojo.WordItem;
 import com.sustech.cs209a_project.utils.HttpClient;
 import com.sustech.cs209a_project.utils.PublicUtils;
+import com.sustech.cs209a_project.utils.RedisUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,6 +26,8 @@ import java.util.stream.Collectors;
 @Service
 public class ApiServiceImpl implements ApiService {
 
+    @Resource
+    RedisUtil redisUtil;
 
     private int getCommitCount(String url) throws IOException {
         Document doc = Jsoup.connect(url).get();

@@ -9,11 +9,4 @@ import javax.annotation.Resource;
 @SpringBootTest
 class Cs209AProjectApplicationTests {
 
-    @Resource
-    private ApiService apiService;
-    @Test
-    void contextLoads() {
-        apiService.test();
-    }
-
 }
