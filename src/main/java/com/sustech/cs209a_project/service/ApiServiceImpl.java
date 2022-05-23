@@ -109,8 +109,18 @@ public class ApiServiceImpl implements ApiService {
         }
     }
 
+
+    @Override
+    public String getIncreaseRank() throws IOException {
+        FileInputStream fileInputStream = new FileInputStream("src/main/resources/ripedata/increaseRankData.json");
+        try (Reader reader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8)) {
+            BufferedReader bufferedReader = new BufferedReader(reader);
+            return bufferedReader.readLine();
+        }
+    }
+
     public static void main(String[] args) throws IOException {
         ApiServiceImpl apiService = new ApiServiceImpl();
-        System.out.println(apiService.getTotalRankPie());
+        System.out.println(apiService.getIncreaseRank());
     }
 }

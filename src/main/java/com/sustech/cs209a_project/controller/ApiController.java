@@ -88,6 +88,11 @@ public class ApiController {
 
     @GetMapping("increase_rank")
     public void getIncreaseRank() {
+        try {
+            apiService.getIncreaseRank();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
