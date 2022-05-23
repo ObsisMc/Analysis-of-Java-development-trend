@@ -2,6 +2,8 @@ package com.sustech.cs209a_project.script;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.sustech.cs209a_project.pojo.Language;
+import com.sustech.cs209a_project.pojo.TotalRankItem;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -64,20 +66,4 @@ public class GenerateRepoRankData {
             System.out.println();
         }
     }
-}
-
-class TotalRankItem {
-    int year;
-    Language[] language;
-
-    public List<String> getLanguages() {
-        return Arrays.stream(language).map(i -> i.name).collect(Collectors.toList());
-    }
-
-}
-
-class Language {
-    int count;
-    String name;
-    int value;
 }
