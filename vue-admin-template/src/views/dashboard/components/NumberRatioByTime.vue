@@ -13,7 +13,7 @@ export default {
       myChart: null,
       option: null,
       year: 2021,
-      title: 'Number of repo in ',
+      title: 'Percentage of Popular Languages in ',
       data: [],
       top_k: 7
     }
