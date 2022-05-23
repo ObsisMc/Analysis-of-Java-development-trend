@@ -12,7 +12,8 @@ export default {
       width: 0,
       myCharts: null,
       chartDom: null,
-      option: null
+      option: null,
+      title: "Rank of languages in recent 10 years"
     }
   },
   methods: {
@@ -57,7 +58,9 @@ export default {
           languages = handled_data.head;
           raw_data = handled_data.dataset;
         }).catch(error => {
-
+            this.$notify.error({
+              message: "Fail to get " + this.title
+            })
       }).finally(() => {
         this.$echarts.util.each(languages, function (language) {
           var datasetId = 'dataset_' + language;
@@ -108,7 +111,7 @@ export default {
             ...datasetWithFilters
           ],
           title: {
-            text: 'Rank of languages in recent 10 years',
+            text: this.title,
             left: "center"
           },
           tooltip: {
