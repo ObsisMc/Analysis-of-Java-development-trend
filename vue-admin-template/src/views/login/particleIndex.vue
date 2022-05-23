@@ -1,8 +1,8 @@
 <template>
-  <div >
+  <div>
     <particles-bg type="circle" :bg="true"/>
     <div class="login">
-      <transition name="slide-fade" >
+      <transition name="slide-fade">
         <span v-if="show" @click="showTitle">
         Analysis of JAVA development's current situation
         </span>
@@ -43,7 +43,9 @@ export default {
     showTitle() {
       if (this.show === false) {
         this.showLogin();
-        setTimeout(() => {this.show = !this.show}, 500);
+        setTimeout(() => {
+          this.show = !this.show
+        }, 500);
       } else {
         this.show = !this.show;
         setTimeout(this.showLogin, 500);
@@ -56,21 +58,29 @@ export default {
     authenGithub() {
       let redirect = "http://localhost:9528/#/dashboard";
       let client_id = "1b620213701eebcda787";
-      let url = "https://github.com/login/oauth/authorize?client_id=1b620213701eebcda787&redirect_uri="+redirect;
+      let url = "https://github.com/login/oauth/authorize?client_id=1b620213701eebcda787&redirect_uri=" + redirect;
       window.location.href = url;
     }
   },
   mounted() {
-    this.getViewPort();
     let url = window.location.href;
     let dz_url = url.split("#")[0];
-    let code = dz_url.split("code=")[1];
+    if (dz_url.indexOf("code=") !== -1) {
+      let code = dz_url.split("code=")[1];
+      let ident = String(Math.random() * Math.random());
+      axios.post("http://localhost:8080/api/auth", {
+        params: {
+          code: code,
+          identity: ident
+        }
+      }).then(response =>{
 
-    axios.get("http://localhost:8080/api/auth",{
-      params:{
+      }).finally(()=>{
+          this.
+      })
+    }
 
-      }
-    })
+    this.getViewPort();
     window.addEventListener('resize', this.getViewPort);
   },
   components: {
