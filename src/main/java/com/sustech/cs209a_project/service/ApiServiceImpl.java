@@ -13,8 +13,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -23,6 +25,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class ApiServiceImpl implements ApiService {
+
+
     private int getCommitCount(String url) throws IOException {
         Document doc = Jsoup.connect(url).get();
         Element application_main = doc.body().getElementsByClass("application-main ").get(0);
@@ -128,8 +132,5 @@ public class ApiServiceImpl implements ApiService {
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        ApiServiceImpl apiService = new ApiServiceImpl();
-        System.out.println(apiService.getUserIssueRepo());
-    }
+
 }

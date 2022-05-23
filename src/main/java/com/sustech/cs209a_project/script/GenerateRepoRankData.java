@@ -27,6 +27,7 @@ public class GenerateRepoRankData {
             Gson gson = new GsonBuilder().create();
             TotalRankItem[] totalRankItems = gson.fromJson(reader, TotalRankItem[].class);
             List<Language> languages;
+            List<Language> languages12;
 
             stringBuilder.append("], \"dataset\":[");
             Set<String> showLanguages = new HashSet<>();
@@ -34,8 +35,11 @@ public class GenerateRepoRankData {
                 rankPieBuild.append("{\"year\":" + item.year + ", \"language\": [");
                 increaseRankBuild.append("{\"year\":" + item.year + ", \"language\": [");
                 languages = Arrays.stream(item.language).sorted((o1, o2) -> o2.value - o1.value).limit(7).collect(Collectors.toList());
+                languages12 = Arrays.stream(item.language).sorted((o1, o2) -> o2.value - o1.value).limit(12).collect(Collectors.toList());
                 for (Language language : languages) {
                     rankPieBuild.append("{\"name\":" + "\"" + language.name + "\", \"value\":" + language.value + "},");
+                }
+                for(Language language:languages12){
                     increaseRankBuild.append("{\"name\":" + "\"" + language.name + "\", \"num\":" + language.count + "},");
                 }
                 rankPieBuild.deleteCharAt(rankPieBuild.length() - 1);
