@@ -14,4 +14,6 @@ public interface ApiService {
     String getTotalRankPie() throws IOException;
 
     String getIncreaseRank() throws IOException;
+
+    String getUserIssueRepo() throws IOException;
 }

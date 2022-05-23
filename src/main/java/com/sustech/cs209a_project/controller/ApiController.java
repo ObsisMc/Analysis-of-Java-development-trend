@@ -126,6 +126,16 @@ public class ApiController {
         }
     }
 
+
+    @GetMapping("user_issue_repo")
+    public String getUserIssueRepo(){
+        try {
+            return apiService.getUserIssueRepo();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     /**
      * {
      * repos:["top1RepoName","top2RepoName","top3RepoName"],
