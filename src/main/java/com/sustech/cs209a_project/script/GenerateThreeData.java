@@ -54,8 +54,6 @@ public class GenerateThreeData {
 
             Files.write(Paths.get("src/main/resources/ripedata/threeData.json"), Collections.singleton(gson.toJson(resultDataSets)));
 
-            System.out.println(gson.toJson(resultDataSets));
-
         }
     }
 }
