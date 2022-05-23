@@ -152,7 +152,12 @@ public class ApiController {
      * }
      */
     @GetMapping("top_repo_rank")
-    public void getTopRepoRank() {
+    public String getTopRepoRank() {
+        try {
+            return apiService.getTopRepoRank();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 

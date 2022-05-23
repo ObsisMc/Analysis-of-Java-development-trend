@@ -3,10 +3,7 @@ package com.sustech.cs209a_project.service;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.sustech.cs209a_project.pojo.CommitSearchResult;
-import com.sustech.cs209a_project.pojo.LicenseItem;
-import com.sustech.cs209a_project.pojo.WordItem;
-import com.sustech.cs209a_project.utils.HttpClient;
+import com.sustech.cs209a_project.pojo.*;
 import com.sustech.cs209a_project.utils.PublicUtils;
 import com.sustech.cs209a_project.utils.RedisUtil;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -160,6 +157,19 @@ public class ApiServiceImpl implements ApiService {
         String[] str = s.split("&");
         String access_token = str[0].substring(str[0].indexOf("=")).substring(1);
         redisUtil.set(identity, access_token, 60 * 30);
+    }
+
+
+    @Override
+    public String getTopRepoRank() throws IOException {
+        HttpGet httpGet = new HttpGet("https://api.github.com/search/repositories?q=language:java&sort=stars&page=1&per_page=3");
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        CloseableHttpResponse response = httpClient.execute(httpGet);
+        String r = EntityUtils.toString(response.getEntity());
+        Gson gson = new GsonBuilder().setFieldNamingStrategy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
+        RepositoriesSearchResult repositoriesSearchResult = gson.fromJson(r, RepositoriesSearchResult.class);
+        Repository[] repositories = repositoriesSearchResult.getItems();
+        return gson.toJson(repositories,Repository[].class);
     }
 
 

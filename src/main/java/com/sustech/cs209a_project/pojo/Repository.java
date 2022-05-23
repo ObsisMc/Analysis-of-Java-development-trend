@@ -16,6 +16,8 @@ public class Repository {
     String languageUrl;
     String stargazersUrl;
     String[] topics;
+    int stargazersCount;
+    int forksCount;
 
     @Override
     public boolean equals(Object o) {
