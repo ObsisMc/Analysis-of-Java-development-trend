@@ -1,14 +1,18 @@
 <template>
-  <div >
+  <div>
     <particles-bg type="circle" :bg="true"/>
     <div class="login">
-      <transition name="slide-fade" >
+      <transition name="slide-fade">
         <span v-if="show" @click="showTitle">
         Analysis of JAVA development's current situation
         </span>
       </transition>
       <transition name="login-fade">
-        <loginForm v-if="loginShow"></loginForm>
+<!--        <loginForm v-if="loginShow"></loginForm>-->
+                <el-button v-if="loginShow" @click="authenGithub">
+                  To Github
+                </el-button>
+
       </transition>
     </div>
   </div>
@@ -17,6 +21,7 @@
 <script>
 import {ParticlesBg} from "particles-bg-vue";
 import loginForm from "@/views/login/loginForm";
+import axios from "axios";
 
 export default {
   name: "particleIndex",
@@ -40,7 +45,9 @@ export default {
     showTitle() {
       if (this.show === false) {
         this.showLogin();
-        setTimeout(() => {this.show = !this.show}, 500);
+        setTimeout(() => {
+          this.show = !this.show
+        }, 500);
       } else {
         this.show = !this.show;
         setTimeout(this.showLogin, 500);
@@ -49,9 +56,43 @@ export default {
     },
     showLogin() {
       this.loginShow = !this.loginShow;
+    },
+    authenGithub() {
+      let redirect = "http://localhost:9528/#/dashboard";
+      let client_id = "1b620213701eebcda787";
+      let url = "https://github.com/login/oauth/authorize?client_id=1b620213701eebcda787&redirect_uri=" + redirect;
+      window.location.href = url;
+    },
+    test() {
+      this.$store.dispatch('user/login', {"username": "admin", passwd: "11111"}).then(() => {
+        this.$router.push({path: '/dashboard' || '/'})
+      })
+
     }
   },
   mounted() {
+    let url = window.location.href;
+    let dz_url = url.split("#")[0];
+    if (dz_url.indexOf("code=") !== -1) {
+      let code = dz_url.split("code=")[1];
+      let ident = String(Math.random() * Math.random());
+      console.log(code, ident);
+      axios.get("http://localhost:8080/api/auth", {
+        params: {
+          code: code,
+          identity: ident
+        }
+      }).then(response => {
+        this.$store.dispatch('user/login', {username: "admin", passwd: ident}).then(() => {
+          console.log( this.$store.getters.passwd);
+          this.$router.push({path: this.$route.query.redirect || '/'})
+        })
+      }).finally(() => {
+
+      })
+    }
+
+
     this.getViewPort();
     window.addEventListener('resize', this.getViewPort);
   },

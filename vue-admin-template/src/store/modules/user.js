@@ -8,7 +8,8 @@ const getDefaultState = () => {
     name: '',
     avatar: '',
     passwd: '',
-    authenticated: false
+    authenticated: false,
+    code: ''
   }
 }
 
@@ -32,7 +33,11 @@ const mutations = {
   },
   SET_AUTH: (state, authenticated) => {
     state.authenticated = authenticated
-  }
+  },
+  SET_IDEN: (state, info) => {
+      state.code = info[0];
+      state.passwd = info[1];
+  },
 }
 
 const actions = {
@@ -52,7 +57,8 @@ const actions = {
       })
     })
   },
-  authenticate({commit}) {
+  authenticate({commit}, info) {
+    commit("SET_IDEN", info);
     commit("SET_AUTH", true);
   },
 
