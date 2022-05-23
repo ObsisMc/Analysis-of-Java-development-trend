@@ -36,7 +36,7 @@ public class SingleRepoAnalysis {
 
 
     public static void main(String[] args) {
-        taskTwo(200, 10);
+        taskTwo(500, 10);
     }
 
     public static void taskOne(int sampleNum, int threadN) {
@@ -262,39 +262,38 @@ public class SingleRepoAnalysis {
                             JSONArray jsonArray = null;
                             try {
                                 jsonArray = JSON.parseArray(response.body());
+                                assert jsonArray != null;
+                                for (int i = 0; i < jsonArray.size(); i++) {
+                                    String dateStr = jsonArray.getJSONObject(i).getJSONObject("commit")
+                                            .getJSONObject("author").getString("date");
+                                    String[] dateStrList = dateStr.split("T");
+                                    String date = dateStrList[0];
+                                    try {
+                                        sectionLock.lock();
+                                        if (!commitTime.containsKey(date)) {
+                                            JSONArray dayTime = new JSONArray();
+                                            for (int dt = 0; dt < 24; dt++) {
+                                                JSONObject anHr = new JSONObject();
+                                                anHr.put("value", 0);
+                                                dayTime.add(anHr);
+                                            }
+                                            commitTime.put(date, dayTime);
+                                        }
+                                        int dayHour = Integer.parseInt(dateStrList[1].split(":")[0]);
+                                        JSONObject hr = commitTime.getJSONArray(date).getJSONObject(dayHour);
+                                        hr.put("value", hr.getInteger("value") + 1);
+                                    } finally {
+                                        sectionLock.unlock();
+                                    }
+                                }
+                                if (jsonArray.size() < per_page) {
+                                    skip = true;
+                                }
+                                pageN++;
+                                dupicatN = -1;
                             } catch (Exception | Error e) {
                                 System.out.printf("Unknow error at %s\n", url);
-                                continue;
                             }
-                            assert jsonArray != null;
-                            for (int i = 0; i < jsonArray.size(); i++) {
-                                String dateStr = jsonArray.getJSONObject(i).getJSONObject("commit")
-                                        .getJSONObject("author").getString("date");
-                                String[] dateStrList = dateStr.split("T");
-                                String date = dateStrList[0];
-                                try {
-                                    sectionLock.lock();
-                                    if (!commitTime.containsKey(date)) {
-                                        JSONArray dayTime = new JSONArray();
-                                        for (int dt = 0; dt < 24; dt++) {
-                                            JSONObject anHr = new JSONObject();
-                                            anHr.put("value", 0);
-                                            dayTime.add(anHr);
-                                        }
-                                        commitTime.put(date, dayTime);
-                                    }
-                                    int dayHour = Integer.parseInt(dateStrList[1].split(":")[0]);
-                                    JSONObject hr = commitTime.getJSONArray(date).getJSONObject(dayHour);
-                                    hr.put("value", hr.getInteger("value") + 1);
-                                } finally {
-                                    sectionLock.unlock();
-                                }
-                            }
-                            if (jsonArray.size() < per_page) {
-                                skip = true;
-                            }
-                            pageN++;
-                            dupicatN = -1;
                         } else if (response.statusCode() == 403) {
                             JSONObject rateJson = JSON.parseObject(Jsoup.connect("https://api.github.com/rate_limit")
                                     .header("Authorization", String.format("token %s", token))
@@ -302,22 +301,21 @@ public class SingleRepoAnalysis {
                             JSONObject searchRate = rateJson.getJSONObject("rate");
                             if (searchRate.getInteger("remaining") > 0) {
                                 System.out.printf("But still have %d remaining\n", searchRate.getInteger("remaining"));
-                                continue;
                             }
                             long waitSec = TimeUtils.waitSecond(searchRate.getLong("reset"));
-                            if (waitSec <= 0) {
-                                continue;
+                            if (waitSec > 0) {
+                                System.out.printf("Need to wait %ds\n", waitSec);
+                                try {
+                                    Thread.sleep(waitSec * 1000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
                             }
-                            System.out.printf("Need to wait %ds\n", waitSec);
-                            try {
-                                Thread.sleep(waitSec * 1000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
+
                         } else {
                             System.out.printf("StatusCode %d at %s\n", response.statusCode(), url);
                         }
-                    } catch (IOException  e) {
+                    } catch (IOException e) {
                         System.out.printf("Exception %s at %s\n", e.getMessage(), url);
                     }
                     dupicatN++;
