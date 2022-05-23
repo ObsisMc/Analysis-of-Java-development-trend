@@ -16,7 +16,7 @@ public class ApiController {
     private ApiService apiService;
 
 
-    @GetMapping("auth")
+    @PostMapping("auth")
     public void getAuth(String code,String identity){
         System.out.println(code + identity);
     }
