@@ -15,6 +15,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 import java.io.*;
@@ -132,6 +133,19 @@ public class ApiServiceImpl implements ApiService {
             BufferedReader bufferedReader = new BufferedReader(reader);
             return bufferedReader.readLine();
         }
+    }
+
+
+    @Override
+    public void auth(String code, String identity) {
+        String accessTokenUrl = "https://github.com/login/oauth/access_token?client_id=1b620213701eebcda787&client_secret=37e216c3aafc2e4fa6f79c111fed46618d270c20&code=" + code;
+        Map<String, String> map = new HashMap<>();
+        map.put("code", code);
+        RestTemplate request = new RestTemplate();
+        String s = request.postForObject(accessTokenUrl, String.class, String.class, map);
+        String[] str = s.split("&");
+        String access_token = str[0].substring(str[0].indexOf("=")).substring(1);
+        redisUtil.set(identity,access_token,60*30);
     }
 
 

@@ -16,4 +16,6 @@ public interface ApiService {
     String getIncreaseRank() throws IOException;
 
     String getUserIssueRepo() throws IOException;
+
+    void auth(String code, String identity);
 }
