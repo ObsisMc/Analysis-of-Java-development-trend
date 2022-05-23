@@ -3,8 +3,17 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "RepoRank",
+  data() {
+    return {
+      chartDom: null,
+      myChart: null,
+      option: null
+    }
+  },
   computed: {
     height() {
       return window.innerHeight * 0.4 + "px";
@@ -12,78 +21,81 @@ export default {
   },
   methods: {
     draw() {
-      var chartDom = document.getElementById('repoRank');
-      var myChart = this.$echarts.init(chartDom);
-      var option;
+      this.chartDom = document.getElementById('repoRank');
+      this.myChart = this.$echarts.init(this.chartDom);
 
-      option = {
-        title:{
-          text: 'Repository Rank'
-        },
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            // Use axis to trigger tooltip
-            type: 'shadow' // 'shadow' as default; can also be 'line' or 'shadow'
+      axios.get("http://localhost:8080/api/top_repo_rank")
+        .then(response => {
+          let data = response.data;
+
+          let yData = [];
+          let xData = [[], []]
+          for (let i = 0; i < data.length; i++) {
+            let tmp = data[i];
+            yData.push(tmp.full_name);
+            xData[0].push(tmp.stargazers_count);
+            xData[1].push(tmp.forks_count);
           }
-        },
-        legend: {},
-        grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
-        },
-        xAxis: {
-          type: 'value'
-        },
-        yAxis: {
-          type: 'category',
-          data: ['Mon', 'Tue', 'Wed']
-        },
-        series: [
-          {
-            name: 'Star',
-            type: 'bar',
-            stack: 'total',
-            label: {
-              show: true
+
+          this.option = {
+            title: {
+              text: 'Repository Rank'
             },
-            emphasis: {
-              focus: 'series'
+            tooltip: {
+              trigger: 'axis',
+              axisPointer: {
+                // Use axis to trigger tooltip
+                type: 'shadow' // 'shadow' as default; can also be 'line' or 'shadow'
+              }
             },
-            data: [320, 302, 301]
-          },
-          {
-            name: 'Fork',
-            type: 'bar',
-            stack: 'total',
-            label: {
-              show: true
+            legend: {},
+            grid: {
+              left: '3%',
+              right: '4%',
+              bottom: '3%',
+              containLabel: true
             },
-            emphasis: {
-              focus: 'series'
+            xAxis: {
+              type: 'value'
             },
-            data: [120, 132, 101]
-          },
-          {
-            name: 'Watch',
-            type: 'bar',
-            stack: 'total',
-            label: {
-              show: true
+            yAxis: {
+              type: 'category',
+              inverse: true,
+              data: yData
             },
-            emphasis: {
-              focus: 'series'
-            },
-            data: [220, 182, 191]
-          }
-        ]
-      };
-      myChart.on('click', function(params) {
-        window.open("https://github.com/ObsisMc/CS209A_Project");
-      });
-      option && myChart.setOption(option);
+            series: [
+              {
+                name: 'Star',
+                type: 'bar',
+                stack: 'total',
+                label: {
+                  show: true
+                },
+                emphasis: {
+                  focus: 'series'
+                },
+                data: xData[0]
+              },
+              {
+                name: 'Fork',
+                type: 'bar',
+                stack: 'total',
+                label: {
+                  show: true
+                },
+                emphasis: {
+                  focus: 'series'
+                },
+                data: xData[1]
+              }
+            ]
+          };
+          this.myChart.on('click', function (params) {
+            window.open("https://github.com/" + params.name);
+          });
+          this.option && this.myChart.setOption(this.option);
+        })
+
     }
   },
   mounted() {

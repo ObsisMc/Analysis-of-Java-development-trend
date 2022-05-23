@@ -162,7 +162,7 @@ public class ApiServiceImpl implements ApiService {
 
     @Override
     public String getTopRepoRank() throws IOException {
-        HttpGet httpGet = new HttpGet("https://api.github.com/search/repositories?q=language:java&sort=stars&page=1&per_page=3");
+        HttpGet httpGet = new HttpGet("https://api.github.com/search/repositories?q=language:java+stars%3A%3E10000&sort=stars&page=1&per_page=3");
         CloseableHttpClient httpClient = HttpClients.createDefault();
         CloseableHttpResponse response = httpClient.execute(httpGet);
         String r = EntityUtils.toString(response.getEntity());
