@@ -9,21 +9,46 @@ export default {
   name: "ThreeValueByTime",
   data() {
     return {
-      test: 0
+      chartDom: null,
+      myChart: null,
+      option: null
     }
   },
   methods: {
+    getDataSet(raw_data) {
+      raw_data = eval("(" + raw_data + ")");
+      let dataset = [["name", "value", "year"]];
+      for (let i = 0; i < raw_data.length; i++) {
+        let name = raw_data[i].type;
+
+        let data1 = raw_data[i].dataset;
+        for (let j = 0; j < data1.length; j++) {
+          let year = data1[j].year;
+
+          let languages = data1[j].languages;
+          for (let k = 0; k < languages.length; k++) {
+            if (languages[k].name === "Java") {
+              dataset.push([name, languages[k].value, year]);
+              break;
+            }
+          }
+        }
+      }
+      return dataset;
+    },
     draw() {
       axios.get("json/demo.json").then(response => {
         var _rawData = response.data;
-        var chartDom = document.getElementById('threeByTime');
-        var myChart = this.$echarts.init(chartDom);
+        // var _rawData = this.getDataSet(response.data);
+
         var option;
         const countries = [
           'Finland',
           'France',
           'Germany'
         ];
+        // const types = ["issue", "user", "repo"];
+
         const datasetWithFilters = [];
         const seriesList = [];
         let n = 0;
@@ -102,12 +127,17 @@ export default {
           },
           series: seriesList
         };
-        myChart.setOption(option);
+        this.myChart.setOption(option);
 
       })
+    },
+    init() {
+      this.chartDom = document.getElementById('threeByTime');
+      this.myChart = this.$echarts.init(this.chartDom);
     }
   },
   mounted() {
+    this.init();
     this.draw();
   }
 }
