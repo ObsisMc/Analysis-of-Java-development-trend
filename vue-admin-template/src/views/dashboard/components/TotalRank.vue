@@ -151,8 +151,9 @@ export default {
     init() {
       this.chartDom = document.getElementById('totalRank');
       this.myChart = this.$echarts.init(this.chartDom);
-      this.myChart.on('updateAxisPointer', (event) => {
-        this.$evenBus.$emit("changeNumberRatio");
+      this.myChart.on('mouseover', (params) => {
+        let year = params.name;
+        this.$evenBus.$emit("changeNumberRatio", year);
       });
     }
   },
