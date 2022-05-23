@@ -78,18 +78,18 @@ public class ApiController {
      * [{"year":2007, "language": [{"name":"Ruby", "value":1},{"name":"C", "value":0},{"name":"C#", "value":0},{"name":"C++", "value":0}...]},....]
      */
     @GetMapping("total_rank_pie")
-    public void getTotalRankPie() {
+    public String getTotalRankPie() {
         try {
-            apiService.getTotalRankPie();
+            return apiService.getTotalRankPie();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     @GetMapping("increase_rank")
-    public void getIncreaseRank() {
+    public String getIncreaseRank() {
         try {
-            apiService.getIncreaseRank();
+            return apiService.getIncreaseRank();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
