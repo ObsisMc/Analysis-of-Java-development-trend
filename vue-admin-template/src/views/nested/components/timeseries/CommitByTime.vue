@@ -25,7 +25,8 @@ export default {
       let success = true;
       axios.get("http://localhost:8080/api/commit_times", {
         params: {
-          url: url
+          url: url,
+          identity: this.$store.getters.passwd
         }
       }).then(response => {
         var responseData = eval("(" + response.data + ")");

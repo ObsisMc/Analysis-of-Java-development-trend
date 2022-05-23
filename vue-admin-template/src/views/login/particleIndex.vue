@@ -83,8 +83,7 @@ export default {
           identity: ident
         }
       }).then(response => {
-        this.$store.dispatch('user/login', {username: "admin", passwd: ident}).then(() => {
-          console.log( this.$store.getters.passwd);
+        this.$store.dispatch('user/login', {username: "admin", password: ident}).then(() => {
           this.$router.push({path: this.$route.query.redirect || '/'})
         })
       }).finally(() => {
