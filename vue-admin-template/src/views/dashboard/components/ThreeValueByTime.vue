@@ -11,13 +11,14 @@ export default {
     return {
       chartDom: null,
       myChart: null,
-      option: null
+      option: null,
+      title: "Number of Repo, User and Issue in recent 10 years"
     }
   },
   methods: {
     getDataSet(raw_data) {
-      raw_data = eval("(" + raw_data + ")");
-      let dataset = [["name", "value", "year"]];
+      console.log(typeof raw_data)
+      let dataset = [["Name", "Value", "Year"]];
       for (let i = 0; i < raw_data.length; i++) {
         let name = raw_data[i].type;
 
@@ -37,23 +38,17 @@ export default {
       return dataset;
     },
     draw() {
-      axios.get("json/demo.json").then(response => {
-        var _rawData = response.data;
-        // var _rawData = this.getDataSet(response.data);
+      axios.get("http://localhost:8080/api/user_issue_repo").then(response => {
+        // var _rawData = response.data;
+        var _rawData = this.getDataSet(response.data);
 
-        var option;
-        const countries = [
-          'Finland',
-          'France',
-          'Germany'
-        ];
-        // const types = ["issue", "user", "repo"];
+        const types = ["user", "repo", "issue"];
 
         const datasetWithFilters = [];
         const seriesList = [];
         let n = 0;
-        this.$echarts.util.each(countries, function (country) {
-          var datasetId = 'dataset_' + country;
+        this.$echarts.util.each(types, function (tp) {
+          var datasetId = 'dataset_' + tp;
           n++;
           datasetWithFilters.push({
             id: datasetId,
@@ -62,8 +57,8 @@ export default {
               type: 'filter',
               config: {
                 and: [
-                  {dimension: 'Year', gte: 1950},
-                  {dimension: 'Country', '=': country}
+                  {dimension: 'Year', gte: 2012},
+                  {dimension: 'Name', '=': tp}
                 ]
               }
             }
@@ -72,8 +67,8 @@ export default {
             type: 'line',
             datasetId: datasetId,
             showSymbol: false,
-            name: country,
-            yAxisIndex: n === 2 ? 1 : 0,
+            name: tp,
+            yAxisIndex: 0,
             labelLayout: {
               moveOverlap: 'shiftY'
             },
@@ -82,19 +77,19 @@ export default {
             },
             encode: {
               x: 'Year',
-              y: 'Income',
+              y: 'Value',
               // label: ['Country', 'Income'],
               // itemName: 'Year',
-              tooltip: ['Income']
+              tooltip: ['Value']
             }
           });
         });
-        option = {
-          legend:{
-            data:countries,
-            top:"bottom"
+        var option = {
+          legend: {
+            data: types,
+            top: "bottom"
           },
-          animationDuration: 3000,
+          animationDuration: 1000,
           dataset: [
             {
               id: 'dataset_raw',
@@ -103,7 +98,7 @@ export default {
             ...datasetWithFilters
           ],
           title: {
-            text: 'Number of users & repos & issues by time',
+            text: this.title,
             left: "center"
           },
           tooltip: {
@@ -115,12 +110,7 @@ export default {
             nameLocation: 'middle'
           },
           yAxis: [
-            {name: "Number of users & repos"},
-            {
-              name: 'Number of issues',
-              alignTicks: true,
-              type: 'value'
-            }
+            {name: "Number"}
           ],
           grid: {
             right: 140
