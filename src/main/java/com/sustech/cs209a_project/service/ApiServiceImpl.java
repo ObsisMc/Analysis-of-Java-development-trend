@@ -68,11 +68,6 @@ public class ApiServiceImpl implements ApiService {
         return stringBuilder.toString();
     }
 
-
-    public void getTotalRanks() {
-
-    }
-
     @Override
     public String getWordCloud(int count) throws IOException {
         FileInputStream fileInputStream = new FileInputStream("src/main/resources/ripedata/wordCloudData.json");
@@ -96,9 +91,36 @@ public class ApiServiceImpl implements ApiService {
         }
     }
 
-//    public static void main(String[] args) throws IOException {
-//        ApiServiceImpl apiService = new ApiServiceImpl();
-//        apiService.getCommitWithTime("https://github.com/xbdeng/taskManager");
-//        System.out.println(apiService.getPopularLicense());
-//    }
+    @Override
+    public String getTotalRank() throws IOException {
+        FileInputStream fileInputStream = new FileInputStream("src/main/resources/ripedata/totalRankData.json");
+        try (Reader reader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8)) {
+            BufferedReader bufferedReader = new BufferedReader(reader);
+            return bufferedReader.readLine();
+        }
+    }
+
+    @Override
+    public String getTotalRankPie() throws IOException {
+        FileInputStream fileInputStream = new FileInputStream("src/main/resources/ripedata/rankPieData.json");
+        try (Reader reader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8)) {
+            BufferedReader bufferedReader = new BufferedReader(reader);
+            return bufferedReader.readLine();
+        }
+    }
+
+
+    @Override
+    public String getIncreaseRank() throws IOException {
+        FileInputStream fileInputStream = new FileInputStream("src/main/resources/ripedata/increaseRankData.json");
+        try (Reader reader = new InputStreamReader(fileInputStream, StandardCharsets.UTF_8)) {
+            BufferedReader bufferedReader = new BufferedReader(reader);
+            return bufferedReader.readLine();
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+        ApiServiceImpl apiService = new ApiServiceImpl();
+        System.out.println(apiService.getIncreaseRank());
+    }
 }

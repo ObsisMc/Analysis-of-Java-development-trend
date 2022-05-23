@@ -17,9 +17,8 @@ public class ApiController {
 
 
     /**
-    * [{date:"2021-09-17",count:"8"},{date:"2021-09-19",count:"6"},{date:"2021-09-26",count:"7"},...]
-    *
-    * */
+     * [{date:"2021-09-17",count:"8"},{date:"2021-09-19",count:"6"},{date:"2021-09-26",count:"7"},...]
+     */
     @GetMapping("commit_times")
     public String getCommitTimes(String url) {
         try {
@@ -29,26 +28,78 @@ public class ApiController {
         }
     }
 
+    /**
+     * {
+     * "head": [
+     * "C#",
+     * "Java",
+     * "C++",
+     * "CSS",
+     * "C",
+     * "Perl",
+     * "HTML",
+     * "CoffeeScript",
+     * "JavaScript",
+     * "PHP",
+     * "Ruby",
+     * "Dart",
+     * "Python"
+     * ],
+     * "dataset": [
+     * {
+     * "year": 2007,
+     * "language": "Ruby",
+     * "value": 1
+     * },
+     * {
+     * "year": 2007,
+     * "language": "C",
+     * "value": 0
+     * },
+     * {
+     * "year": 2007,
+     * "language": "C#",
+     * "value": 0
+     * },....
+     * ]
+     */
     @GetMapping("total_rank")
-    public void getTotalRank(){
+    public void getTotalRank() {
+        try {
+            apiService.getTotalRank();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
 
+    /**
+     * [{"year":2007, "language": [{"name":"Ruby", "value":1},{"name":"C", "value":0},{"name":"C#", "value":0},{"name":"C++", "value":0}...]},....]
+     */
     @GetMapping("total_rank_pie")
-    public void getTotalRankPie(){
-
+    public void getTotalRankPie() {
+        try {
+            apiService.getTotalRankPie();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @GetMapping("increase_rank")
-    public void getIncreaseRank(){
+    public void getIncreaseRank() {
+        try {
+            apiService.getIncreaseRank();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
 
     // [{"topic": "ababa", number: 1}]
     @GetMapping("word_cloud")
-    public String getWordCloud(int number){
+    public String getWordCloud(int number) {
         try {
             return apiService.getWordCloud(number);
         } catch (IOException e) {
@@ -67,7 +118,7 @@ public class ApiController {
     //              { value: 18, name: 'rose 8' }
     //            ]
     @GetMapping("popular_license")
-    public String getPopularLicense(){
+    public String getPopularLicense() {
         try {
             return apiService.getPopularLicense();
         } catch (IOException e) {
@@ -77,21 +128,21 @@ public class ApiController {
 
     /**
      * {
-     *     repos:["top1RepoName","top2RepoName","top3RepoName"],
-     *     data:{
-     *         stars:[1,2,3],
-     *         forks:[],
-     *         watchs:[]
-     *     }
+     * repos:["top1RepoName","top2RepoName","top3RepoName"],
+     * data:{
+     * stars:[1,2,3],
+     * forks:[],
+     * watchs:[]
+     * }
      * }
      */
     @GetMapping("top_repo_rank")
-    public void getTopRepoRank(){
+    public void getTopRepoRank() {
 
     }
 
     @GetMapping("language_relation")
-    public void getLanguageRelation(){
+    public void getLanguageRelation() {
 
     }
 
