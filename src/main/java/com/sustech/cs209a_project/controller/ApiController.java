@@ -64,9 +64,9 @@ public class ApiController {
      * ]
      */
     @GetMapping("total_rank")
-    public void getTotalRank() {
+    public String getTotalRank() {
         try {
-            apiService.getTotalRank();
+            return apiService.getTotalRank();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
