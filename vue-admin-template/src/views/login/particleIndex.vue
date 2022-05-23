@@ -8,7 +8,9 @@
         </span>
       </transition>
       <transition name="login-fade">
-        <loginForm v-if="loginShow"></loginForm>
+        <el-button v-if="loginShow" @click="authenGithub">
+          To Github
+        </el-button>
       </transition>
     </div>
   </div>
@@ -50,6 +52,12 @@ export default {
     },
     showLogin() {
       this.loginShow = !this.loginShow;
+    },
+    authenGithub() {
+      let redirect = "http://localhost:9528/#/dashboard";
+      let client_id = "1b620213701eebcda787";
+      let url = "https://github.com/login/oauth/authorize?client_id=1b620213701eebcda787&redirect_uri="+redirect;
+      window.location.href = url;
     }
   },
   mounted() {
