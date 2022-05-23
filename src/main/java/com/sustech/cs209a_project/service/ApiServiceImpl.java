@@ -3,7 +3,6 @@ package com.sustech.cs209a_project.service;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.sustech.cs209a_project.config.IGlobalCache;
 import com.sustech.cs209a_project.pojo.CommitSearchResult;
 import com.sustech.cs209a_project.pojo.LicenseItem;
 import com.sustech.cs209a_project.pojo.WordItem;
@@ -27,8 +26,6 @@ import java.util.stream.Collectors;
 @Service
 public class ApiServiceImpl implements ApiService {
 
-    @Resource
-    private IGlobalCache globalCache;
 
     private int getCommitCount(String url) throws IOException {
         Document doc = Jsoup.connect(url).get();
@@ -135,10 +132,5 @@ public class ApiServiceImpl implements ApiService {
         }
     }
 
-    @Override
-    public void test(){
-        globalCache.set("xyz","dltql",30);
-        System.out.println(globalCache.get("xyz"));
-    }
 
 }
