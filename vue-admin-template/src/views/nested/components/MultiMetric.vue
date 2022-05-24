@@ -24,33 +24,82 @@ export default {
     draw() {
       this.option && this.myChart.setOption(this.option);
     },
-    handleData(data) {
-      let newData = [];
+    handleData(data, type) {
+      let newData;
+      if (type === 0) {
+        newData = {
+          value: data,
+          name: 'Contributors',
+          title: {
+            offsetCenter: ['0%', '-30%']
+          },
+          detail: {
+            valueAnimation: true,
+            offsetCenter: ['0%', '-20%']
+          }
+        }
+      }else{
+        newData = {
+          value: data.toFixed(2),
+          name: 'Comments',
+          title: {
+            offsetCenter: ['0%', '0%']
+          },
+          detail: {
+            valueAnimation: true,
+            offsetCenter: ['0%', '10%']
+          }
+        }
+      }
+
       return newData;
 
     },
     getData(url) {
       let success = true;
-      axios.get("")
+
+      let contributor = null;
+      let comment = null;
+      axios.get("http://localhost:8080/api/contributor_count", {
+        params: {
+          url: url,
+          identity: this.$store.getters.passwd
+        }
+      })
         .then(response => {
-          let rawData = response.data;
-          this.data = this.handleData(rawData);
-          this.option.series.data.splice(1, this.data[1]);
-          this.option.series.data.splice(1, this.data[2]);
+          contributor = Number(response.data);
+          this.option.series[0].data[0] = this.handleData(contributor, 0);
         }).catch(e => {
-        this.option.series.data = this.defaultData;
+        this.option.series[0].data[0] = this.defaultData[0];
         success = false;
       }).finally(() => {
         this.draw();
-        alert("metric end:" + success);
         this.$evenBus.$emit("finishSearchRepo", success);
       })
+
+      axios.get("http://localhost:8080/api/comment_rate", {
+        params: {
+          url: url,
+          identity: this.$store.getters.passwd
+        }
+      })
+        .then(response => {
+          contributor = Number(response.data);
+          this.option.series[0].data[1] = this.handleData(contributor, 1);
+        }).catch(e => {
+        this.option.series[0].data[1] = this.defaultData[1];
+        success = false;
+      }).finally(() => {
+        this.draw();
+        this.$evenBus.$emit("finishSearchRepo", success);
+      })
+
     },
     init() {
       this.defaultData = [
         {
           value: 8,
-          name: 'Contributors',
+          name: 'Contributors (avg)',
           title: {
             offsetCenter: ['0%', '-30%']
           },
@@ -71,6 +120,7 @@ export default {
           }
         }
       ];
+      this.data = this.defaultData;
       this.myChart = this.$echarts.init(document.getElementById('MultiMetric'));
       this.option = {
         title: {
