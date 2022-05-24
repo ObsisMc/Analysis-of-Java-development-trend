@@ -54,8 +54,8 @@ export default {
       this.chartDom = document.getElementById('commitByTime');
       this.myChart = this.$echarts.init(this.chartDom);
 
-      const date = ["2000-06-05", "2000-06-06"];
-      const data = [116, 100]
+      const date = [];
+      const data = []
       this.defaultOption = {
         // Make gradient line here
         visualMap: [
