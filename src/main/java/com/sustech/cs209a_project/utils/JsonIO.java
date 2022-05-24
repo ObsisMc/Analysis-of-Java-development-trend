@@ -11,16 +11,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class JsonIO {
-    public static void main(String[] args) {
-//        adjustRelationJSON(0.8f);
-//        getAllTopTopic();
-//        transToVisFormat();
-//        checkDuplication(true);
-//        getTotalNumByLanguageTime();
-//        test();
-        integrateJSON();
-        checkDuplication(false);
-    }
 
     public static void test() {
         JSONArray jsonArray = readJSONArray("jsonTotal.json");
