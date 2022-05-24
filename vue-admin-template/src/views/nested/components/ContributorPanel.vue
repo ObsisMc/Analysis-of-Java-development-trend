@@ -77,15 +77,16 @@ export default {
   },
   mounted() {
     this.$refs.multiMetric.draw();
-    this.$evenBus.$on("beginSearch", (fullName) => {
-      console.log(fullName, typeof fullName);
-      this.repo = fullName;
-      let repoUrl = "https://api.github.com/repos/"+fullName;
-      this.getAvatar(repoUrl);
+    this.$evenBus.$on("beginSearch", () => {
       this.view = SearchLoading;
     })
     this.$evenBus.$on("endSearch", () => {
-      this.loading = false;
+      this.view = SearchInput;
+    })
+    this.$evenBus.$on("updateNameAvatar", (fullName) => {
+      this.repo = fullName;
+      let repoUrl = "https://api.github.com/repos/"+fullName;
+      this.getAvatar(repoUrl);
       this.view = SearchInput;
     })
   }

@@ -25,22 +25,24 @@ export default {
       state: '',
       finished: 0,
       error: false,
-      need: 3
+      need: 3,
+      success:0,
+      fullName: "All Github"
     }
   },
   methods: {
     querySearch(input, cb) {
-      cb([{value: "input"}]);
+
     },
     handleSelect() {
       let repoURL = this.state.startsWith("http") ? this.state : "https://github.com/" + this.state;
       let pathList = this.state.split("/");
-      let fullName =  pathList[0] + "/" + pathList[1];
+      this.fullName =  pathList[0] + "/" + pathList[1];
       if(this.state.startsWith("http")){
-        fullName =  pathList[3] + "/" + pathList[4];
+        this.fullName =  pathList[3] + "/" + pathList[4];
       }
 
-      this.$evenBus.$emit("beginSearch",fullName);
+      this.$evenBus.$emit("beginSearch");
       this.$evenBus.$emit("getCommitsByTime", repoURL);
       this.$evenBus.$emit("getMetrics", repoURL);
     }
@@ -53,13 +55,19 @@ export default {
           message: "Invalid URL, private repo, time out or rate limit"
         })
         this.error = !this.error;
+      }else{
+        this.success ++;
       }
       if (this.finished === this.need) {
+        if(this.success > 0){
+          this.$evenBus.$emit("updateNameAvatar", this.fullName);
+        }
         this.$message({
           message: "Finish searching repository",
           type: "info"
         })
         this.finished = 0;
+        this.success = 0;
         this.error = !this.error;
         this.$evenBus.$emit("endSearch");
       }
