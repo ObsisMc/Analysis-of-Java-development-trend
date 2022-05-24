@@ -1,61 +1,35 @@
 <template>
   <div>
-    <el-row>
-      <el-col :span="10">
+    <el-row :gutter="0">
+      <el-col :span="9" >
         <MultiMetric ref="multiMetric" class="graph-container"></MultiMetric>
       </el-col>
-      <el-col :span="10">
-        <WorkTime  class="graph-container"></WorkTime>
-      </el-col>
-      <el-col :span="4">
-        <div style="float:right; position: relative; bottom: 70px; right:15px;">
-          <el-row style="margin-bottom: 10px;">
-            <el-image v-if="repo!=='Github'"
-                      style="border-radius: 50%;"
-                      :style="{width:radius, height:radius}"
-                      :src="url"
-                      fit="fit">
-            </el-image>
-            <svg-icon v-if="repo==='Github'" icon-class="github" :style="{width:radius, height:radius}"/>
+      <el-col :span="6" style="border: transparent solid 1px;">
+        <div style="float:left; position: relative; bottom: 70px; ">
+          <el-row style="margin-bottom: 10px;border: transparent solid 1px;" >
+            <el-col :span="4" style="border: transparent solid 1px;"></el-col>
+            <el-col :span="16">
+              <el-image v-if="repo!=='All Github'"
+                        style="border-radius: 50%;"
+                        :style="{width:radius, height:radius}"
+                        :src="url"
+                        fit="fit">
+              </el-image>
+              <svg-icon v-if="repo==='All Github'" icon-class="github" :style="{width:radius, height:radius}"/>
+            </el-col>
+            <el-col :span="4" style="border: transparent solid 1px;"></el-col>
           </el-row>
           <el-row>
           <span class="card-repo-text">
             {{ repo }}
           </span>
           </el-row>
-          <el-row>
-          <span class="card-panel-text">
-            Owner: {{ owner }}
-          </span>
-          </el-row>
-          <el-row style="margin-top: 5px;">
-            <svg-icon icon-class="people" style="color: dodgerblue; font-size:20px;" ></svg-icon>
-            <span class="card-panel-text" style="margin-left: 5px">
-              <strong>{{contributors}}</strong>  contributors
-            </span>
-          </el-row>
-          <el-row style="margin-top: 5px;">
-            <svg-icon icon-class="comment_fill" style="color: green; font-size:20px;" ></svg-icon>
-            <span class="card-panel-text" style="margin-left: 5px">
-              <strong>{{comments}}</strong>  comments
-            </span>
-          </el-row>
-          <el-row style="margin-top: 5px;">
-            <svg-icon icon-class="release-fill" style="color: grey; font-size:20px;" ></svg-icon>
-            <span class="card-panel-text" style="margin-left: 5px">
-              <strong>{{releases}}</strong>  released
-            </span>
-          </el-row>
-          <el-row style="margin-top: 5px;">
-            <svg-icon icon-class="archive" style="color: red; font-size:20px;" ></svg-icon>
-            <span class="card-panel-text" style="margin-left: 5px">
-              <strong>{{archives}}</strong>  archived
-            </span>
-          </el-row>
         </div>
+        <SearchInput style="width: 100%"></SearchInput>
       </el-col>
-
-
+      <el-col :span="9">
+        <WorkTime  class="graph-container" style="float: right;"></WorkTime>
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -63,15 +37,15 @@
 <script>
 import WorkTime from "@/views/nested/components/WorkTime";
 import MultiMetric from "@/views/nested/components/MultiMetric";
+import SearchInput from "@/views/nested/components/SearchInput";
 
 export default {
   name: "ContributorPanel",
-  components: {MultiMetric, WorkTime},
+  components: {SearchInput, MultiMetric, WorkTime},
   data() {
     return {
       url: 'https://avatars.githubusercontent.com/u/15308811?v=4',
-      owner: 'github',
-      repo: 'Github',
+      repo: 'All Github',
       contributors: 0,
       comments: 0,
       releases: 0,
@@ -93,6 +67,8 @@ export default {
 .card-repo-text {
   font-size: 25px;
   margin-bottom: 12px;
+  position: relative;
+  left:50%;
 }
 
 .card-panel-text {

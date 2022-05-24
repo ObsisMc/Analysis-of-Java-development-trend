@@ -5,7 +5,6 @@
         <component v-bind:is="view"></component>
       </transition>
     </div>
-
     <ContributorPanel></ContributorPanel>
     <TimeShow></TimeShow>
   </div>
