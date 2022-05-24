@@ -101,6 +101,8 @@ public class ApiServiceImpl implements ApiService {
     @Override
     public String getCommentRate(String url, String identity) throws IOException {
         String access_token = (String) redisUtil.get(identity);
+        //test
+        access_token = "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";
         if (redisUtil.hasKey("[commentRate]" + url)) {
             redisUtil.expire("[commentRate]" + url, 10 * 60);
             return (String) redisUtil.get("[commentRate]" + url);
@@ -122,10 +124,14 @@ public class ApiServiceImpl implements ApiService {
             if (result.length == 0) {
                 break;
             }
+            page++;
             issueSearchResults.addAll(List.of(result));
         }
         long issueWithComment = issueSearchResults.stream().filter(IssueSearchResult::isCommit).count();
         String result = Double.toString((double) issueWithComment / (double) issueSearchResults.size());
+        if(result.equals("NaN")){
+            result = "0";
+        }
         redisUtil.set("[commentRate]" + url, result, 10 * 60);
         return result;
     }
