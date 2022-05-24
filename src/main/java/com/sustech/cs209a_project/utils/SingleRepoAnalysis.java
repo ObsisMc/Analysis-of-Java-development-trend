@@ -36,7 +36,7 @@ public class SingleRepoAnalysis {
 
 
     public static void main(String[] args) {
-        taskTwo(500, 10);
+        taskTwo(400, 10);
     }
 
     public static void taskOne(int sampleNum, int threadN) {
