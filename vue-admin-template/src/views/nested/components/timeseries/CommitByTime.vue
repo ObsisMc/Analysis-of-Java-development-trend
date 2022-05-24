@@ -46,6 +46,7 @@ export default {
         this.option = this.defaultOption;
         this.draw();
         success = false;
+        this.$evenBus.$emit("finishSearchRepo", success);
       }).finally(() => {
         this.$evenBus.$emit("finishSearchRepo", success);
       })
@@ -54,8 +55,8 @@ export default {
       this.chartDom = document.getElementById('commitByTime');
       this.myChart = this.$echarts.init(this.chartDom);
 
-      const date = [];
-      const data = []
+      const date = ["2022-5-1"];
+      const data = [100]
       this.defaultOption = {
         // Make gradient line here
         visualMap: [
