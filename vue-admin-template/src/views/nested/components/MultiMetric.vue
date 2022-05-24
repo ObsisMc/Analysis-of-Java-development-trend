@@ -3,19 +3,53 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "MultiMetric",
-  computed:{
-    radius(){
-      return Math.max(window.innerHeight, window.innerWidth)  * 0.3+"px";
+  data() {
+    return {
+      myChart: null,
+      option: null,
+      data: null,
+      defaultData: null
     }
   },
-  methods:{
-    draw(){
-      const gaugeData = [
+  computed: {
+    radius() {
+      return Math.max(window.innerHeight, window.innerWidth) * 0.3 + "px";
+    }
+  },
+  methods: {
+    draw() {
+      this.option && this.myChart.setOption(this.option);
+    },
+    handleData(data) {
+      let newData = [];
+      return newData;
+
+    },
+    getData(url) {
+      let success = true;
+      axios.get("")
+        .then(response => {
+          let rawData = response.data;
+          this.data = this.handleData(rawData);
+          this.option.series.data.splice(1, this.data[1]);
+          this.option.series.data.splice(1, this.data[2]);
+        }).catch(e => {
+        this.option.series.data = this.defaultData;
+        success = false;
+      }).finally(() => {
+        this.draw();
+        this.$evenBus.$emit("finishSearchRepo", success);
+      })
+    },
+    init() {
+      this.defaultData = [
         {
-          value: 20,
-          name: 'Perfect',
+          value: 8,
+          name: 'Contributors',
           title: {
             offsetCenter: ['0%', '-30%']
           },
@@ -25,8 +59,8 @@ export default {
           }
         },
         {
-          value: 40,
-          name: 'Issue comments (avg)',
+          value: 2,
+          name: 'Comments (avg)',
           title: {
             offsetCenter: ['0%', '0%']
           },
@@ -34,31 +68,18 @@ export default {
             valueAnimation: true,
             offsetCenter: ['0%', '10%']
           }
-        },
-        {
-          value: 100,
-          name: 'Commonly',
-          title: {
-            offsetCenter: ['0%', '30%']
-          },
-          detail: {
-            valueAnimation: true,
-            offsetCenter: ['0%', '40%']
-          }
         }
       ];
-
-      var chartDom = document.getElementById('MultiMetric');
-      var myChart = this.$echarts.init(chartDom);
-      var option;
-      option = {
-        title:{
-          text: 'Metric',
+      this.myChart = this.$echarts.init(document.getElementById('MultiMetric'));
+      this.option = {
+        title: {
+          text: 'Vitality',
           left: 'center'
         },
         series: [
           {
             type: 'gauge',
+            max: 20,
             startAngle: 90,
             endAngle: -270,
             pointer: {
@@ -91,7 +112,7 @@ export default {
               show: false,
               distance: 50
             },
-            data: gaugeData,
+            data: this.defaultData,
             title: {
               fontSize: 14
             },
@@ -103,13 +124,19 @@ export default {
               borderColor: 'auto',
               borderRadius: 20,
               borderWidth: 1,
-              formatter: '{value}%'
+              formatter: '{value}'
             }
           }
         ]
       };
-      option && myChart.setOption(option);
+      this.draw();
     }
+  },
+  mounted() {
+    this.init();
+    this.$evenBus.$on("getMetrics", (url) => {
+      this.getData(url);
+    })
   }
 }
 </script>
