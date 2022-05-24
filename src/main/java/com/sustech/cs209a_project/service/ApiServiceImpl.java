@@ -63,8 +63,11 @@ public class ApiServiceImpl implements ApiService {
             System.out.println("hello" + i + " begin");
             String request = "https://api.github.com/repos/" + repo + "/commits?page=" + i + "&per_page=100";
             HttpGet httpGet = new HttpGet(request);
-            if (access_token != null)
+            if (access_token != null) {
                 httpGet.setHeader("Authorization", "token " + access_token);
+            }else{
+                httpGet.setHeader("Authorization", "token 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");
+            }
             CloseableHttpClient httpClient = HttpClients.createDefault();
             CloseableHttpResponse response = httpClient.execute(httpGet);
             String r = EntityUtils.toString(response.getEntity());
@@ -101,8 +104,6 @@ public class ApiServiceImpl implements ApiService {
     @Override
     public String getCommentRate(String url, String identity) throws IOException {
         String access_token = (String) redisUtil.get(identity);
-        //test
-        access_token = "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";
         if (redisUtil.hasKey("[commentRate]" + url)) {
             redisUtil.expire("[commentRate]" + url, 10 * 60);
             return (String) redisUtil.get("[commentRate]" + url);
@@ -114,8 +115,11 @@ public class ApiServiceImpl implements ApiService {
             System.out.println("xyznb!");
             String request = "https://api.github.com/repos/" + repo + "/issues?page=" + page + "&per_page=100";
             HttpGet httpGet = new HttpGet(request);
-            if (access_token != null)
+            if (access_token != null) {
                 httpGet.setHeader("Authorization", "token " + access_token);
+            }else{
+                httpGet.setHeader("Authorization", "token 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");
+            }
             CloseableHttpClient httpClient = HttpClients.createDefault();
             CloseableHttpResponse response = httpClient.execute(httpGet);
             String r = EntityUtils.toString(response.getEntity());
@@ -140,7 +144,6 @@ public class ApiServiceImpl implements ApiService {
     @Override
     public String getContributorCount(String url, String identity) throws IOException {
         String access_token = (String) redisUtil.get(identity);
-        access_token = "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";
         if (redisUtil.hasKey("[contributor]" + url)) {
             redisUtil.expire("[contributor]" + url, 10 * 60);
             return (String) redisUtil.get("[contributor]" + url);
@@ -155,6 +158,8 @@ public class ApiServiceImpl implements ApiService {
             HttpGet httpGet = new HttpGet(request);
             if (access_token != null) {
                 httpGet.setHeader("Authorization", "token " + access_token);
+            }else{
+                httpGet.setHeader("Authorization", "token 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");
             }
             CloseableHttpClient httpClient = HttpClients.createDefault();
             CloseableHttpResponse response = httpClient.execute(httpGet);
