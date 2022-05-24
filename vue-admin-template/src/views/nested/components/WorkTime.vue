@@ -37,14 +37,20 @@ export default {
       this.option && this.myChart.setOption(this.option);
     },
     handleData(rawData) {
-      let newData = [];
+      let newData = rawData;
+      let data = newData.data;
+      for(let i=0;i<data.length;i++){
+        data[i][2] /= 300;
+      }
+      console.log(newData);
       return newData;
     },
     getData(url) {
       let success = true;
-      axios.get("")
+      axios.get("json/commitTime.json")
         .then(response => {
           let rawData = response.data;
+          console.log(rawData)
           this.data = this.handleData(rawData);
           this.option.series.data = this.data;
         }).catch(e => {
@@ -59,65 +65,70 @@ export default {
     },
     init() {
       this.myChart = this.$echarts.init(document.getElementById('workTime'));
-      this.option = {
-        title: {
-          text: 'Punch Card of Github',
-          left: 'center'
-        },
-        legend: {
-          data: ['Punch Card'],
-          left: 'center',
-          top: "bottom"
-        },
-        polar: {},
-        tooltip: {
-          formatter: (params) => {
-            return (
-              params.value[2] +
-              ' commits in ' +
-              this.defaultData.hours[params.value[1]] +
-              ' of ' +
-              this.defaultData.days[params.value[0]]
-            );
-          }
-        },
-        angleAxis: {
-          type: 'category',
-          data: this.defaultData.hours,
-          boundaryGap: false,
-          splitLine: {
-            show: true
-          },
-          axisLine: {
-            show: false
-          }
-        },
-        radiusAxis: {
-          type: 'category',
-          data: this.defaultData.days,
-          axisLine: {
-            show: false
-          },
-          axisLabel: {
-            rotate: 45
-          }
-        },
-        series: [
-          {
-            name: 'Punch Card',
-            type: 'scatter',
-            coordinateSystem: 'polar',
-            symbolSize: function (val) {
-              return val[2] * 2;
+      axios.get("json/commitTime.json")
+        .then(response => {
+          this.defaultData = this.handleData(response.data) ;
+          this.option = {
+            title: {
+              text: 'Punch Card of Github',
+              left: 'center'
             },
-            data: this.defaultData.data,
-            animationDelay: function (idx) {
-              return idx * 5;
-            }
-          }
-        ]
-      };
-      this.draw();
+            legend: {
+              data: ['Punch Card'],
+              left: 'center',
+              top: "bottom"
+            },
+            polar: {},
+            tooltip: {
+              formatter: (params) => {
+                return (
+                  params.value[2] +
+                  ' commits in ' +
+                  this.defaultData.hours[params.value[1]] +
+                  ' of ' +
+                  this.defaultData.days[params.value[0]]
+                );
+              }
+            },
+            angleAxis: {
+              type: 'category',
+              data: this.defaultData.hours,
+              boundaryGap: false,
+              splitLine: {
+                show: true
+              },
+              axisLine: {
+                show: false
+              }
+            },
+            radiusAxis: {
+              type: 'category',
+              data: this.defaultData.days,
+              axisLine: {
+                show: false
+              },
+              axisLabel: {
+                rotate: 45
+              }
+            },
+            series: [
+              {
+                name: 'Punch Card',
+                type: 'scatter',
+                coordinateSystem: 'polar',
+                symbolSize: function (val) {
+                  return val[2] * 2;
+                },
+                data: this.defaultData.data,
+                animationDelay: function (idx) {
+                  return idx * 5;
+                }
+              }
+            ]
+          };
+          this.draw();
+        })
+
     }
   }, mounted() {
     this.init();
