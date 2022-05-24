@@ -5,6 +5,8 @@ import java.io.IOException;
 public interface ApiService {
     String getCommitWithTime(String url,String identity) throws IOException;
 
+    String getCommentRate(String url, String identity) throws IOException;
+
     String getCommitHour(String url);
 
     String getWordCloud(int count) throws IOException;
