@@ -16,13 +16,14 @@
                         fit="fit">
               </el-image>
               <svg-icon v-if="repo==='All Github'" icon-class="github" :style="{width:radius, height:radius}"/>
+              <span class="card-repo-text">
+            {{ repo }}
+          </span>
             </el-col>
             <el-col :span="4" style="border: transparent solid 1px;"></el-col>
           </el-row>
           <el-row>
-          <span class="card-repo-text">
-            {{ repo }}
-          </span>
+
           </el-row>
           <div :style="{height:height}" style="border: transparent solid 1px; margin-top: 20px;">
             <transition name="component-fade" mode="out-in">
@@ -84,8 +85,6 @@ export default {
 .card-repo-text {
   font-size: 25px;
   margin-bottom: 12px;
-  position: relative;
-  left:50%;
 }
 
 .card-panel-text {
