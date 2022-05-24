@@ -14,6 +14,9 @@ public class GenerateWorkTimeData {
         JSONObject repoCommitTime = JsonIO.readJSON("src/main/resources/rawdata/repoCommitTime400.json");
         DataParser dataParser = new DataParser();
 
+//        int y = dataParser.parseStrDate("2022-5-22");
+//        System.out.println(y);
+
         JSONObject commitTime = new JSONObject();
         JSONArray hrs = new JSONArray();
         for (int i = 0; i < 24; i++) {
