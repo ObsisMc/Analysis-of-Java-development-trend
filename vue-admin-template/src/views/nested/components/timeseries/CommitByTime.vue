@@ -67,7 +67,7 @@ export default {
         title: [
           {
             left: 'center',
-            text: 'Gradient along the y axis'
+            text: 'Commit Number by time'
           }
         ],
         tooltip: {

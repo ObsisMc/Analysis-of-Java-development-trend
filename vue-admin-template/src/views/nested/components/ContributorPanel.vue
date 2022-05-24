@@ -62,7 +62,11 @@ export default {
   },
   methods:{
     getAvatar(repoUrl){
-      axios.get(repoUrl).then(response=>{
+      axios.get(repoUrl,{
+        headers:{
+          Authorization: "token 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"
+        }
+      }).then(response=>{
         this.url = response.data.owner.avatar_url;
       })
     }

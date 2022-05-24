@@ -79,11 +79,11 @@ export default {
 
           this.option = {
             title: {
-              text: 'Punch Card of Github',
+              text: 'Work Time',
               left: 'center'
             },
             legend: {
-              data: ['Punch Card'],
+              data: ['Work Time'],
               left: 'center',
               top: "bottom"
             },
@@ -122,7 +122,7 @@ export default {
             },
             series: [
               {
-                name: 'Punch Card',
+                name: 'Work Time',
                 type: 'scatter',
                 coordinateSystem: 'polar',
                 symbolSize: function (val) {
@@ -153,11 +153,11 @@ export default {
           this.defaultData = this.handleInitData(response.data);
           this.option = {
             title: {
-              text: 'Punch Card of Github',
+              text: 'Work Time',
               left: 'center'
             },
             legend: {
-              data: ['Punch Card'],
+              data: ['Work Time'],
               left: 'center',
               top: "bottom"
             },
@@ -196,7 +196,7 @@ export default {
             },
             series: [
               {
-                name: 'Punch Card',
+                name: 'Work Time',
                 type: 'scatter',
                 coordinateSystem: 'polar',
                 symbolSize: function (val) {
