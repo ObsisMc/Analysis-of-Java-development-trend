@@ -40,8 +40,8 @@ export default {
         }
       }else{
         newData = {
-          value: data.toFixed(2),
-          name: 'Comments',
+          value: data.toFixed(4),
+          name: 'Comments(%)',
           title: {
             offsetCenter: ['0%', '0%']
           },
@@ -84,7 +84,7 @@ export default {
         }
       })
         .then(response => {
-          contributor = Number(response.data);
+          contributor = Number(response.data)*100;
           this.option.series[0].data[1] = this.handleData(contributor, 1);
         }).catch(e => {
         this.option.series[0].data[1] = this.defaultData[1];
@@ -109,8 +109,8 @@ export default {
           }
         },
         {
-          value: 2,
-          name: 'Comments (avg)',
+          value: 0,
+          name: 'Comments (%)',
           title: {
             offsetCenter: ['0%', '0%']
           },
@@ -130,7 +130,7 @@ export default {
         series: [
           {
             type: 'gauge',
-            max: 20,
+            max: 100,
             startAngle: 90,
             endAngle: -270,
             pointer: {

@@ -41,11 +41,11 @@ export default {
     handleData(rawData) {
       let newData = [];
       rawData = eval("(" + rawData + ")");
-      let max=0;
+      let max = 0;
       for (let i = 0; i < rawData.length; i++) {
         let tmp = rawData[i];
         newData.push([Number(tmp.y), Number(tmp.x), Number(tmp.value)]);
-        max = max>Number(tmp.value)?max:Number(tmp.value);
+        max = max > Number(tmp.value) ? max : Number(tmp.value);
       }
       for (let i = 0; i < newData.length; i++) {
         let tmp = newData[i];
@@ -69,13 +69,13 @@ export default {
         .then(response => {
           let rawData = response.data;
           let data = {
-              hours: ["0h", "1h", "2h", "3h", "4h", "5h", "6h",
-                "7h", "8h", "9h", "10h", "11h", "12h", "13h",
-                "14h", "15h", "16h", "17h", "18h", "19h",
-                "20h", "21h", "22h", "23h"],
-              days: ["Sun", "Mon", "Tue", "Wed", "Thr", "Fri", "Sat"],
-              data: this.handleData(rawData)
-            };
+            hours: ["0h", "1h", "2h", "3h", "4h", "5h", "6h",
+              "7h", "8h", "9h", "10h", "11h", "12h", "13h",
+              "14h", "15h", "16h", "17h", "18h", "19h",
+              "20h", "21h", "22h", "23h"],
+            days: ["Sun", "Mon", "Tue", "Wed", "Thr", "Fri", "Sat"],
+            data: this.handleData(rawData)
+          };
 
           this.option = {
             title: {
@@ -91,9 +91,7 @@ export default {
             tooltip: {
               formatter: (params) => {
                 return (
-                  params.value[2] +
-                  ' commits in ' +
-                  data.hours[params.value[1]] +
+                  Number(params.value[2]).toFixed(2) +
                   ' of ' +
                   data.days[params.value[0]]
                 );
