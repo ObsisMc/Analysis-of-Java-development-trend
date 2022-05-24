@@ -8,13 +8,13 @@ import java.util.Date;
 public class CommitSearchResult {
     Commit commit;
 
-    public String getCommitTime(){
-        return commit.author.date.substring(0,10);
+    public String getCommitTime() {
+        return commit.author.date.substring(0, 10);
     }
 
-    public String getCommitWeekHour(){
+    public String getCommitWeekHour() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String[] weekDays = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+        String[] weekDays = {"0", "1", "2", "3", "4", "5", "6"};
         Calendar cal = Calendar.getInstance();
         Date date;
         String datetime = getCommitTime();
@@ -26,17 +26,20 @@ public class CommitSearchResult {
         }
         int w = cal.get(Calendar.DAY_OF_WEEK) - 1;
         String weekDay = weekDays[w];
-        String hour = commit.author.date.substring(11,13);
-        return weekDay + hour;
+        String hour = commit.author.date.substring(11, 13);
+        if (hour.charAt(0) == '0') {
+            hour = hour.substring(1);
+        }
+        return "\"y\":\"" + weekDay + "\", \"x\": \"" + hour;
     }
 }
 
 
-class Commit{
+class Commit {
     Author author;
 }
 
-class Author{
+class Author {
     String name;
     String email;
     String date;

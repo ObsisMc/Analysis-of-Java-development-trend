@@ -85,7 +85,7 @@ public class ApiServiceImpl implements ApiService {
             stringBuilder.append("{date:\"").append(t.getKey()).append("\",count:\"").append(t.getValue()).append("\"},");
         }
         for (Map.Entry<String, Long> h : weekHourMap) {
-            hourBuild.append("{hour:\"").append(h.getKey()).append("\",count:\"").append(h.getValue()).append("\"},");
+            hourBuild.append("{").append(h.getKey()).append("\",value:\"").append(h.getValue()).append("\"},");
         }
         stringBuilder.deleteCharAt(stringBuilder.length() - 1);
         hourBuild.deleteCharAt(hourBuild.length() - 1);
