@@ -49,7 +49,7 @@ export default {
       }
       for (let i = 0; i < newData.length; i++) {
         let tmp = newData[i];
-        tmp[2] = tmp[2] / max * 20;
+        tmp[2] = tmp[2] / max * 10;
       }
       return newData;
     },
