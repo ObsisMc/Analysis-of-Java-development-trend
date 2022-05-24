@@ -5,7 +5,7 @@
         <MultiMetric ref="multiMetric" class="graph-container"></MultiMetric>
       </el-col>
       <el-col :span="6" style="border: transparent solid 1px;">
-        <div style="float:left; position: relative; bottom: 70px; ">
+        <div style="float:left; position: relative; bottom: 55px; ">
           <el-row style="margin-bottom: 10px;border: transparent solid 1px;" >
             <el-col :span="4" style="border: transparent solid 1px;"></el-col>
             <el-col :span="16">
@@ -25,7 +25,11 @@
           </span>
           </el-row>
         </div>
-        <SearchInput style="width: 100%"></SearchInput>
+        <div :style="{height:height}" style="border: transparent solid 1px; ">
+          <transition name="component-fade" mode="out-in">
+            <component v-bind:is="view" style="width: 100%;"></component>
+          </transition>
+        </div>
       </el-col>
       <el-col :span="9">
         <WorkTime  class="graph-container" style="float: right;"></WorkTime>
@@ -38,10 +42,10 @@
 import WorkTime from "@/views/nested/components/WorkTime";
 import MultiMetric from "@/views/nested/components/MultiMetric";
 import SearchInput from "@/views/nested/components/SearchInput";
-
+import SearchLoading from "@/components/SearchLoading";
 export default {
   name: "ContributorPanel",
-  components: {SearchInput, MultiMetric, WorkTime},
+  components: {SearchInput, MultiMetric, WorkTime,SearchLoading},
   data() {
     return {
       url: 'https://avatars.githubusercontent.com/u/15308811?v=4',
@@ -49,16 +53,30 @@ export default {
       contributors: 0,
       comments: 0,
       releases: 0,
-      archives: 0
+      archives: 0,
+      view: SearchInput
     }
   },
   computed: {
     radius() {
       return Math.min(window.innerWidth, window.innerHeight) * 0.3 + "px";
+    },
+    height() {
+      return window.innerHeight * 0.08 + "px";
     }
   },
   mounted() {
     this.$refs.multiMetric.draw();
+    this.$evenBus.$on("beginSearch", () => {
+      this.loading = true;
+      alert("begin");
+      this.view = SearchLoading;
+    })
+    this.$evenBus.$on("endSearch", () => {
+      this.loading = false;
+      alert("end");
+      this.view = SearchInput;
+    })
   }
 }
 </script>
@@ -82,5 +100,15 @@ export default {
   background-color: rgb(255, 255, 255);
   padding: 16px 16px;
   margin-bottom: 32px;
+}
+
+.component-fade-enter-active, .component-fade-leave-active {
+  transition: opacity .3s ease;
+}
+
+.component-fade-enter, .component-fade-leave-to
+  /* .component-fade-leave-active for below version 2.1.8 */
+{
+  opacity: 0;
 }
 </style>

@@ -1,10 +1,10 @@
 <template>
   <div class="dashboard-container">
-    <div :style="{height:height}" style="border: transparent solid 1px;">
-      <transition name="component-fade" mode="out-in">
-        <component v-bind:is="view"></component>
-      </transition>
-    </div>
+<!--    <div :style="{height:height}" style="border: transparent solid 1px;">-->
+<!--      <transition name="component-fade" mode="out-in">-->
+<!--        <component v-bind:is="view"></component>-->
+<!--      </transition>-->
+<!--    </div>-->
     <ContributorPanel></ContributorPanel>
     <TimeShow></TimeShow>
   </div>
