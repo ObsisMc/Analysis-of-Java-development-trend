@@ -167,4 +167,9 @@ public class ApiController {
     }
 
 
+    @GetMapping("commit_hour")
+    public String getCommitHour(String url){
+        return apiService.getCommitHour(url);
+    }
+
 }

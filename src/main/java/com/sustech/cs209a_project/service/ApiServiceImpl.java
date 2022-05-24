@@ -63,7 +63,8 @@ public class ApiServiceImpl implements ApiService {
             System.out.println("hello" + i + " begin");
             String request = "https://api.github.com/repos/" + repo + "/commits?page=" + i + "&per_page=100";
             HttpGet httpGet = new HttpGet(request);
-            httpGet.setHeader("Authorization", "token " + access_token);
+            if (access_token != null)
+                httpGet.setHeader("Authorization", "token " + access_token);
             CloseableHttpClient httpClient = HttpClients.createDefault();
             CloseableHttpResponse response = httpClient.execute(httpGet);
             String r = EntityUtils.toString(response.getEntity());
@@ -74,16 +75,36 @@ public class ApiServiceImpl implements ApiService {
         }
         LinkedHashSet<Map.Entry<String, Long>> s = searchResults.stream().map(CommitSearchResult::getCommitTime).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .entrySet().stream().sorted(Map.Entry.comparingByKey()).collect(Collectors.toCollection(LinkedHashSet::new));
+        LinkedHashSet<Map.Entry<String, Long>> weekHourMap = searchResults.stream().map(CommitSearchResult::getCommitWeekHour).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                .entrySet().stream().sorted(Map.Entry.comparingByKey()).collect(Collectors.toCollection(LinkedHashSet::new));
         StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder hourBuild = new StringBuilder();
         stringBuilder.append("[");
+        hourBuild.append("[");
         for (Map.Entry<String, Long> t : s) {
             stringBuilder.append("{date:\"").append(t.getKey()).append("\",count:\"").append(t.getValue()).append("\"},");
         }
+        for (Map.Entry<String, Long> h : weekHourMap) {
+            hourBuild.append("{hour:\"").append(h.getKey()).append("\",count:\"").append(h.getValue()).append("\"},");
+        }
         stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        hourBuild.deleteCharAt(hourBuild.length() - 1);
         stringBuilder.append("]");
+        hourBuild.append("]");
         System.out.println(stringBuilder);
         redisUtil.set("[commitWithTime]" + url, stringBuilder.toString(), 10 * 60);
+        redisUtil.set("[commitHour]" + url, hourBuild.toString(), 10 * 60);
         return stringBuilder.toString();
+    }
+
+
+    @Override
+    public String getCommitHour(String url) {
+        if (redisUtil.hasKey("[commitHour]" + url)) {
+            redisUtil.expire("[commitHour]" + url, 10 * 60);
+            return (String) redisUtil.get("[commitHour]" + url);
+        }
+        return "no!";
     }
 
     @Override
@@ -169,7 +190,7 @@ public class ApiServiceImpl implements ApiService {
         Gson gson = new GsonBuilder().setFieldNamingStrategy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
         RepositoriesSearchResult repositoriesSearchResult = gson.fromJson(r, RepositoriesSearchResult.class);
         Repository[] repositories = repositoriesSearchResult.getItems();
-        return gson.toJson(repositories,Repository[].class);
+        return gson.toJson(repositories, Repository[].class);
     }
 
 
