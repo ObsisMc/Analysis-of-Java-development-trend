@@ -33,8 +33,14 @@ export default {
       cb([{value: "input"}]);
     },
     handleSelect() {
-      this.$evenBus.$emit("beginSearch");
       let repoURL = this.state.startsWith("http") ? this.state : "https://github.com/" + this.state;
+      let pathList = this.state.split("/");
+      let fullName =  pathList[0] + "/" + pathList[1];
+      if(this.state.startsWith("http")){
+        fullName =  pathList[3] + "/" + pathList[4];
+      }
+
+      this.$evenBus.$emit("beginSearch",fullName);
       this.$evenBus.$emit("getCommitsByTime", repoURL);
       this.$evenBus.$emit("getMetrics", repoURL);
     }

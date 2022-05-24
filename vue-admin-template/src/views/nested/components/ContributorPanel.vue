@@ -45,18 +45,26 @@ import WorkTime from "@/views/nested/components/WorkTime";
 import MultiMetric from "@/views/nested/components/MultiMetric";
 import SearchInput from "@/views/nested/components/SearchInput";
 import SearchLoading from "@/components/SearchLoading";
+import axios from "axios";
 export default {
   name: "ContributorPanel",
   components: {SearchInput, MultiMetric, WorkTime,SearchLoading},
   data() {
     return {
-      url: 'https://avatars.githubusercontent.com/u/15308811?v=4',
+      url: '',
       repo: 'All Github',
       contributors: 0,
       comments: 0,
       releases: 0,
       archives: 0,
       view: SearchInput
+    }
+  },
+  methods:{
+    getAvatar(repoUrl){
+      axios.get(repoUrl).then(response=>{
+        this.url = response.data.owner.avatar_url;
+      })
     }
   },
   computed: {
@@ -69,8 +77,11 @@ export default {
   },
   mounted() {
     this.$refs.multiMetric.draw();
-    this.$evenBus.$on("beginSearch", () => {
-      this.loading = true;
+    this.$evenBus.$on("beginSearch", (fullName) => {
+      console.log(fullName, typeof fullName);
+      this.repo = fullName;
+      let repoUrl = "https://api.github.com/repos/"+fullName;
+      this.getAvatar(repoUrl);
       this.view = SearchLoading;
     })
     this.$evenBus.$on("endSearch", () => {
