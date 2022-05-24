@@ -40,7 +40,7 @@ export default {
         }
       }else{
         newData = {
-          value: data.toFixed(4),
+          value: data.toFixed(2),
           name: 'Comments(%)',
           title: {
             offsetCenter: ['0%', '0%']
