@@ -24,12 +24,13 @@
             {{ repo }}
           </span>
           </el-row>
+          <div :style="{height:height}" style="border: transparent solid 1px; margin-top: 20px;">
+            <transition name="component-fade" mode="out-in">
+              <component v-bind:is="view" style="width: 100%; position: center" ></component>
+            </transition>
+          </div>
         </div>
-        <div :style="{height:height}" style="border: transparent solid 1px; ">
-          <transition name="component-fade" mode="out-in">
-            <component v-bind:is="view" style="width: 100%;"></component>
-          </transition>
-        </div>
+
       </el-col>
       <el-col :span="9">
         <WorkTime  class="graph-container" style="float: right;"></WorkTime>
@@ -69,12 +70,10 @@ export default {
     this.$refs.multiMetric.draw();
     this.$evenBus.$on("beginSearch", () => {
       this.loading = true;
-      alert("begin");
       this.view = SearchLoading;
     })
     this.$evenBus.$on("endSearch", () => {
       this.loading = false;
-      alert("end");
       this.view = SearchInput;
     })
   }

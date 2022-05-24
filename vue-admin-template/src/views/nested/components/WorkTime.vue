@@ -48,10 +48,12 @@ export default {
           this.data = this.handleData(rawData);
           this.option.series.data = this.data;
         }).catch(e => {
-        this.option.series.data = this.defaultData.data;
         success = false;
+        this.option.series.data = this.defaultData.data;
+
       }).finally(() => {
         this.draw();
+        alert("Worktime end:" + success);
         this.$evenBus.$emit("finishSearchRepo", success);
       })
     },

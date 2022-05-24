@@ -42,6 +42,7 @@ export default {
         success = false;
       }).finally(() => {
         this.draw();
+        alert("metric end:" + success);
         this.$evenBus.$emit("finishSearchRepo", success);
       })
     },

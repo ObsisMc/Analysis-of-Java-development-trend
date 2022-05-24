@@ -25,7 +25,7 @@ export default {
       state: '',
       finished: 0,
       error: false,
-      need: 1
+      need: 3
     }
   },
   methods: {
