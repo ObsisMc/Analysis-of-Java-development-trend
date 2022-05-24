@@ -56,21 +56,22 @@ JAVA发展趋势分析:
 2. community situation:
 
 > haven't come up with detail solutions, followings are just conceptions
+
 1. commit number by time
 2. activity:
-   1. author
-      1. issues' tags number
-      2. issue time span
-      3. average comments of pr
-      4. release number
-   2. contributor
-      1. number of contributor
-   3. both
-      1. average comments of issue
+    1. author
+        1. issues' tags number
+        2. issue time span
+        3. average comments of pr
+        4. release number
+    2. contributor
+        1. number of contributor
+    3. both
+        1. average comments of issue
 3. habits of users involved in JAVA repos
     1. what's the work time for them during a day (or a week)
 
-> star history api: https://api.codetabs.com/v1/stars/?repo=01ankidroid/Anki-Android 
+> star history api: https://api.codetabs.com/v1/stars/?repo=01ankidroid/Anki-Android
 
 > Goal: manifest vigour of JAVA, and also give JAVA developers advice on how and when to communicate with other JAVA developers.
 
@@ -125,17 +126,20 @@ https://api.github.com/repos/OWNER/REPO/stargazers
 | 10000:1000000 | 100+         |
 
 should have data: 39k(30+6+3) + 20k(10+4+6) + 1k + 1k +1k + 172
-> what a troublesome task. Every search can only get at most 1000 results because of github's limit and in order to 
+> what a troublesome task. Every search can only get at most 1000 results because of github's limit and in order to
 > get more than 50k data, I need to split the entire search into sporadic searches.
 
 ## Task
+
 1. java ranks
 
-   1. total number rank
-   
-      ![img_2.png](README.assets/img_2.png)![img_3.png](README.assets/img_3.png)
+    1. total number rank
+
+       ![img_2.png](README.assets/img_2.png)![img_3.png](README.assets/img_3.png)
+
 > format: [{ name: str , type: "line" stack: "Total", smooth: true, data: [] },{...},...]
-   2. ![image-20220510224445556](./README.assets/image-20220510224445556.png)
+
+2. ![image-20220510224445556](./README.assets/image-20220510224445556.png)
 
 2. word cloud
 
@@ -143,19 +147,23 @@ should have data: 39k(30+6+3) + 20k(10+4+6) + 1k + 1k +1k + 172
 
 3. ladar graph：
 
-   > stand for  活跃度（可能fork, pull...的极差 or else）
-   
+   > stand for 活跃度（可能fork, pull...的极差 or else）
+
 4. when do users likely to work
 
 5. a repo 兴衰： commit数 by time
-![img.png](README.assets/img.png)
-> data format: {date:[t0,t1,..,tn], data:[N0,N1,...,Nn]} 
+   ![img.png](README.assets/img.png)
+
+> data format: {date:[t0,t1,..,tn], data:[N0,N1,...,Nn]}
 
 ![img_1.png](README.assets/img_1.png)
 > format: {hours:[...], days:[...], data:[[],[],...]} --> 
 > hours (str): X axis; days (str): Y axis; data: [x, y, n], there are n commits at (x, y)
 
 1. Bonus:
-   1. user login
-   2. user choose repo and crawl data on the air. 
-   3. show contributors locations
+    1. user login
+    2. user choose repo and crawl data on the air.
+    3. show contributors locations
+
+
+https://www.notion.so/Java2-Project-Report-5b8fddb776654442a793cfec1abf5ff9
