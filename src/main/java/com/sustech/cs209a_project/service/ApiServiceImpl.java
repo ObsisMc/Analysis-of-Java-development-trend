@@ -129,11 +129,45 @@ public class ApiServiceImpl implements ApiService {
         }
         long issueWithComment = issueSearchResults.stream().filter(IssueSearchResult::isCommit).count();
         String result = Double.toString((double) issueWithComment / (double) issueSearchResults.size());
-        if(result.equals("NaN")){
+        if (result.equals("NaN")) {
             result = "0";
         }
         redisUtil.set("[commentRate]" + url, result, 10 * 60);
         return result;
+    }
+
+
+    @Override
+    public String getContributorCount(String url, String identity) throws IOException {
+        String access_token = (String) redisUtil.get(identity);
+        access_token = "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";
+        if (redisUtil.hasKey("[contributor]" + url)) {
+            redisUtil.expire("[contributor]" + url, 10 * 60);
+            return (String) redisUtil.get("[contributor]" + url);
+        }
+
+        List<ContributorCountResult> contributorCountResults = new ArrayList<>();
+        String repo = PublicUtils.getUserAndRepoFromUrl(url);
+        int page = 1;
+        while (true) {
+            System.out.println("xyzdltql");
+            String request = "https://api.github.com/repos/" + repo + "/contributors?page=" + page + "&per_page=100";
+            HttpGet httpGet = new HttpGet(request);
+            if (access_token != null) {
+                httpGet.setHeader("Authorization", "token " + access_token);
+            }
+            CloseableHttpClient httpClient = HttpClients.createDefault();
+            CloseableHttpResponse response = httpClient.execute(httpGet);
+            String r = EntityUtils.toString(response.getEntity());
+            Gson gson = new GsonBuilder().setFieldNamingStrategy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
+            ContributorCountResult[]result = gson.fromJson(r,ContributorCountResult[].class);
+            if(result.length==0){
+                break;
+            }
+            page++;
+            contributorCountResults.addAll(List.of(result));
+        }
+        return Integer.toString(contributorCountResults.size());
     }
 
 

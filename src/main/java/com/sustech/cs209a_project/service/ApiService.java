@@ -7,6 +7,8 @@ public interface ApiService {
 
     String getCommentRate(String url, String identity) throws IOException;
 
+    String getContributorCount(String url, String identity) throws IOException;
+
     String getCommitHour(String url);
 
     String getWordCloud(int count) throws IOException;

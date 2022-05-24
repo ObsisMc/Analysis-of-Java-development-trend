@@ -183,4 +183,13 @@ public class ApiController {
         return apiService.getCommitHour(url);
     }
 
+
+    @GetMapping("contributor_count")
+    public String getContributorCount(String url, String identity){
+        try {
+            return apiService.getContributorCount(url,identity);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
