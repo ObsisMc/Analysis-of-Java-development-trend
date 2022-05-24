@@ -99,6 +99,45 @@ public class ApiServiceImpl implements ApiService {
 
 
     @Override
+    public String getCommentRate(String url, String identity) throws IOException {
+        String access_token = (String) redisUtil.get(identity);
+        //test
+        access_token = "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";
+        if (redisUtil.hasKey("[commentRate]" + url)) {
+            redisUtil.expire("[commentRate]" + url, 10 * 60);
+            return (String) redisUtil.get("[commentRate]" + url);
+        }
+        List<IssueSearchResult> issueSearchResults = new ArrayList<>();
+        String repo = PublicUtils.getUserAndRepoFromUrl(url);
+        int page = 1;
+        while (true) {
+            System.out.println("xyznb!");
+            String request = "https://api.github.com/repos/" + repo + "/issues?page=" + page + "&per_page=100";
+            HttpGet httpGet = new HttpGet(request);
+            if (access_token != null)
+                httpGet.setHeader("Authorization", "token " + access_token);
+            CloseableHttpClient httpClient = HttpClients.createDefault();
+            CloseableHttpResponse response = httpClient.execute(httpGet);
+            String r = EntityUtils.toString(response.getEntity());
+            Gson gson = new GsonBuilder().setFieldNamingStrategy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
+            IssueSearchResult[] result = gson.fromJson(r, IssueSearchResult[].class);
+            if (result.length == 0) {
+                break;
+            }
+            page++;
+            issueSearchResults.addAll(List.of(result));
+        }
+        long issueWithComment = issueSearchResults.stream().filter(IssueSearchResult::isCommit).count();
+        String result = Double.toString((double) issueWithComment / (double) issueSearchResults.size());
+        if(result.equals("NaN")){
+            result = "0";
+        }
+        redisUtil.set("[commentRate]" + url, result, 10 * 60);
+        return result;
+    }
+
+
+    @Override
     public String getCommitHour(String url) {
         if (redisUtil.hasKey("[commitHour]" + url)) {
             redisUtil.expire("[commitHour]" + url, 10 * 60);

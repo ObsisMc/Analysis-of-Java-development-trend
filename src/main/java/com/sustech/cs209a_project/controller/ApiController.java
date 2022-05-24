@@ -33,6 +33,17 @@ public class ApiController {
         }
     }
 
+    @GetMapping("comment_rate")
+    public String getCommentRate(String url, String identity){
+        try {
+            return apiService.getCommentRate(url,identity);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
     /**
      * {
      * "head": [
