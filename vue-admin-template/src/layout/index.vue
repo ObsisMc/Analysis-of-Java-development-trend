@@ -4,7 +4,7 @@
     <sidebar class="sidebar-container" />
     <div class="main-container">
       <div :class="{'fixed-header':fixedHeader}">
-        <RateLimitCheck  ></RateLimitCheck>
+<!--        <RateLimitCheck  ></RateLimitCheck>-->
         <navbar />
       </div>
       <app-main />
