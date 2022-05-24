@@ -39,7 +39,7 @@ export default {
 
           this.option = {
             title: {
-              text: 'Repository Rank'
+              text: 'Top 3 Repositories'
             },
             tooltip: {
               trigger: 'axis',

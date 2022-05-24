@@ -53,7 +53,7 @@ export default {
       }).finally(() => {
         this.option = {
           title: {
-            text: 'Popular license',
+            text: 'Popular licenses',
             left: "center"
           },
           legend: {

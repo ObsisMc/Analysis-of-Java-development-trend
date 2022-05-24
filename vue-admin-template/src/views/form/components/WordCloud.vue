@@ -1,5 +1,8 @@
 <template>
   <div>
+    <span class="titleText">
+      Popular Topics
+    </span>
     <wordcloud
       :data="Words"
       nameKey="topic"
@@ -103,6 +106,10 @@ export default {
 <style scoped>
 
 wordcloud:hover {
-  cursor: pointer；
+  cursor: pointer;
+}
+.titleText{
+  position: relative;
+  font-size: 30px;
 }
 </style>
