@@ -39,6 +39,8 @@ export default {
         this.option.xAxis.data = date;
         this.option.series.data = data;
         this.draw();
+
+        this.$evenBus.$emit("getWorkTime", url);
       }).catch(error => {
         // todo: maybe bug
         this.option = this.defaultOption;
