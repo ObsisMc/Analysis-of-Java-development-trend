@@ -8,12 +8,13 @@
     </el-row>
     <el-row>
       <el-col class="graph-container" :span="11">
-        <RelationshipJava ref="relation" :hgt="relationHeight"></RelationshipJava>
+<!--        <RelationshipJava ref="relation" :hgt="relationHeight"></RelationshipJava>-->
+        <License ref="license" class="graph-container"></License>
       </el-col>
       <el-col :span="1" style="border: 1px solid transparent"></el-col>
       <el-col  :span="12">
         <RepoRank class="graph-container"></RepoRank>
-        <License ref="license" class="graph-container"></License>
+
       </el-col>
     </el-row>
 

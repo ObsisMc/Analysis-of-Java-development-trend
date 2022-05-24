@@ -16,7 +16,7 @@ export default {
   },
   computed: {
     height() {
-      return window.innerHeight * 0.4 + "px";
+      return window.innerHeight * 0.45 + "px";
     }
   },
   methods: {

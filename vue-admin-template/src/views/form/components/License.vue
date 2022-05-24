@@ -1,5 +1,5 @@
 <template>
-  <div id="license" style="width: 100%; height: 500px;"></div>
+  <div id="license" style="width: 100%;" :style="{height:height}"></div>
 </template>
 
 <script>
@@ -12,6 +12,11 @@ export default {
       chartDom: null,
       myChart: null,
       option: null
+    }
+  },
+  computed:{
+    height() {
+      return window.innerHeight * 0.45 + "px";
     }
   },
   methods: {
