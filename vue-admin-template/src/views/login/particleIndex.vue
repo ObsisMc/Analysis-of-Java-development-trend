@@ -8,11 +8,9 @@
         </span>
       </transition>
       <transition name="login-fade">
-<!--        <loginForm v-if="loginShow"></loginForm>-->
-                <el-button v-if="loginShow" @click="authenGithub">
-                  To Github
-                </el-button>
-
+        <el-button v-if="loginShow" @click="authenGithub" type="primary" style="position: relative;left: 35%;">
+          Github Authentication
+        </el-button>
       </transition>
     </div>
   </div>
