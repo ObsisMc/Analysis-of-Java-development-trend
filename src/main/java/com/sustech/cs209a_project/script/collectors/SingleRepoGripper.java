@@ -1,14 +1,14 @@
-package com.sustech.cs209a_project.utils;
+package com.sustech.cs209a_project.script.collectors;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.sustech.cs209a_project.utils.JsonIO;
+import com.sustech.cs209a_project.utils.TimeUtils;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class SingleRepoAnalysis {
+public class SingleRepoGripper {
     final private static String token = "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";
     static int n = 0;
     static int per_page = 100;

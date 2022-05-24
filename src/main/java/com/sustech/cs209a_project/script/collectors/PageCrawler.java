@@ -1,9 +1,9 @@
-package com.sustech.cs209a_project.utils;
+package com.sustech.cs209a_project.script.collectors;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.sustech.cs209a_project.pojo.LanguageRank;
-import com.sustech.cs209a_project.pojo.RelationNode;
+import com.sustech.cs209a_project.utils.JsonIO;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -13,11 +13,10 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.LinkedHashMap;
-import java.io.OutputStreamWriter;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Crawler {
+public class PageCrawler {
     public static List<String> popularLanguage;
     final private static String token = "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";
 
