@@ -5,7 +5,7 @@
         <MultiMetric ref="multiMetric" class="graph-container"></MultiMetric>
       </el-col>
       <el-col :span="10">
-        <WorkTime ref="workTime" class="graph-container"></WorkTime>
+        <WorkTime  class="graph-container"></WorkTime>
       </el-col>
       <el-col :span="4">
         <div style="float:right; position: relative; bottom: 70px; right:15px;">
@@ -84,7 +84,6 @@ export default {
     }
   },
   mounted() {
-    this.$refs.workTime.draw();
     this.$refs.multiMetric.draw();
   }
 }

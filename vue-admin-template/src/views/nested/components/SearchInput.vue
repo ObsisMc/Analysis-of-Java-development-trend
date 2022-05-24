@@ -37,6 +37,7 @@ export default {
       let repoURL = this.state.startsWith("http") ? this.state : "https://github.com/" + this.state;
       this.$evenBus.$emit("getCommitsByTime", repoURL);
       this.$evenBus.$emit("getMetrics", repoURL);
+      this.$evenBus.$emit("getWorkTime", repoURL);
     }
   },
   mounted() {
