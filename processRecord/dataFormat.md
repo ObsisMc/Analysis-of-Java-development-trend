@@ -5,7 +5,7 @@
 
 
 
-<img src="./dataFormat.assets/image-20220520215744957.png" alt="img.png" style="zoom: 33%;" /> and <img src="./dataFormat.assets/image-20220520215826959.png" alt="img.png" style="zoom: 33%;" />
+<img src="Repository/gitrepo/CS209A_Project2/processRecord/dataFormat.assets/image-20220520215744957.png" alt="img.png" style="zoom: 33%;" /> and <img src="Repository/gitrepo/CS209A_Project2/processRecord/dataFormat.assets/image-20220520215826959.png" alt="img.png" style="zoom: 33%;" />
 
 
 
@@ -38,7 +38,7 @@
 
 #### Stacked Line
 
-![image-20220520221917311](dataFormat.assets/image-20220520221917311.png)
+![image-20220520221917311](Repository/gitrepo/CS209A_Project2/processRecord/dataFormat.assets/image-20220520221917311.png)
 
 展示每一年前7的语言排名，y轴是排名从上到下数字越大，最上面数字为1；x轴是年份，展示2012～2021年
 
@@ -66,7 +66,7 @@
 ```
 #### Pie graph at right-bottom corner
 
-![image-20220520223933733](dataFormat.assets/image-20220520223933733.png)
+![image-20220520223933733](Repository/gitrepo/CS209A_Project2/processRecord/dataFormat.assets/image-20220520223933733.png)
 
 和上一个图是对应的，当鼠标移动到上一个图的x轴某一点，该饼图会展示对应年份前7的语言的总仓库数
 
@@ -93,7 +93,7 @@
 
 #### Rank by time
 
-<img src="dataFormat.assets/image-20220520222306755.png" alt="image-20220520222306755" style="zoom: 67%;" />
+<img src="Repository/gitrepo/CS209A_Project2/processRecord/dataFormat.assets/image-20220520222306755.png" alt="image-20220520222306755" style="zoom: 67%;" />
 
 动态展示每一年不同热门语言仓库数量增量
 
@@ -128,7 +128,7 @@
 
 #### 最后一个图
 
-![image-20220522214119474](dataFormat.assets/image-20220522214119474.png)
+![image-20220522214119474](Repository/gitrepo/CS209A_Project2/processRecord/dataFormat.assets/image-20220522214119474.png)
 
 ```json
 {
@@ -149,7 +149,7 @@
 
 ## Part 2
 
-![image-20220523203720821](dataFormat.assets/image-20220523203720821.png)
+![image-20220523203720821](Repository/gitrepo/CS209A_Project2/processRecord/dataFormat.assets/image-20220523203720821.png)
 
 ```json
 // 用jsonTotalWithLanguage.json里面的"lanugages"，"languages"里面的值可能表示行数，值比较大，可能要处理一下（我之前是算百分比）
@@ -180,11 +180,11 @@
 **只留value最大的前15个语言 as nodes！**
 
 ## Part 3
-![img.png](./dataFormat.assets/img.png)
+![img.png](Repository/gitrepo/CS209A_Project2/processRecord/dataFormat.assets/img.png)
 
 ### Left 
 
-<img src="./dataFormat.assets/image-20220520214103947.png" alt="image-20220520214103947" style="zoom:50%;" />
+<img src="Repository/gitrepo/CS209A_Project2/processRecord/dataFormat.assets/image-20220520214103947.png" alt="image-20220520214103947" style="zoom:50%;" />
 
 展示该仓库的贡献者数量，issue的平均评论数，pr的平均评论数
 
@@ -194,7 +194,7 @@
 [
   {
     value: 20,
-    name: 'Perfect'
+    name: 'co'
   },
   {
     value: 40,
@@ -209,7 +209,7 @@
 
 #### Right
 
-<img src="./dataFormat.assets/image-20220520215047952.png" alt="image-20220520215047952" style="zoom: 80%;" /> or <img src="/home/zrh/Repository/gitrepo/CS209A_Project2/dataFormat.assets/image-20220520215147974.png" alt="image-20220520215147974" style="zoom: 50%;" />   
+<img src="Repository/gitrepo/CS209A_Project2/processRecord/dataFormat.assets/image-20220520215047952.png" alt="image-20220520215047952" style="zoom: 80%;" /> or <img src="/home/zrh/Repository/gitrepo/CS209A_Project2/dataFormat.assets/image-20220520215147974.png" alt="image-20220520215147974" style="zoom: 50%;" />   
 
 展示程序猿都喜欢在什么时间工作（就是commit时间）
 

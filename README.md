@@ -1,169 +1,152 @@
-# CS209A_Project
+# Java2 Project Report
 
-## Topic A
+[https://github.com/xbdeng/CS209A_Project](https://github.com/xbdeng/CS209A_Project)
 
-1. 各个国家java代码质量
+# Topic
 
-    1.
+Java is one of the most popular languages around the world and up to now, there are countless developers involved in the construction of  Java and leveraging it to implement various projects. However, today’s popularity doesn’t guarantee the popularity of the future and it is necessary to analyse  Java’s current situation. We will analyse it from three aspects:
 
-2. 各国家java使用人数
+- Popularity among all languages in recent years
+- Usage of Java
+- Vitality of community
 
-    1. 通过项目查找人的国家
-    2. 统计人数
+Finally, we will give developers suggestions according to our analysis.
 
-3. 地区活跃度
+# Project Structure
 
-    - 人的最后更新时间
+## Technology Stack
 
-4. 组织影响力
+- Springboot
+- Redis
+- Vue
 
-5. java时间尺度的流行度和频率趋势
+## Framework
 
-    1. 项目创建及更新时间
-    2. 项目数量
+### Login
 
-   <img src="README.assets/image-20220429204839551.png" alt="image-20220429204839551" style="zoom:50%;" />
+Users can login to the system via GitHub. The system will use the user’s GitHub access token to do the online searching, which will be limited without an access token.
 
-6. Github Repos Total Stars in Time
+### Offline Searching
 
-    - star数量时间变化
+We collect some data and analysis them, storing the data in the JSON file. If a user requests this data, the system will read the data from the file and send it to the browser.
 
-## Topic B
+### Online Searching
 
-> pay attention, search API may don't give out the entire results
+The system provides a function that users can analyze a GitHub repository online by providing the URL of the repository. Because of the limitation of GitHub, users should provide their GitHub access token to do the online searching. The system will search via GitHub RESTFUL API, and analyze the collected data, then send it to the client.
 
-JAVA发展趋势分析:
+### Cache
 
-> 1. analyse the language itself
-> 2. analyse its community which stands for vitality of a language
+Online searching is so slow, so we design a cache system via Redis to improve the performance.
 
-> targets: JAVA developers
+When a user does an online search, the system will store the request and response as  a key-value in the Redis. The key-value will be stored for ten minutes, and after that, the record will be destroyed.
 
-1. Total trending
+If another user does an online search that is already stored in the Redis, the system will be sent the result to the client directly, and reset the destroyed time to ten minutes.
 
-    1. 流行度 (how many people use it):
-        - repos的数量，总数或者只看增长速率 ( in recent years)
-        - advanced: use stars, forks and more metrics (average stars or else) to evaluate the popularity
-    2. 和哪些语言配合比较多:
-        - star最多的前20%（or fixed number）的repo中, which languages does JAVA coopereate with.
-    3. what are hot topics and fields:
-        - use description of repos to analyse frequency of words
-    4. license
-    5. relation of the number of contributors, issue, pr, stars, size
+## Architecture Design
 
-   > Goal: give users a picture about how popular Java is nowadays and give developers some suggestions about what they should learn to catch up with the development of JAVA
+- Utils Package
+    - provide some utils for script or server
+    - PublicUtils.java
+    - RedisUtil.java
+    - JsonIO.java
+    - TimeUtils.java
+- pojo Package
+    - provide some java class for json parse or data transmission
+- config Package
+    - set the configuration of Redis
+- controller Package
+    - manager the api of the server
+- service Package
+    - realize the interface of the service
+- script Package
+    - collect and analyze the data from GitHub, and store them to the file
+- resources/rawdata
+    - collected data from GitHub by script
+- resources/ripedata
+    - the analyzed data by script
 
-2. community situation:
+# Data Preparation
 
-> haven't come up with detail solutions, followings are just conceptions
+> Data source: Github
+> 
 
-1. commit number by time
-2. activity:
-    1. author
-        1. issues' tags number
-        2. issue time span
-        3. average comments of pr
-        4. release number
-    2. contributor
-        1. number of contributor
-    3. both
-        1. average comments of issue
-3. habits of users involved in JAVA repos
-    1. what's the work time for them during a day (or a week)
+### Data collection & persistence
 
-> star history api: https://api.codetabs.com/v1/stars/?repo=01ankidroid/Anki-Android
+We collect data by our automated Java codes which invoke Github’s api. We store our data as json and they are put into a certain directory. Our  automated codes and data are in following directories:
 
-> Goal: manifest vigour of JAVA, and also give JAVA developers advice on how and when to communicate with other JAVA developers.
+- Codes: src/main/java/com/sustech/cs209a_project/script/collectors
+- Resources: src/main/resources/rawdata
 
-## Tools
+We firstly use API
 
-### API
-
-github API: https://docs.github.com/cn/rest
-
-### Third Libraries
-
-Echarts: https://echarts.apache.org/zh/index.html
-
-### Reference
-
-analysis 1: https://www.benfrederickson.com/github-developer-locations/
-
-github official report: https://baijiahao.baidu.com/s?id=1716745477182306006&wfr=spider&for=pc
-
-### Others
-
-star时间
-
-```
-Accept: application/vnd.github.v3+json
-https://api.github.com/repos/OWNER/REPO/stargazers
+```jsx
+https://api.github.com/search/repositories
 ```
 
-### Records
+to collect **5w** repositories with over 10 stars and store them in json. Therefore, we can directly analyse repositories’ features.
 
-#### Repos
+Apart from above API, we call others for different parts of our topics:
 
-| star             | num    |
-| ---------------- | ------ |
-| 10<x<100         | 87000+ |
-| 100<x<1000       | 17000+ |
-| 1000<x<10000     | 2700+  |
-| 10000<x<100000   | 170+   |
-| 100000<x<1000000 | 1      |
+| topics | Example API |
+| --- | --- |
+| Popularity among all languages in recent years | 1. https://api.github.com/search/repositories?sort=stars&q=language:C+stars:>1000&per_page=3&page=1 |
+| Usage of Java | 1. https://api.github.com/search/repositories?sort=stars&q=language:java |
+| Vitality of community  | 1.  https://api.github.com/repos/Snailclimb/JavaGuide/contributors
+2.  https://api.github.com/repos/Snailclimb/JavaGuide/issues |
 
-| star          | num          |
-| ------------- |--------------|
-| 10:40         | 68000+; +1   |
-| 40:70         | 13000+: +5   |
-| 70:100        | 6300+: +10   |
-| 100:200       | 8000+: +10   |
-| 200:400       | 3000+: +50   |
-| 400:1000      | 4000~: +100  |
-| 1000:2000     | 1000+; +1000 |
-| 2000:7000     | 1000+; +5000 |
-| 7000:10000    | 115; +3000   |
-| 10000:1000000 | 100+         |
+We use Gson and fastjson to read and write data in json. Codes like [JsonIO.java](http://JsonIO.java) is for this functions.
 
-should have data: 39k(30+6+3) + 20k(10+4+6) + 1k + 1k +1k + 172
-> what a troublesome task. Every search can only get at most 1000 results because of github's limit and in order to
-> get more than 50k data, I need to split the entire search into sporadic searches.
+> e.g  [JsonIO.java](http://JsonIO.java) in src/main/java/com/sustech/cs209a_project/utils
+> 
 
-## Task
+# Insights
 
-1. java ranks
+We get insights from our three parts
 
-    1. total number rank
+### Popularity among all languages in recent years
 
-       ![img_2.png](README.assets/img_2.png)![img_3.png](README.assets/img_3.png)
+![Untitled](README.assets/Untitled.png)
 
-> format: [{ name: str , type: "line" stack: "Total", smooth: true, data: [] },{...},...]
+In recent years, Java is always in the top three position which means Java is still very popular in the world.
 
-2. ![image-20220510224445556](./README.assets/image-20220510224445556.png)
+![Untitled](README.assets/Untitled%201.png)
 
-2. word cloud
+However, according to increase rank, we find that Java’s increase becomes slower than before and python and other languages begin to catch up with Java which means Java may become less popular.
 
-   description
+![Untitled](README.assets/Untitled%202.png)
 
-3. ladar graph：
+Plus, in recent years,  average number of repositories and issues per user become larger than before which means Java developers become more active and they are willing to do more projects.
 
-   > stand for 活跃度（可能fork, pull...的极差 or else）
+### Usage of Java
 
-4. when do users likely to work
+![Untitled](README.assets/Untitled%203.png)
 
-5. a repo 兴衰： commit数 by time
-   ![img.png](README.assets/img.png)
+From word cloud, we find that android and spring-boot are most popular topic in Java. Therefore, maybe Web and android are where Java can take full use of itself.
 
-> data format: {date:[t0,t1,..,tn], data:[N0,N1,...,Nn]}
+ 
 
-![img_1.png](README.assets/img_1.png)
-> format: {hours:[...], days:[...], data:[[],[],...]} --> 
-> hours (str): X axis; days (str): Y axis; data: [x, y, n], there are n commits at (x, y)
+![Untitled](README.assets/Untitled%204.png)
 
-1. Bonus:
-    1. user login
-    2. user choose repo and crawl data on the air.
-    3. show contributors locations
+According to popular license, we can know apache-2.0 is the most popular license so if you have no idea which license to use, you can use it.
 
+![Untitled](README.assets/Untitled%205.png)
 
-https://www.notion.so/Java2-Project-Report-5b8fddb776654442a793cfec1abf5ff9
+Top 3 repositories are all about interview and are created by Chinese. We can see that maybe for Chinese, tutorials for programming languages are the most popular.
+
+ 
+
+### Vitality of community
+
+![Untitled](README.assets/Untitled%206.png)
+
+From the graph, we can know Wednesday is the day when people are likely to work. Therefore, developers can try to contact others on Wednesday in Github in order to get rapid responses. 
+
+![Untitled](README.assets/Untitled%207.png)
+
+Average contributors per repository is about 8. We can see that developers are very active to contribute their codes. 
+
+### Conclusion
+
+All in all, Java is still very popular in recent years. However, in the future, maybe Java will become less popular and other languages like python may catch up with it. Although the increase becomes slow, Java developers’ vitality may improves since average number of repositories per user become lager. To maintain its position, Java needs to focus on its advantages like android and web. Plus, job interview gets most attentions from developers, especially Chinese developers.
+
+For developers, if you want to learn web and android, maybe Java is your first choice. If you want to get rapid  response, maybe you can contact developers on Wednesday.
