@@ -1,12 +1,12 @@
 <template>
   <div>
     <el-row :gutter="0">
-      <el-col :span="9" >
+      <el-col :span="9">
         <MultiMetric ref="multiMetric" class="graph-container"></MultiMetric>
       </el-col>
       <el-col :span="6" style="border: transparent solid 1px;">
         <div style="float:left; position: relative; bottom: 55px; ">
-          <el-row style="margin-bottom: 10px;border: transparent solid 1px;" >
+          <el-row style="margin-bottom: 10px;border: transparent solid 1px;">
             <el-col :span="4" style="border: transparent solid 1px;"></el-col>
             <el-col :span="16">
               <el-image v-if="repo!=='All Github'"
@@ -27,14 +27,14 @@
           </el-row>
           <div :style="{height:height}" style="border: transparent solid 1px; margin-top: 20px;">
             <transition name="component-fade" mode="out-in">
-              <component v-bind:is="view" style="width: 100%; position: center" ></component>
+              <component v-bind:is="view" style="width: 100%; position: center"></component>
             </transition>
           </div>
         </div>
 
       </el-col>
       <el-col :span="9">
-        <WorkTime  class="graph-container" style="float: right;"></WorkTime>
+        <WorkTime class="graph-container" style="float: right;"></WorkTime>
       </el-col>
     </el-row>
   </div>
@@ -46,9 +46,10 @@ import MultiMetric from "@/views/nested/components/MultiMetric";
 import SearchInput from "@/views/nested/components/SearchInput";
 import SearchLoading from "@/components/SearchLoading";
 import axios from "axios";
+
 export default {
   name: "ContributorPanel",
-  components: {SearchInput, MultiMetric, WorkTime,SearchLoading},
+  components: {SearchInput, MultiMetric, WorkTime, SearchLoading},
   data() {
     return {
       url: '',
@@ -60,14 +61,18 @@ export default {
       view: SearchInput
     }
   },
-  methods:{
-    getAvatar(repoUrl){
-      axios.get(repoUrl,{
-        headers:{
-          Authorization: "token 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"
+  methods: {
+    getAvatar(repoUrl) {
+      axios.get(repoUrl, {
+        headers: {
+          Authorization: "token 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"
         }
-      }).then(response=>{
+      }).then(response => {
+        console.log("before change: ", this.url)
         this.url = response.data.owner.avatar_url;
+        console.log("after change: ", this.url)
+      }).catch(e => {
+        console.log(e)
       })
     }
   },
@@ -89,7 +94,7 @@ export default {
     })
     this.$evenBus.$on("updateNameAvatar", (fullName) => {
       this.repo = fullName;
-      let repoUrl = "https://api.github.com/repos/"+fullName;
+      let repoUrl = "https://api.github.com/repos/" + fullName;
       this.getAvatar(repoUrl);
       this.view = SearchInput;
     })

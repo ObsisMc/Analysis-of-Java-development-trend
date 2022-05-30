@@ -59,19 +59,17 @@ export default {
           message: "Invalid URL, private repo, time out or rate limit"
         })
         this.withoutError = false;
-        console.log(this.withoutError)
         this.error = true;
       }
       if (state) {
         this.success++;
       }
 
-      console.log("finish, " + this.finished);
       if (this.finished === this.need) {
         if (this.success > 0) {
+          console.log(this.fullName)
           this.$evenBus.$emit("updateNameAvatar", this.fullName);
           this.withoutError = true;
-          // console.log(this.withoutError)
         }
         // this.$message({
         //   message: "Finish searching repository",
