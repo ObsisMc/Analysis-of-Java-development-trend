@@ -1,10 +1,46 @@
-# Java2 Project Report
+# Analysis of JAVA development's current situation
 
-[https://github.com/xbdeng/CS209A_Project](https://github.com/xbdeng/CS209A_Project)
+<img src="README.assets/title.gif" alt="title"  />
 
-# Topic
+The project is from *Computer System Design and Applications A* course in SUSTech in 2022 spring semester.
 
-Java is one of the most popular languages around the world and up to now, there are countless developers involved in the construction of  Java and leveraging it to implement various projects. However, today’s popularity doesn’t guarantee the popularity of the future and it is necessary to analyse  Java’s current situation. We will analyse it from three aspects:
+| teammates    | work                                           |
+| ------------ | ---------------------------------------------- |
+| Ruihao Zhang | front and back end, data mining, data analysis |
+| Xiangbo Deng | back end, redis                                |
+
+
+
+### Overview
+
+- [Outline](#Outline)
+- [Project Structure](#project-structure)
+- [Project Features](#project-features)
+- [Data Preparation](#data-preparation)
+- [Showcase](#showcase)
+- [Insights](#insights)
+- [Conclusion](#conclusion)
+
+
+
+### Start
+
+1. run back end ( Spring Boot and Redis)
+
+   Spring Boot: `src/main/java/com/sustech/cs209a_project/Cs209AProjectApplication.java`
+
+2. run front end
+
+   ```shell
+   cd vue-admin-template/
+   npm run dev # need to install dependencies first
+   ```
+
+   
+
+## Outline
+
+Java is one of the most popular languages around the world and up to now, there are countless developers involved in the construction of  Java and leveraging it to implement various projects. However, today’s popularity doesn't guarantee the popularity of the future and it is necessary to analyse  Java’s current situation. We will analyse it from three aspects:
 
 - Popularity among all languages in recent years
 - Usage of Java
@@ -12,15 +48,56 @@ Java is one of the most popular languages around the world and up to now, there 
 
 Finally, we will give developers suggestions according to our analysis.
 
-# Project Structure
 
-## Technology Stack
 
-- Springboot
-- Redis
-- Vue
+## Project Structure
 
-## Framework
+### Technology Stack
+
+- Back end: Springboot, Redis
+- Front end: Vue, Echarts
+
+
+
+### Architecture Design
+
+- Back end
+
+  - Utils Package
+    - provide some utils for script or server
+    - PublicUtils.java
+    - RedisUtil.java
+    - JsonIO.java
+    - TimeUtils.java
+
+  - pojo Package
+    - provide some java class for json parse or data transmission
+
+  - config Package
+    - set the configuration of Redis
+
+  - controller Package
+    - manager the api of the server
+
+  - service Package
+    - realize the interface of the service
+
+  - script Package
+    - collect and analyze the data from GitHub, and store them to the file
+
+  - resources/rawdata
+    - collected data from GitHub by script
+
+  - resources/ripedata
+    - the analyzed data by script
+
+- Front end
+
+  The front end uses a **[template](https://github.com/PanJiaChen/vue-element-admin)** from [**Panjiachen**](https://github.com/PanJiaChen) and we modify it to adjust to our demand.
+
+
+
+## Project Features
 
 ### Login
 
@@ -42,40 +119,23 @@ When a user does an online search, the system will store the request and respons
 
 If another user does an online search that is already stored in the Redis, the system will be sent the result to the client directly, and reset the destroyed time to ten minutes.
 
-## Architecture Design
+### Visualization
 
-- Utils Package
-    - provide some utils for script or server
-    - PublicUtils.java
-    - RedisUtil.java
-    - JsonIO.java
-    - TimeUtils.java
-- pojo Package
-    - provide some java class for json parse or data transmission
-- config Package
-    - set the configuration of Redis
-- controller Package
-    - manager the api of the server
-- service Package
-    - realize the interface of the service
-- script Package
-    - collect and analyze the data from GitHub, and store them to the file
-- resources/rawdata
-    - collected data from GitHub by script
-- resources/ripedata
-    - the analyzed data by script
+We use Echarts to establish what we collect and what we analyze. Different types of charts such as line chart, pie chart, word cloud and  punch card of GitHub are used, which can give us more insights. With Panjiachen's template, we succeeded in organizing these charts in order so that users can have a better experience.
 
-# Data Preparation
+
+
+## Data Preparation
 
 > Data source: Github
 > 
 
 ### Data collection & persistence
 
-We collect data by our automated Java codes which invoke Github’s api. We store our data as json and they are put into a certain directory. Our  automated codes and data are in following directories:
+We collect data by our automated Java codes which invoke Github’s APIs We store our data as json and they are put into a certain directory. Our  automated codes and data are in following directories:
 
-- Codes: src/main/java/com/sustech/cs209a_project/script/collectors
-- Resources: src/main/resources/rawdata
+- Codes: `src/main/java/com/sustech/cs209a_project/script/collectors`
+- Resources: `src/main/resources/rawdata`
 
 We firstly use API
 
@@ -94,42 +154,66 @@ Apart from above API, we call others for different parts of our topics:
 | Vitality of community  | 1.  https://api.github.com/repos/Snailclimb/JavaGuide/contributors
 2.  https://api.github.com/repos/Snailclimb/JavaGuide/issues |
 
-We use Gson and fastjson to read and write data in json. Codes like [JsonIO.java](http://JsonIO.java) is for this functions.
+We use **Gson** and **fastjson** to read and write data in json. Codes like [JsonIO.java](http://JsonIO.java) is for this functions.
 
 > e.g  [JsonIO.java](http://JsonIO.java) in src/main/java/com/sustech/cs209a_project/utils
 > 
 
-# Insights
+
+
+## Showcase
+
+- Page 1
+
+<img src="README.assets/showcase1.png" alt="showcase1" style="zoom: 33%;" />
+
+- Page 2
+
+<img src="README.assets/showcase2.png" alt="showcase2" style="zoom: 33%;" />
+
+- Page 3 (searching)
+
+<img src="README.assets/showcase3.gif" alt="showcase3" style="zoom: 50%;" />
+
+## Insights
 
 We get insights from our three parts
 
 ### Popularity among all languages in recent years
 
-![Untitled](README.assets/Untitled.png)
+![line_rank](README.assets/line_rank.gif)
 
 In recent years, Java is always in the top three position which means Java is still very popular in the world.
 
-![Untitled](README.assets/Untitled%201.png)
+
+
+![increase](README.assets/increase.gif)
 
 However, according to increase rank, we find that Java’s increase becomes slower than before and python and other languages begin to catch up with Java which means Java may become less popular.
 
-![Untitled](README.assets/Untitled%202.png)
+
+
+<img src="README.assets/num.gif" alt="num" style="zoom: 67%;" />
 
 Plus, in recent years,  average number of repositories and issues per user become larger than before which means Java developers become more active and they are willing to do more projects.
 
+
+
 ### Usage of Java
 
-![Untitled](README.assets/Untitled%203.png)
+<img src="README.assets/wordcloud.png" alt="Untitled" style="zoom:50%;" />
 
 From word cloud, we find that android and spring-boot are most popular topic in Java. Therefore, maybe Web and android are where Java can take full use of itself.
 
  
 
-![Untitled](README.assets/Untitled%204.png)
+<img src="README.assets/licensepie.png" alt="Untitled" style="zoom: 67%;" />
 
 According to popular license, we can know apache-2.0 is the most popular license so if you have no idea which license to use, you can use it.
 
-![Untitled](README.assets/Untitled%205.png)
+
+
+<img src="README.assets/top3repo.png" alt="Untitled" style="zoom: 67%;" />
 
 Top 3 repositories are all about interview and are created by Chinese. We can see that maybe for Chinese, tutorials for programming languages are the most popular.
 
@@ -137,15 +221,15 @@ Top 3 repositories are all about interview and are created by Chinese. We can se
 
 ### Vitality of community
 
-![Untitled](README.assets/Untitled%206.png)
+<img src="README.assets/worktime.png" alt="Untitled" style="zoom: 67%;" />
 
 From the graph, we can know Wednesday is the day when people are likely to work. Therefore, developers can try to contact others on Wednesday in Github in order to get rapid responses. 
 
-![Untitled](README.assets/Untitled%207.png)
+<img src="README.assets/contri_com.png" alt="Untitled" style="zoom: 67%;" />
 
 Average contributors per repository is about 8. We can see that developers are very active to contribute their codes. 
 
-### Conclusion
+## Conclusion
 
 All in all, Java is still very popular in recent years. However, in the future, maybe Java will become less popular and other languages like python may catch up with it. Although the increase becomes slow, Java developers’ vitality may improves since average number of repositories per user become lager. To maintain its position, Java needs to focus on its advantages like android and web. Plus, job interview gets most attentions from developers, especially Chinese developers.
 
