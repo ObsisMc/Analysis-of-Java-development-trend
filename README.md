@@ -6,8 +6,8 @@ The project is from *Computer System Design and Applications A* course in SUSTec
 
 | teammates    | work                                           |
 | ------------ | ---------------------------------------------- |
-| Ruihao Zhang | front and back end, data mining, data analysis |
-| Xiangbo Deng | back end, redis                                |
+| Ruihao Zhang (ObsisMc) | front and back end, data mining, data analysis |
+| Xiangbo Deng (xbdeng) | back end, redis                                |
 
 
 
